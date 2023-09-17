@@ -3,7 +3,7 @@ export interface Users{
     first_nameU : string;
     last_nameU : string;
     last_nameU2 : string;
-    telephoneU : number;
+    telephoneU : string;
     email: string;
     password: string;
     id_rol?: number;

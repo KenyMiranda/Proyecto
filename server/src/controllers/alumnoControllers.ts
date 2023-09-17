@@ -10,6 +10,12 @@ class AlumnoController {
         const alumno = await db.query("SELECT * FROM users WHERE id_user=? AND id_rol=1",[id]);
         res.json(alumno);
       }
+
+      public async delete(req: Request, res: Response) {
+        const{id}=req.params;
+        await db.query("DELETE FROM users WHERE id_user=? AND id_rol=1",[id]);
+        res.json({text: "Alumno deleted"})
+      }
 }
 
 export const alumnoController = new AlumnoController();

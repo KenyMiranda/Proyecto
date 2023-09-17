@@ -28,6 +28,13 @@ class AlumnoController {
             res.json(alumno);
         });
     }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query("DELETE FROM users WHERE id_user=? AND id_rol=1", [id]);
+            res.json({ text: "Alumno deleted" });
+        });
+    }
 }
 exports.alumnoController = new AlumnoController();
 exports.default = exports.alumnoController;

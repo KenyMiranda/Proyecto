@@ -13,6 +13,7 @@ class AlumnoRoutes {
     config() {
         this.router.get("/", alumnoControllers_1.default.list);
         this.router.get("/:id", alumnoControllers_1.default.listOne);
+        this.router.delete("/:id", alumnoControllers_1.default.delete);
     }
 }
 const alumnoRoutes = new AlumnoRoutes();

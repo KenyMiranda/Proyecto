@@ -28,6 +28,13 @@ class AdminController {
             res.json(admin);
         });
     }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query("DELETE FROM users WHERE id_rol=3 AND id_user = ?", [id]);
+            res.json({ text: "Administrador deleted" });
+        });
+    }
 }
 exports.adminController = new AdminController();
 exports.default = exports.adminController;

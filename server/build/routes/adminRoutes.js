@@ -13,6 +13,7 @@ class AdminRoutes {
     config() {
         this.router.get("/", adminControllers_1.default.list);
         this.router.get("/:id", adminControllers_1.default.listOne);
+        this.router.delete("/:id", adminControllers_1.default.delete);
     }
 }
 const adminRoutes = new AdminRoutes();

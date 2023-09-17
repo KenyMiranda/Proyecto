@@ -11,6 +11,8 @@ class AlumnoRoutes{
     config(): void {
         this.router.get("/", alumnoController.list);
         this.router.get("/:id", alumnoController.listOne);
+        this.router.delete("/:id",alumnoController.delete);
+        
         
     }
 }

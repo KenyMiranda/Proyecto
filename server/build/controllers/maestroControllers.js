@@ -28,6 +28,13 @@ class MaestroController {
             res.json(maestro);
         });
     }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query("DELETE FROM users WHERE id_rol=2 AND id_user = ?", [id]);
+            res.json({ text: "Teacher deleted" });
+        });
+    }
 }
 exports.maestroController = new MaestroController();
 exports.default = exports.maestroController;

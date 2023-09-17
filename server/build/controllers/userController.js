@@ -31,14 +31,20 @@ class UserController {
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query("INSERT INTO users SET ?", [req.body]);
+            /*
+            delete req.body.id_rol;
+            delete req.body.password;
+            await db.query(
+              "INSERT INTO  alumnos (first_name_A, last_name_A, last_name2_A, telephone_A, email_A) SELECT first_nameU , last_nameU,last_nameU2,telephoneU,email from users where id_rol = 1",[req.body]);
             console.log(req.body);
+              */ '';
             res.json({ text: "User saved" });
         });
     }
     deleteUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE * FROM users WHERE id_user = ?", [id]);
+            yield database_1.default.query("DELETE FROM users WHERE id_user = ?", [id]);
             res.json({ text: "User deleted" });
         });
     }

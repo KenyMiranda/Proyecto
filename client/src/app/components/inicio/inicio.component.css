@@ -1,0 +1,19 @@
+
+#nav{
+    background-color: #023047;
+}
+
+
+
+
+#button{
+    width: 130px;
+    height: 45px;
+    text-align: center;
+    
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+  
+}
+
