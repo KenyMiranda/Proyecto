@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import db from "../database";
+
 class UserController {
   public async list(req: Request, res: Response) {
     const user = await db.query("SELECT * FROM users");
