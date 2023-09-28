@@ -32,7 +32,7 @@ export class MaestrosService {
 
    //BORRAR MAESTROS 
 
-    deleteMaestro(id : string) {
+    deleteMaestro(id : number) {
       return this.http.delete(`${this.API_URL}/maestro/${id}`);
     }
 

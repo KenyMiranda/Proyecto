@@ -12,6 +12,7 @@ class AdminRoutes{
         this.router.get("/", adminController.list);
         this.router.get("/:id", adminController.listOne);
         this.router.delete("/:id", adminController.delete);
+        this.router.put("/:id", adminController.updateAdmin);
         
     }
 }

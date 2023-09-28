@@ -17,22 +17,30 @@ const database_1 = __importDefault(require("../database"));
 class AlumnoController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const alumno = yield database_1.default.query("SELECT * FROM users where id_rol=1");
+            const alumno = yield database_1.default.query("SELECT * FROM alumnos");
             res.json(alumno);
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const alumno = yield database_1.default.query("SELECT * FROM users WHERE id_user=? AND id_rol=1", [id]);
+            const alumno = yield database_1.default.query("SELECT * FROM alumnos WHERE id_alumno=?", [id]);
             res.json(alumno);
         });
     }
-    delete(req, res) {
+    deleteAlumno(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM users WHERE id_user=? AND id_rol=1", [id]);
+            yield database_1.default.query("DELETE FROM alumnos WHERE id_alumno=?", [id]);
             res.json({ text: "Alumno deleted" });
+        });
+    }
+    updateAlumno(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const datos = req.body;
+            yield database_1.default.query("UPDATE alumnos SET ? WHERE id_alumno = ?", [datos, id]);
+            res.json({ message: "Alumno updated" });
         });
     }
 }

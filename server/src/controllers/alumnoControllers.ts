@@ -2,19 +2,27 @@ import {Request,Response} from "express";
 import db from "../database";
 class AlumnoController {
     public async list(req: Request, res: Response): Promise <void> {
-        const alumno = await db.query("SELECT * FROM users where id_rol=1");
+        const alumno = await db.query("SELECT * FROM alumnos");
         res.json(alumno);
       }
       public async listOne(req: Request, res: Response) {
         const {id} = req.params;
-        const alumno = await db.query("SELECT * FROM users WHERE id_user=? AND id_rol=1",[id]);
+        const alumno = await db.query("SELECT * FROM alumnos WHERE id_alumno=?",[id]);
         res.json(alumno);
       }
 
-      public async delete(req: Request, res: Response) {
+
+      public async deleteAlumno(req: Request, res: Response) {
         const{id}=req.params;
-        await db.query("DELETE FROM users WHERE id_user=? AND id_rol=1",[id]);
+        await db.query("DELETE FROM alumnos WHERE id_alumno=?",[id]);
         res.json({text: "Alumno deleted"})
+      }
+
+      public async updateAlumno(req: Request, res: Response) {
+        const { id } = req.params;
+        const datos = req.body;
+        await db.query("UPDATE alumnos SET ? WHERE id_alumno = ?", [datos, id]);
+        res.json({ message: "Alumno updated" });
       }
 }
 

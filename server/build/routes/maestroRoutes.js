@@ -13,7 +13,8 @@ class MaestroRoutes {
     config() {
         this.router.get("/", maestroControllers_1.default.list);
         this.router.get("/:id", maestroControllers_1.default.listOne);
-        this.router.get("/:id", maestroControllers_1.default.delete);
+        this.router.delete("/:id", maestroControllers_1.default.delete);
+        this.router.put("/:id", maestroControllers_1.default.updateMaestro);
     }
 }
 const maestroRoutes = new MaestroRoutes();

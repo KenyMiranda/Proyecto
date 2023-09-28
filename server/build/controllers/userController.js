@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const database_1 = __importDefault(require("../database"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 class UserController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -30,14 +31,41 @@ class UserController {
     }
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const password = yield bcrypt_1.default.hash(req.body.password, 10);
+            req.body.password = password;
             yield database_1.default.query("INSERT INTO users SET ?", [req.body]);
-            /*
-            delete req.body.id_rol;
-            delete req.body.password;
-            await db.query(
-              "INSERT INTO  alumnos (first_name_A, last_name_A, last_name2_A, telephone_A, email_A) SELECT first_nameU , last_nameU,last_nameU2,telephoneU,email from users where id_rol = 1",[req.body]);
+            let rol = req.body.id_rol;
             console.log(req.body);
-              */ '';
+            if (rol == 1) {
+                req.body = {
+                    first_name_A: req.body.first_nameU,
+                    last_name_A: req.body.last_nameU,
+                    last_name2_A: req.body.last_nameU2,
+                    telephone_A: req.body.telephoneU,
+                    email_A: req.body.email,
+                };
+                yield database_1.default.query("INSERT INTO alumnos SET ?", [req.body]);
+            }
+            else if (rol == 2) {
+                req.body = {
+                    first_name_M: req.body.first_nameU,
+                    last_name_M: req.body.last_nameU,
+                    last_name2_M: req.body.last_nameU2,
+                    telephone_M: req.body.telephoneU,
+                    email_M: req.body.email,
+                };
+                yield database_1.default.query("INSERT INTO maestros SET ?", [req.body]);
+            }
+            else {
+                req.body = {
+                    first_name_AD: req.body.first_nameU,
+                    last_name_AD: req.body.last_nameU,
+                    last_name2_AD: req.body.last_nameU2,
+                    telephone_AD: req.body.telephoneU,
+                    email_AD: req.body.email,
+                };
+                yield database_1.default.query("INSERT INTO admin SET ?", [req.body]);
+            }
             res.json({ text: "User saved" });
         });
     }

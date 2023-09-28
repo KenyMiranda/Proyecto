@@ -11,7 +11,8 @@ class MaestroRoutes{
     config(): void {
         this.router.get("/", maestroController.list);
         this.router.get("/:id", maestroController.listOne);
-        this.router.get("/:id", maestroController.delete);
+        this.router.delete("/:id", maestroController.delete);
+        this.router.put("/:id", maestroController.updateMaestro);
     }
 }
 

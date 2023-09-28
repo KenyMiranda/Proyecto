@@ -17,22 +17,30 @@ const database_1 = __importDefault(require("../database"));
 class AdminController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const admin = yield database_1.default.query("SELECT * FROM users where id_rol=3");
+            const admin = yield database_1.default.query("SELECT * FROM admin");
             res.json(admin);
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const admin = yield database_1.default.query("SELECT * FROM users WHERE id_rol=3 AND id_user=?", [id]);
+            const admin = yield database_1.default.query("SELECT * FROM admin WHERE id_admin=?", [id]);
             res.json(admin);
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM users WHERE id_rol=3 AND id_user = ?", [id]);
+            yield database_1.default.query("DELETE FROM admin WHERE id_admin = ?", [id]);
             res.json({ text: "Administrador deleted" });
+        });
+    }
+    updateAdmin(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const datos = req.body;
+            yield database_1.default.query("UPDATE admin SET ? WHERE id_admin = ?", [datos, id]);
+            res.json({ message: "Admin updated" });
         });
     }
 }

@@ -11,6 +11,7 @@ import { UsersComponent } from './components/users/users.component';
 import { MaestrosListComponent } from './components/maestros-list/maestros-list.component';
 import { AlumnosListComponent } from './components/alumnos-list/alumnos-list.component';
 import{Error404Component} from './components/error404/error404.component'
+import { HorariosFormComponent } from './components/horarios-form/horarios-form.component';
 const routes: Routes = [
   {
     path: '',
@@ -22,14 +23,14 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'alumno',
+    path: 'alumnos',
     component: AlumnosComponent,
   },
   { path: 'registro',
     component:RegisterComponent
   },
   {
-    path:'maestro',
+    path:'maestros',
     component:MaestrosComponent
   },
   {
@@ -43,7 +44,13 @@ const routes: Routes = [
   },
 
   {
-    path:'usuario',
+    path:'horario-form',
+    component:HorariosFormComponent
+  },
+
+
+  {
+    path:'usuarios-list',
     component:UsersComponent
   },
 

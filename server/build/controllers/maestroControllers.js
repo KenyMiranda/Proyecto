@@ -17,22 +17,30 @@ const database_1 = __importDefault(require("../database"));
 class MaestroController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const maestro = yield database_1.default.query("SELECT * FROM users where id_rol=2");
+            const maestro = yield database_1.default.query("SELECT * FROM maestros");
             res.json(maestro);
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const maestro = yield database_1.default.query("SELECT * FROM users WHERE id_user=? AND id_rol=2", [id]);
+            const maestro = yield database_1.default.query("SELECT * FROM maestros where id_maestro = ?", [id]);
             res.json(maestro);
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM users WHERE id_rol=2 AND id_user = ?", [id]);
+            yield database_1.default.query("DELETE FROM maestros WHERE id_maestro = ?", [id]);
             res.json({ text: "Teacher deleted" });
+        });
+    }
+    updateMaestro(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const datos = req.body;
+            yield database_1.default.query("UPDATE maestro SET ? WHERE id_maestro = ?", [datos, id]);
+            res.json({ message: "Maestro updated" });
         });
     }
 }

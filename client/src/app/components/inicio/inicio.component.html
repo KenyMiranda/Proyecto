@@ -1,291 +1,286 @@
+<!-- component -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css"
+    rel="stylesheet">
 </head>
 
-<body>
-  <div class="bg-white">
-    <header class="absolute inset-x-0 top-0 z-50">
-      <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global" style="background-color: #023047">
-        <div class="flex lg:flex-1">
-          <a href="/" class="-m-1.5 p-1.5">
-            <span class="sr-only">Your Company</span>
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-          </a>
-        </div>
-        <div class="flex lg:hidden">
-          <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-            <span class="sr-only">Open main menu</span>
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-              aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
-        </div>
+<body class="bg-white">
+  <header>
+    <nav>
+      <div class="nav-wrapper" style="background-color: #0066ff">
+        <a routerLink="/" class="brand-logo">Logo</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul class="right hide-on-med-and-down">
+          <li><a routerLink="/login">Log In</a></li>
+          <li><a routerLink="/registro">Sign Up</a></li>
 
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="/login" class="text-sm font-semibold leading-6 text-gray-900"
-            style="color: aliceblue; font-size: 1.5 em">Log in <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </nav>
-      <!-- Mobile menu, show/hide based on menu open state. -->
-      <div class="lg:hidden" role="dialog" aria-modal="true">
-        <!-- Background backdrop, show/hide based on slide-over state. -->
-        <div class="fixed inset-0 z-50"></div>
-        <div
-          class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div class="flex items-center justify-between">
-            <a href="#" class="-m-1.5 p-1.5">
-              <span class="sr-only">Your Company</span>
-              <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-            </a>
-            <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
-              <span class="sr-only">Close menu</span>
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-          <div class="mt-6 flow-root">
-            <div class="-my-6 divide-y divide-gray-500/10">
-              <div class="space-y-2 py-6">
-                <a href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
-                <a href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-                <a href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Marketplace</a>
-                <a href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
-              </div>
-              <div class="py-6">
-                <a href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
-                  in</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        </ul>
       </div>
-    </header>
+    </nav>
+  </header>
+  <!--
+  <div id="component" class="relative flex flex-wrap items-center justify-between group py-3"
+    style="background-color: #0066ff;">
+    <div>
+      <a routerLink="/" style="text-decoration: none;"><i class="fa-solid fa-house"></i>Volver</a>
+    </div>
 
-    <div class="relative isolate px-6 pt-14 lg:px-8" style="
-          background-image: url('https://i.pinimg.com/564x/ef/b2/65/efb265826b295ea55eec82880f6dc607.jpg');
-          background-size: cover;
-          background-repeat: no-repeat;
-          min-height: 70vh;
-        ">
-      <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-        aria-hidden="true">
-        <div
-          class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          style="
-              clip-path: polygon(
-                74.1% 44.1%,
-                100% 61.6%,
-                97.5% 26.9%,
-                85.5% 0.1%,
-                80.7% 2%,
-                72.5% 32.5%,
-                60.2% 62.4%,
-                52.4% 68.1%,
-                47.5% 58.3%,
-                45.2% 34.5%,
-                27.5% 76.7%,
-                0.1% 64.9%,
-                17.9% 100%,
-                27.6% 76.8%,
-                76.1% 97.7%,
-                74.1% 44.1%
-              );
-            "></div>
+    <div class="items-center hidden gap-8 md:flex">
+      <button routerLink="/login"
+        class="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300">Log
+        In</button>
+      <button routerLink="/registro"
+        class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">
+        Sign Up
+      </button>
+    </div>
+    <div
+      class="absolute flex md:hidden transition-all duration-300 ease-in-out flex-col items-start shadow-main justify-center w-full gap-3 overflow-hidden bg-white max-h-0 group-[.open]:py-4 px-4 rounded-2xl group-[.open]:max-h-64 top-full">
+
+      <button class="flex items-center text-sm font-normal text-black">Log In</button>
+      <button
+        class="flex items-center px-3 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300"
+        style="align-items: center;">Sign Up</button>
+    </div>
+  </div>
+-->
+  <div class="container flex flex-col mx-auto bg-white" style="margin-top:10px">
+
+    <div class="grid w-full grid-cols-1 my-auto mt-12 mb-8 md:grid-cols-2 xl:gap-14 md:gap-5">
+      <div class="flex flex-col justify-center col-span-1 text-center lg:text-start">
+        <div class="flex items-center justify-center mb-4 lg:justify-normal">
+          <img class="h-5"
+            src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/logos/logo-1.png"
+            alt="logo">
+          <h4 class="ml-2 text-sm font-bold tracking-widest text-primary uppercase">Explore the Latest Tailwind Template
+          </h4>
+        </div>
+        <h1 class="mb-8 text-4xl font-extrabold leading-tight lg:text-6xl text-dark-grey-900">Elevate your website with
+          Motion</h1>
+        <p class="mb-6 text-base font-normal leading-7 lg:w-3/4 text-grey-900">
+          Say goodbye to endless hours spent on building templates from scratch. Experience the quickest, most
+          responsive, and trendiest dashboard solution available. Seriously.
+        </p>
+
       </div>
-      <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-        <div class="hidden sm:mb-8 sm:flex sm:justify-center"></div>
-        <div class="text-center">
-          <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl" style="color: #000">
-            Data to enrich your online business
-          </h1>
-          <p class="mt-6 text-lg leading-8 text-gray-600" style="color: aliceblue">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-            fugiat aliqua.
-          </p>
-          <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a href="/registro" id="button"
-              class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register</a>
+      <div class="items-center justify-end hidden col-span-1 md:flex">
+        <img class="w-4/5 rounded-md"
+          src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/header-1.png"
+          alt="header image">
+      </div>
+    </div>
+  </div>
+  <!-- component -->
+  <div>
+    <div class="bg-gray-100 lg:py-12">
+      <div class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg">
+        <div class="lg:w-1/2">
+          <div class="h-64 bg-cover lg:rounded-lg lg:h-full"
+            style="background-image:url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80')">
           </div>
         </div>
-      </div>
-      <div
-        class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-        aria-hidden="true">
-        <div
-          class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-          style="
-              clip-path: polygon(
-                74.1% 44.1%,
-                100% 61.6%,
-                97.5% 26.9%,
-                85.5% 0.1%,
-                80.7% 2%,
-                72.5% 32.5%,
-                60.2% 62.4%,
-                52.4% 68.1%,
-                47.5% 58.3%,
-                45.2% 34.5%,
-                27.5% 76.7%,
-                0.1% 64.9%,
-                17.9% 100%,
-                27.6% 76.8%,
-                76.1% 97.7%,
-                74.1% 44.1%
-              );
-            "></div>
+        <div class="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+          <h2 class="text-3xl text-gray-800 font-bold"><span class="text-indigo-600">ENGINNERING</span></h2>
+          <p class="mt-4 text-gray-600">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem modi
+            reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim expedita aperiam mollitia iure
+            consectetur dicta tenetur, porro consequuntur saepe accusantium consequatur.</p>
+
+        </div>
       </div>
     </div>
   </div>
 
-  <section class="section-groups">
-    <img src="" alt="" />
-    <div class="groups-container">
-      <h2>GROUPS</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident
-        nam quisquam recusandae magnam eveniet aliquam molestiae amet odit,
-        aliquid sapiente.
-      </p>
-      <div class="groups">
-        <div class="group1">
-          <img src="" alt="" />
-          <h2>GROUP 1</h2>
-          <h6>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Officiis, possimus!
-          </h6>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas
-            officia maiores, dolor officiis error magnam!
-          </p>
+  <!-- component -->
+  <div>
+    <div class="bg-gray-100 lg:py-12">
+      <div class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg">
+        <div class="lg:w-1/2">
+          <div class="h-64 bg-cover lg:rounded-lg lg:h-full"
+            style="background-image:url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80')">
+          </div>
         </div>
+        <div class="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+          <h2 class="text-3xl text-gray-800 font-bold"><span class="text-indigo-600">SCIENCE</span></h2>
+          <p class="mt-4 text-gray-600">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem modi
+            reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim expedita aperiam mollitia iure
+            consectetur dicta tenetur, porro consequuntur saepe accusantium consequatur.</p>
 
-        <div class="group2">
-          <img src="" alt="" />
-          <h2>GROUP 2</h2>
-          <h6>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Officiis, possimus!
-          </h6>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas
-            officia maiores, dolor officiis error magnam!
-          </p>
-        </div>
-
-        <div class="group3">
-          <img src="" alt="" />
-          <h2>GROUP 3</h2>
-          <h6>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Officiis, possimus!
-          </h6>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas
-            officia maiores, dolor officiis error magnam!
-          </p>
-        </div>
-        <div class="group4">
-          <img src="" alt="" />
-          <h2>GROUP 4</h2>
-          <h6>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Officiis, possimus!
-          </h6>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas
-            officia maiores, dolor officiis error magnam!
-          </p>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- component -->
+  <div>
+    <div class="bg-gray-100 lg:py-12">
+      <div class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg">
+        <div class="lg:w-1/2">
+          <div class="h-64 bg-cover lg:rounded-lg lg:h-full"
+            style="background-image:url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80')">
+          </div>
+        </div>
+        <div class="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+          <h2 class="text-3xl text-gray-800 font-bold"><span class="text-indigo-600">MINING</span></h2>
+          <p class="mt-4 text-gray-600">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem modi
+            reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim expedita aperiam mollitia iure
+            consectetur dicta tenetur, porro consequuntur saepe accusantium consequatur.</p>
+          <div class="mt-8">
+            <a href="#" class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded">Start Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- component -->
+  <div>
+    <div class="bg-gray-100 lg:py-12">
+      <div class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg">
+        <div class="lg:w-1/2">
+          <div class="h-64 bg-cover lg:rounded-lg lg:h-full"
+            style="background-image:url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80')">
+          </div>
+        </div>
+        <div class="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+          <h2 class="text-3xl text-gray-800 font-bold"><span class="text-indigo-600">TRAVELING</span></h2>
+          <p class="mt-4 text-gray-600">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem modi
+            reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim expedita aperiam mollitia iure
+            consectetur dicta tenetur, porro consequuntur saepe accusantium consequatur.</p>
+          <div class="mt-8">
+            <a href="#" class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded">Start Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- component -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
+    <div class="text-center pb-12">
+
+      <h1 class="font-bold text-3xl md:text-4xl lg:text-5xl font-heading text-gray-900">
+        Check our awesome team members
+      </h1>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
+        <div>
+          <img class="object-center object-cover h-auto w-full" src="" alt="photo">
+        </div>
+        <div class="text-center py-8 sm:py-6">
+          <p class="text-xl text-gray-700 font-bold mb-2">RODOLFO RAMIREZ</p>
+          <p class="text-base text-gray-400 font-normal">DIRECTOR GENERAL</p>
+        </div>
+      </div>
+      <div class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
+        <div>
+          <img class="object-center object-cover h-auto w-full" src="" alt="photo">
+        </div>
+        <div class="text-center py-8 sm:py-6">
+          <p class="text-xl text-gray-700 font-bold mb-2">JUAN RAMIREZ</p>
+          <p class="text-base text-gray-400 font-normal">DIRECTOR ACADEMICO</p>
+        </div>
+      </div>
+
     </div>
   </section>
+  <!-- component -->
+  <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+  <link rel="stylesheet"
+    href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
 
-  <div class="bg-white py-24 sm:py-32">
-    <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Meet our leadership
-        </h2>
-        <p class="mt-6 text-lg leading-8 text-gray-600">
-          Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
-          elementum enim vitae ullamcorper suspendisse.
-        </p>
-      </div>
-      <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
-        <li>
-          <div class="flex items-center gap-x-6">
-            <img class="h-16 w-16 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt="" />
-            <div>
-              <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
-                Leslie Alexander
-              </h3>
-              <p class="text-sm font-semibold leading-6 text-indigo-600">
-                Co-Founder / CEO
-              </p>
+  <footer class="relative bg-blueGray-200 pt-8 pb-6">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap text-left lg:text-left" style="height: 150px;">
+        <div class="w-full lg:w-6/12 px-4">
+          <h4 class="text-3xl fonat-semibold text-blueGray-700">Let's keep in touch!</h4>
+          <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
+            Find us on any of these platforms, we respond 1-2 business days.
+          </h5>
+          <div class="mt-6 lg:mb-0 mb-6">
+            <button
+              class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+              type="button">
+              <i class="fab fa-twitter"></i></button><button
+              class="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+              type="button">
+              <i class="fab fa-facebook-square"></i></button><button
+              class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+              type="button">
+              <i class="fab fa-dribbble"></i></button><button
+              class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+              type="button">
+              <i class="fab fa-github"></i>
+            </button>
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="flex flex-wrap items-top mb-6">
+            <div class="w-full lg:w-4/12 px-4 ml-auto">
+              <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Useful Links</span>
+              <ul class="list-unstyled">
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://www.creative-tim.com/presentation?ref=njs-profile">About Us</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://blog.creative-tim.com?ref=njs-profile">Blog</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://www.github.com/creativetimofficial?ref=njs-profile">Github</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile">Free Products</a>
+                </li>
+              </ul>
+            </div>
+            <div class="w-full lg:w-4/12 px-4">
+              <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Other Resources</span>
+              <ul class="list-unstyled">
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile">MIT
+                    License</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://creative-tim.com/terms?ref=njs-profile">Terms &amp; Conditions</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://creative-tim.com/privacy?ref=njs-profile">Privacy Policy</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://creative-tim.com/contact-us?ref=njs-profile">Contact Us</a>
+                </li>
+              </ul>
             </div>
           </div>
-        </li>
-
-        <!-- More people... -->
-      </ul>
-    </div>
-  </div>
-
-  <div class="bg-white py-24 sm:py-32">
-    <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Meet our leadership
-        </h2>
-        <p class="mt-6 text-lg leading-8 text-gray-600">
-          Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
-          elementum enim vitae ullamcorper suspendisse.
-        </p>
+        </div>
       </div>
-      <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
-        <li>
-          <div class="flex items-center gap-x-6">
-            <img class="h-16 w-16 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt="" />
-            <div>
-              <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
-                Leslie Alexander
-              </h3>
-              <p class="text-sm font-semibold leading-6 text-indigo-600">
-                Co-Founder / CEO
-              </p>
-            </div>
-          </div>
-        </li>
+      <hr class="my-6 border-blueGray-300">
+      <div class="flex flex-wrap items-center md:justify-between justify-center">
+        <div class="w-full md:w-4/12 px-4 mx-auto text-center">
 
-        <!-- More people... -->
-      </ul>
+        </div>
+      </div>
     </div>
-  </div>
+  </footer>
+
 </body>
-<footer style="background-color: #023047; height: 150px">
-  <p>
-    jjjkjnjk Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque
-    esse illo tenetur ipsa eum blanditiis sint odio nulla quis repellendus?
-  </p>
-</footer>
 
-</html>
+
+
+
+
+<html>

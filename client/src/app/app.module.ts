@@ -21,6 +21,10 @@ import { AdminComponent } from './components/admin/admin.component';
 import { MaestrosListComponent } from './components/maestros-list/maestros-list.component';
 import { HorariosComponent } from './components/horarios/horarios.component';
 import { Error404Component } from './components/error404/error404.component';
+import { NgChartsModule } from 'ng2-charts';
+import { HorariosFormComponent } from './components/horarios-form/horarios-form.component';
+import { HorariosService } from './services/horarios/horarios.service';
+import { AdminListComponent } from './components/admin-list/admin-list.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +41,11 @@ import { Error404Component } from './components/error404/error404.component';
     MaestrosListComponent,
     HorariosComponent,
     Error404Component,
+    HorariosFormComponent,
+    AdminListComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule],
+  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
