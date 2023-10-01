@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Alumno } from 'src/app/models/alumnos';
+import { Router } from '@angular/router';
 import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
 
 @Component({
@@ -10,11 +10,17 @@ import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
 export class AlumnosListComponent implements OnInit {
   arrayAlumnos: any = []; 
 
-  constructor(private alumnosService: AlumnosService){
+  constructor(private alumnosService: AlumnosService , private router: Router){
+    
 
   }
 
   ngOnInit() {
+    this.getAlumnos();
+
+  }
+
+  getAlumnos(){
     this.alumnosService.getAlumnos().subscribe(
       (res) => {
         this.arrayAlumnos = res;
@@ -23,6 +29,22 @@ export class AlumnosListComponent implements OnInit {
 
       (err) => console.error(err)
     );
+  }
+
+  deleteAlumno(id_alumno: string) {
+    this.alumnosService.deleteAlumno(id_alumno).subscribe(
+      (res) => {
+      console.log(res);
+      this.getAlumnos();
+      
+      } , 
+      (err) => {console.error(err);
+      
+      }
+
+      
+      
+    )
 
   }
 }

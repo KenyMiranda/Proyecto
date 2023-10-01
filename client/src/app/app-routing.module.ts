@@ -12,6 +12,8 @@ import { MaestrosListComponent } from './components/maestros-list/maestros-list.
 import { AlumnosListComponent } from './components/alumnos-list/alumnos-list.component';
 import{Error404Component} from './components/error404/error404.component'
 import { HorariosFormComponent } from './components/horarios-form/horarios-form.component';
+import { UpdateFormComponent } from './components/update-form/update-form.component';
+import { AdminListComponent } from './components/admin-list/admin-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -28,6 +30,10 @@ const routes: Routes = [
   },
   { path: 'registro',
     component:RegisterComponent
+  },
+  {
+    path:'update',
+    component:UpdateFormComponent
   },
   {
     path:'maestros',
@@ -55,6 +61,11 @@ const routes: Routes = [
   },
 
   {
+    path:'admins-list',
+    component:AdminListComponent
+  },
+
+  {
     path:'maestros-list',
     component:MaestrosListComponent
   },
@@ -62,6 +73,10 @@ const routes: Routes = [
     path:'alumnos-list',
     component:AlumnosListComponent
   },
+{
+  path:'usuario/update/:id',
+  component:RegisterComponent
+},
   {
     path:'**',
     component:Error404Component

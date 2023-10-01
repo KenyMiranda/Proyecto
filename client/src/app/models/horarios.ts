@@ -3,6 +3,7 @@ export interface Horario{
     idioma:string;
     nivel:string;
     dia:string;
-    horario:string;
+    Hora_inicio:string;
+    Hora_final:string;
     id_maestro:number;
 }

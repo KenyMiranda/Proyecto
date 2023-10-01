@@ -25,6 +25,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { HorariosFormComponent } from './components/horarios-form/horarios-form.component';
 import { HorariosService } from './services/horarios/horarios.service';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
+import { UpdateFormComponent } from './components/update-form/update-form.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AdminListComponent } from './components/admin-list/admin-list.component
     Error404Component,
     HorariosFormComponent,
     AdminListComponent,
+    UpdateFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule],
   providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService],

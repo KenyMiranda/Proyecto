@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Horario } from 'src/app/models/horarios';
+import { HorariosService } from 'src/app/services/horarios/horarios.service';
 import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 
 @Component({
@@ -8,7 +11,18 @@ import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 })
 export class HorariosFormComponent  implements OnInit {
   arrayMaestros : any=[];
-  constructor(private maestrosService: MaestrosService){
+  arrayHorario : any=[];
+  horario : Horario = {
+    
+    idioma:"",
+    nivel:"",
+    dia:"",
+    Hora_inicio:"",
+    Hora_final:"",
+    id_maestro:0,
+  }
+  constructor(private maestrosService: MaestrosService , private horariosService : HorariosService , private router: Router){
+    
 
   }
 
@@ -16,11 +30,21 @@ export class HorariosFormComponent  implements OnInit {
     this.maestrosService.getMaestros().subscribe(
       (res) => {
         this.arrayMaestros = res;
-        console.log(this.arrayMaestros[0]);
+       console.log(res);
       },
 
       (err) => console.error(err)
     );
   }
+    saveHorario(){
+      this.horariosService.saveHorario(this.horario).subscribe(
+        result => {
+          console.log(result);
+          this.router.navigate(['/horario']);
+          
+        },
+        err => console.log(err)
+      )
 
+    }
 }

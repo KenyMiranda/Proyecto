@@ -1,257 +1,273 @@
 <!-- component -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="nav-wrapper" style="background-color: #0066ff">
+        <a routerLink="/" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo" style="width: px; height:62px; margin-left: 5px;"/></a>
 
-<header>
-  <nav>
-    <div class="nav-wrapper" style="background-color: #0066ff">
-      <a routerLink="/" class="brand-logo">Logo</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-        ><i class="material-icons">menu</i></a
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul class="right hide-on-med-and-down">
+          <li><a routerLink="/login">Log In</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- component -->
+  <div class="bg-white dark:bg-gray-900">
+    <div class="flex justify-center h-screen">
+      <div
+        class="hidden bg-cover lg:block lg:w-3/4"
+        style="
+          background-image: url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+        "
       >
-      <ul class="right hide-on-med-and-down">
-        <li><a routerLink="/login">Log In</a></li>
-      </ul>
-    </div>
-  </nav>
-</header>
-<!-- component -->
-<div class="bg-white dark:bg-gray-900">
-  <div class="flex justify-center h-screen">
-    <div
-      class="hidden bg-cover lg:block lg:w-3/4"
-      style="
-        background-image: url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
-      "
-    >
-      <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
-        <div>
-          <h2 class="text-4xl font-bold text-white">Register</h2>
-
-          <p class="max-w-xl mt-3 text-gray-300">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. In autem
-            ipsa, nulla laboriosam dolores, repellendus perferendis libero
-            suscipit nam temporibus molestiae
-          </p>
+        <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+          <div>
+            <h2 class="text-4xl font-bold text-white">Register</h2>
+  
+            <p class="max-w-xl mt-3 text-gray-300">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. In autem
+              ipsa, nulla laboriosam dolores, repellendus perferendis libero
+              suscipit nam temporibus molestiae
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div
-      class="flex items-center w-full px-6 mx-auto lg:w-2/6"
-      style="margin-top: 80px"
-    >
-      <div class="flex-1">
-        <div class="mt-1" style="margin-bottom:80px">
-          <form>
-            <div>
-              <label
-                
-                class="block mb-1 text-sm text-gray-600 dark:text-gray-200"
-                >First Name</label
-              >
-              <input
-                type="text"
-                name="first_name"
-                id="password"
-                style="height: 35px;"
-                placeholder="Your First Name"
-                class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div>
-              <label
-               
-                class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-                >Last Name</label
-              >
-              <input
-                type="text"
-                name="last_name"
-                style="height: 35px;"
-                id="password"
-                placeholder="Your Last Name"
-                class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-
-            <div class="mt-1">
-              <div class="flex justify-between mb-2"></div>
-              <div class="flex justify-between mb-2">
-                <label
-                  for="password"
-                  class="text-sm text-gray-600 dark:text-gray-200"
-                  >Second Last Name
-                </label>
-              </div>
-              <input
-                type="text"
-                name="second_last_name"
-                id="password"
-                style="height: 35px;"
-                placeholder="Your Second Last Name"
-                class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-              <div class="flex justify-between mb-2">
+  
+      <div
+        class="flex items-center w-full px-6 mx-auto lg:w-2/6"
+        style="margin-top: 80px"
+      >
+        <div class="flex-1">
+          <div class="mt-1" style="margin-bottom:80px">
+            <form>
+              <div>
                 <label
                   
-                  class="text-sm text-gray-600 dark:text-gray-200"
-                  >Telephone</label
+                  class="block mb-1 text-sm text-gray-600 dark:text-gray-200"
+                  >First Name</label
                 >
+                <input
+                  type="text"
+                  name="first_name"
+                  [(ngModel)]="usuario.first_nameU"
+                  id="password"
+                  style="height: 35px;"
+                  placeholder="Your First Name"
+                  class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
               </div>
-
-              <input
-                type="text"
-                name="telephone"
-                style="height: 35px;"
-                id="telephone"
-                placeholder="Your telephone"
-                class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div class="mt-1">
-             
-              <div class="flex justify-between mb-2">
+              <div>
                 <label
-                  for="password"
-                  class="text-sm text-gray-600 dark:text-gray-200"
-                  >Email</label
+                 
+                  class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                  >Last Name</label
                 >
+                <input
+                  type="text"
+                  name="last_name"
+                  [(ngModel)]="usuario.last_nameU"
+                  style="height: 35px;"
+                  id="password"
+                  placeholder="Your Last Name"
+                  class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
               </div>
-              <input
-                type="email"
-                name="password"
-                id="password"
-                placeholder="Your Email"
-                style="height: 35px;"
-                class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            <div class="mt-1">
-             
-              <div class="flex justify-between mb-2">
-                <label
-                  for="password"
-                  class="text-sm text-gray-600 dark:text-gray-200"
-                  >Password</label
+  
+              <div class="mt-1">
+                <div class="flex justify-between mb-2"></div>
+                <div class="flex justify-between mb-2">
+                  <label
+                    for="password"
+                    class="text-sm text-gray-600 dark:text-gray-200"
+                    >Second Last Name
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  name="second_last_name"
+                  [(ngModel)]="usuario.last_nameU2"
+                  id="password"
+                  style="height: 35px;"
+                  placeholder="Your Second Last Name"
+                  class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+                <div class="flex justify-between mb-2">
+                  <label
+                    
+                    class="text-sm text-gray-600 dark:text-gray-200"
+                    >Telephone</label
+                  >
+                </div>
+  
+                <input
+                  type="text"
+                  name="telephone"
+                  [(ngModel)]="usuario.telephoneU"
+                  style="height: 35px;"
+                  id="telephone"
+                  placeholder="Your telephone"
+                  class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+              </div>
+              <div class="mt-1">
+               
+                <div class="flex justify-between mb-2">
+                  <label
+                    for="password"
+                    class="text-sm text-gray-600 dark:text-gray-200"
+                    >Email</label
+                  >
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  [(ngModel)]="usuario.email"
+                  id="password"
+                  placeholder="Your Email"
+                  style="height: 35px;"
+                  class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+              </div>
+              <div class="mt-1">
+               
+                <div class="flex justify-between mb-2">
+                  <label
+                    for="password"
+                    class="text-sm text-gray-600 dark:text-gray-200"
+                    >Password</label
+                  >
+                </div>
+                <input
+                  type="password"
+                  name="password"
+                  [(ngModel)]="usuario.password"
+                  id="password"
+                  placeholder="Your Password"
+                  style="height: 35px;"
+                  class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+              </div>
+              
+              <div class="select" style="margin-top:10px; margin-bottom: 10px;">
+                <select [(ngModel)]="usuario.id_rol" name="id_rol">
+                  <option value="1">Alumno</option>
+                  <option value="2">Maestro</option>
+                  <option value="3">Administrador</option>
+                </select>
+              </div>
+  
+              <div class="mt-3">
+                <button 
+                  (click)="saveUser()"
+                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                 >
+                  Sign in
+                </button>
               </div>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Your Password"
-                style="height: 35px;"
-                class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </div>
-            
-            <div class="select" style="margin-top:10px; margin-bottom: 10px;">
-              <select>
-                <option>Select Role</option>
-                <option>Alumno</option>
-                <option>Maestro</option>
-                <option>Admin</option>
-              </select>
-            </div>
-
-            <div class="mt-3">
-              <button 
-                
-                class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-              >
-                Sign in
-              </button>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
-<link rel="stylesheet"
-  href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
-<footer class="relative bg-blueGray-200 pt-8 pb-6">
-  <div class="container mx-auto px-4" style="height:150px">
-    <div class="flex flex-wrap text-left lg:text-left">
-      <div class="w-full lg:w-6/12 px-4">
-        <h4 class="text-3xl fonat-semibold text-blueGray-700">Let's keep in touch!</h4>
-        <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
-          Find us on any of these platforms, we respond 1-2 business days.
-        </h5>
-        <div class="mt-6 lg:mb-0 mb-6">
-          <button
-            class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-            type="button">
-            <i class="fab fa-twitter"></i></button><button
-            class="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-            type="button">
-            <i class="fab fa-facebook-square"></i></button><button
-            class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-            type="button">
-            <i class="fab fa-dribbble"></i></button><button
-            class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-            type="button">
-            <i class="fab fa-github"></i>
-          </button>
-        </div>
-      </div>
-      <div class="w-full lg:w-6/12 px-4">
-        <div class="flex flex-wrap items-top mb-6">
-          <div class="w-full lg:w-4/12 px-4 ml-auto">
-            <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Useful Links</span>
-            <ul class="list-unstyled">
-              <li>
-                <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                  href="https://www.creative-tim.com/presentation?ref=njs-profile">About Us</a>
-              </li>
-              <li>
-                <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                  href="https://blog.creative-tim.com?ref=njs-profile">Blog</a>
-              </li>
-              <li>
-                <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                  href="https://www.github.com/creativetimofficial?ref=njs-profile">Github</a>
-              </li>
-              <li>
-                <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                  href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile">Free Products</a>
-              </li>
-            </ul>
-          </div>
-          <div class="w-full lg:w-4/12 px-4">
-            <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Other Resources</span>
-            <ul class="list-unstyled">
-              <li>
-                <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                  href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile">MIT
-                  License</a>
-              </li>
-              <li>
-                <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                  href="https://creative-tim.com/terms?ref=njs-profile">Terms &amp; Conditions</a>
-              </li>
-              <li>
-                <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                  href="https://creative-tim.com/privacy?ref=njs-profile">Privacy Policy</a>
-              </li>
-              <li>
-                <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                  href="https://creative-tim.com/contact-us?ref=njs-profile">Contact Us</a>
-              </li>
-            </ul>
+            </form>
+  
           </div>
         </div>
       </div>
     </div>
-    <hr class="my-6 border-blueGray-300">
-    <div class="flex flex-wrap items-center md:justify-between justify-center">
-      <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-
+  </div>
+  <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+  <link rel="stylesheet"
+    href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+  <footer class="relative bg-blueGray-200 pt-8 pb-6">
+    <div class="container mx-auto px-4" style="height:150px">
+      <div class="flex flex-wrap text-left lg:text-left">
+        <div class="w-full lg:w-6/12 px-4">
+          <h4 class="text-3xl fonat-semibold text-blueGray-700">Let's keep in touch!</h4>
+          <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
+            Find us on any of these platforms, we respond 1-2 business days.
+          </h5>
+          <div class="mt-6 lg:mb-0 mb-6">
+            <button
+              class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+              type="button">
+              <i class="fab fa-twitter"></i></button><button
+              class="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+              type="button">
+              <i class="fab fa-facebook-square"></i></button><button
+              class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+              type="button">
+              <i class="fab fa-dribbble"></i></button><button
+              class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+              type="button">
+              <i class="fab fa-github"></i>
+            </button>
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="flex flex-wrap items-top mb-6">
+            <div class="w-full lg:w-4/12 px-4 ml-auto">
+              <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Useful Links</span>
+              <ul class="list-unstyled">
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://www.creative-tim.com/presentation?ref=njs-profile">About Us</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://blog.creative-tim.com?ref=njs-profile">Blog</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://www.github.com/creativetimofficial?ref=njs-profile">Github</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile">Free Products</a>
+                </li>
+              </ul>
+            </div>
+            <div class="w-full lg:w-4/12 px-4">
+              <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Other Resources</span>
+              <ul class="list-unstyled">
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile">MIT
+                    License</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://creative-tim.com/terms?ref=njs-profile">Terms &amp; Conditions</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://creative-tim.com/privacy?ref=njs-profile">Privacy Policy</a>
+                </li>
+                <li>
+                  <a class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                    href="https://creative-tim.com/contact-us?ref=njs-profile">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="my-6 border-blueGray-300">
+      <div class="flex flex-wrap items-center md:justify-between justify-center">
+        <div class="w-full md:w-4/12 px-4 mx-auto text-center">
+  
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
+</body>
+</html>
+
 
 <!-- 
 <body class="font-mono bg-gray-400">
