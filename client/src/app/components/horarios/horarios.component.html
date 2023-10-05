@@ -15,10 +15,11 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <li><a routerLink="/usuarios-list">Users</a></li>
-          <li><a routerLink="">Administradores</a></li>
+          <li><a routerLink="/admins-list">Administradores</a></li>
           <li><a routerLink="/alumnos-list">Alumnos</a></li>
           <li><a routerLink="/maestros-list">Maestros</a></li>
-          <li><a routerLink="/horarios-list">Horarios</a></li>
+          <li><a routerLink="/horario">Horarios</a></li>
+          <li><a routerLink="/">Calificaciones</a></li>
 
         </ul>
       </div>
@@ -62,30 +63,30 @@
                   {{horario.Hora_final.substring(0, 5)+ horario.Hora_final.substring(15)}}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Level : {{horario.nivel}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Teacher :{{horario.id_maestro}}</p>
+                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Language :{{horario.idioma}} </p> <br>
+                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Level : {{horario.nivel}} </p> <br>
+                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Teacher :{{horario.id_maestro}}</p>
                   
 
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Level : {{horario.nivel}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Teacher :{{horario.id_maestro}}</p>
+                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Level : {{horario.nivel}} </p> <br>
+                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Teacher :{{horario.id_maestro}}</p>
                   
 
                 </td>              
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Level : {{horario.nivel}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Teacher :{{horario.id_maestro}}</p>
+                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Language :{{horario.idioma}} </p> <br>
+                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Level : {{horario.nivel}} </p> <br>
+                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Teacher :{{horario.id_maestro}}</p>
                   
 
                 </td>     
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Level : {{horario.nivel}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{horario.id_maestro}}</p>
+                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Level : {{horario.nivel}} </p> <br>
+                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Teacher : {{horario.id_maestro}}</p>
                   
 
                 </td>

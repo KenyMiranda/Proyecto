@@ -40,7 +40,7 @@ export class HorariosFormComponent  implements OnInit {
       this.horariosService.saveHorario(this.horario).subscribe(
         result => {
           console.log(result);
-          this.router.navigate(['/horario']);
+          //this.router.navigate(['/horario']);
           
         },
         err => console.log(err)

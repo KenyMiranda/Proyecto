@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Chart } from 'chart.js';
 import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 
 @Component({
@@ -15,6 +16,21 @@ export class MaestrosListComponent {
 
   ngOnInit() {
     this.getMaestro();
+    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+        datasets: [
+          {
+            label: 'Calificaciones',
+            data: [85, 78, 92, 88, 95],
+            borderColor: 'blue',
+            fill: false,
+          },
+        ],
+      },
+    });
 
   }
 

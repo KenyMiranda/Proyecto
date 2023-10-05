@@ -36,7 +36,7 @@ export class UsersService {
 
     //ACTUALIZAR USUARIO
 
-    updateUser(id : string , updatedUser:Users){
+    updateUser(id : number|undefined , updatedUser:Users){
       return this.http.put(`${this.API_URL}/user/${id}`,updatedUser);
     }
 }

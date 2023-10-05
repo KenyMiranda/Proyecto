@@ -1,26 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-    <header>
+  <header>
     <nav>
-        <div class="nav-wrapper" style="background-color: #0066ff;">
-          <a routerLink="/" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo" style="width: px; height:62px; margin-left: 5px;"/></a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a routerLink="/alumnos-list"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Alumnos</a></li>
-            <li><a routerLink="/maestros-list"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Maestros</a></li>
-            <li><a routerLink="/horario"><i class="fa-regular fa-calendar"></i>Horarios</a></li>
-            <li><a routerLink="/usuarios-list"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Users</a></li>
-            <li><a routerLink="/"> <i class="fa-solid fa-list-ol"></i>Calificaciones</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+      <div class="nav-wrapper" style="background-color: #0066ff">
+        <a routerLink="/" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo" style="width: px; height:62px; margin-left: 5px;"/></a>
+  
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul class="right hide-on-med-and-down">
+          <li><a routerLink="/usuarios-list">Users</a></li>
+          <li><a routerLink="/admins-list">Administradores</a></li>
+          <li><a routerLink="/alumnos-list">Alumnos</a></li>
+          <li><a routerLink="/maestros-list">Maestros</a></li>
+          <li><a routerLink="/horario">Horarios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div class="field">
+    <label class="label">First Name</label>
+    <div class="control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="Text input">
+      <span class="icon is-small is-left">
+        <i class="fa solid fa-user"></i>
+      </span>
+      
+    </div>
+  </div>
+  <div class="field">
+    <label class="label"> Last Name</label>
+    <div class="control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="Text input">
+      <span class="icon is-small is-left">
+        <i class="fa solid fa-user"></i>
+      </span>
+      
+    </div>
+  </div>
+  <div class="field">
+    <label class="label"> Second Last Name</label>
+    <div class="control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="Text input">
+      <span class="icon is-small is-left">
+        <i class="fa solid fa-user"></i>
+      </span>
+      
+    </div>
+  </div>
+  <!--
+  <div class="field">
+    <label class="label">Username</label>
+    <div class="control has-icons-left has-icons-right">
+      <input class="input is-success" type="text" placeholder="Text input" value="bulma">
+      <span class="icon is-small is-left">
+        <i class="fas fa-user"></i>
+      </span>
+      <span class="icon is-small is-right">
+        <i class="fas fa-check"></i>
+      </span>
+    </div>
+    <p class="help is-success">This username is available</p>
+  </div>
+  -->
 
+
+  <div class="field">
+    <label class="label">Email</label>
+    <div class="control has-icons-left has-icons-right">
+      <input class="input is-danger" type="email" placeholder="Email input">
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+
+    </div>
+   
+  </div>
+  
+  <div class="field">
+    <label class="label">Telephone</label>
+    <div class="control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="Text input">
+      <span class="icon is-small is-left">
+        <i class="fa solid fa-phone"></i>
+      </span>
+      
+    </div>
+  </div>
+  
+  
+
+  
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-link">Submit</button>
+    </div>
+    <div class="control">
+      <button class="button is-link is-light">Cancel</button>
+    </div>
+  </div>
 </body>
 </html>

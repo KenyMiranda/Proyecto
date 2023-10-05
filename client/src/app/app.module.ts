@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './components/users/users.component';
@@ -26,6 +26,9 @@ import { HorariosFormComponent } from './components/horarios-form/horarios-form.
 import { HorariosService } from './services/horarios/horarios.service';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
 import { UpdateFormComponent } from './components/update-form/update-form.component';
+import { CalificacionesComponent } from './components/calificaciones/calificaciones.component';
+import { CalificacionesFormComponent } from './components/calificaciones-form/calificaciones-form.component';
+import { CalificacionesListComponent } from './components/calificaciones-list/calificaciones-list.component';
 
 @NgModule({
   declarations: [
@@ -45,8 +48,11 @@ import { UpdateFormComponent } from './components/update-form/update-form.compon
     HorariosFormComponent,
     AdminListComponent,
     UpdateFormComponent,
+    CalificacionesComponent,
+    CalificacionesFormComponent,
+    CalificacionesListComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule],
   providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService],
   bootstrap: [AppComponent],
 })

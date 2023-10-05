@@ -17,7 +17,7 @@ const database_1 = __importDefault(require("../database"));
 class AdminController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const admin = yield database_1.default.query("SELECT * FROM admin");
+            const admin = yield database_1.default.query("SELECT first_nameU,last_nameU,last_nameU2,telephoneU,email FROM users WHERE id_rol=3");
             res.json(admin);
         });
     }

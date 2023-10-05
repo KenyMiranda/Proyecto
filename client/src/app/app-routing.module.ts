@@ -10,15 +10,16 @@ import { HorariosComponent } from './components/horarios/horarios.component';
 import { UsersComponent } from './components/users/users.component';
 import { MaestrosListComponent } from './components/maestros-list/maestros-list.component';
 import { AlumnosListComponent } from './components/alumnos-list/alumnos-list.component';
-import{Error404Component} from './components/error404/error404.component'
+import { Error404Component } from './components/error404/error404.component';
 import { HorariosFormComponent } from './components/horarios-form/horarios-form.component';
 import { UpdateFormComponent } from './components/update-form/update-form.component';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
+import { CalificacionesFormComponent } from './components/calificaciones-form/calificaciones-form.component';
+import { CalificacionesComponent } from './components/calificaciones/calificaciones.component';
 const routes: Routes = [
   {
     path: '',
     component: InicioComponent,
-    
   },
   {
     path: 'login',
@@ -28,61 +29,78 @@ const routes: Routes = [
     path: 'alumnos',
     component: AlumnosComponent,
   },
-  { path: 'registro',
-    component:RegisterComponent
-  },
-  {
-    path:'update',
-    component:UpdateFormComponent
-  },
-  {
-    path:'maestros',
-    component:MaestrosComponent
-  },
-  {
-    path:'admin',
-    component:AdminComponent
-  },
-
-  {
-    path:'horario',
-    component:HorariosComponent
-  },
-
-  {
-    path:'horario-form',
-    component:HorariosFormComponent
-  },
-
-
-  {
-    path:'usuarios-list',
-    component:UsersComponent
-  },
-
-  {
-    path:'admins-list',
-    component:AdminListComponent
-  },
-
-  {
-    path:'maestros-list',
-    component:MaestrosListComponent
-  },
-  {
-    path:'alumnos-list',
-    component:AlumnosListComponent
-  },
-{
-  path:'usuario/update/:id',
-  component:RegisterComponent
-},
-  {
-    path:'**',
-    component:Error404Component
-  },
+  { path: 'registro',   
+    component: RegisterComponent,
   
+  },
+  {
+    path: 'update',
+    component: UpdateFormComponent,
+  },
+  {
+    path: 'maestros',
+    component: MaestrosComponent,
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+  },
 
+  {
+    path: 'horario',
+    component: HorariosComponent,
+  },
+
+  {
+    path: 'horario-form',
+    component: HorariosFormComponent,
+  },
+
+  {
+    path: 'usuarios-list',
+    component: UsersComponent,
+  },
+
+  {
+    path: 'admins-list',
+    component: AdminListComponent,
+  },
+
+  {
+    path: 'maestros-list',
+    component: MaestrosListComponent,
+  },
+  {
+    path: 'alumnos-list',
+    component: AlumnosListComponent,
+  },
+  {
+    path : 'calificacion-form',
+    component: CalificacionesFormComponent,
+  },
+  {
+    path : 'calificaciones',
+    component: CalificacionesComponent,
+  },
+  {
+    path: 'usuario/update/:id',
+    component: RegisterComponent,
+  },
+
+  {
+    path:'alumno/update/:id',
+    component: UpdateFormComponent,
+  },
+
+  {
+    path : 'maestro/update/:id',
+    component: UpdateFormComponent,
+  },
+
+  {
+    path: '**',
+    component: Error404Component,
+  },
 ];
 
 @NgModule({

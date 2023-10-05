@@ -36,15 +36,22 @@ class HorarioController {
             const momentTiempo1 = (0, moment_1.default)(hora_inicio, "HH:mm:ss");
             const momentTiempo2 = (0, moment_1.default)(hora_final, "HH:mm:ss");
             const dia = req.body.dia;
-            let horario = yield database_1.default.query("SELECT * FROM horarios where Hora_inicio=? AND dia = ? AND idioma =? AND nivel=? ", [hora_inicio, dia, req.body.idioma, req.body.nivel]);
+            const maestro = req.body.id_maestro;
+            let horario = yield database_1.default.query("SELECT * FROM horarios where Hora_inicio=? AND dia = ? AND idioma =? AND nivel=? ", [hora_inicio, dia, req.body.idioma, req.body.nivel, req.body.id_maestro]);
+            let horario2 = yield database_1.default.query("SELECT * FROM horarios where Hora_inicio=? AND id_maestro=? AND dia = ?", [hora_inicio, maestro, dia]);
             let numero = "";
             let num = 0; //numero para saber si hay horario repetido
+            let numero2 = "";
+            let num2 = 0; //numero para saber si
             for (numero in horario[0]) {
                 num = parseInt(numero) + 1;
             }
+            for (numero2 in horario2[0]) {
+                num2 = parseInt(numero2) + 1;
+            }
             const diferenciaHoras = momentTiempo2.diff(momentTiempo1, "hours");
             const diferenciaMinutos = momentTiempo2.diff(momentTiempo1, "minutes");
-            if (diferenciaHoras == 1 && diferenciaMinutos == 60 && dia == "Monday-Thursday" && num == 0) {
+            if (diferenciaHoras == 1 && diferenciaMinutos == 60 && (dia == "Monday-Wednesday" || dia == "Tuesday-Thursday") && num == 0 && num2 == 0) {
                 yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
                 res.json({ text: "Horario Created" });
             }
