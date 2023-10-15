@@ -9,7 +9,7 @@ export class FilterHorarioPipe implements PipeTransform {
     
     let resultPost = [];
     for(let post of value) {
-      if(post.idioma.toLowerCase().indexOf(args.toLowerCase())>-1){
+      if(post.idioma.toLowerCase().indexOf(args.toLowerCase())>-1||post.nivel.indexOf(args.toLowerCase())>-1){
         resultPost.push(post);
       } 
       
