@@ -2,7 +2,8 @@ import {Request,Response} from "express";
 import db from "../database";
 class MaestroController {
     public async list(req: Request, res: Response): Promise <void> {
-        const maestro = await db.query("SELECT * FROM maestros");
+        //const maestro = await db.query("SELECT first_nameU,last_nameU,last_nameU2,telephoneU,email FROM users WHERE id_rol=2");
+        const maestro = await db.query("SELECT * from maestros");
         res.json(maestro);
       }
       public async listOne(req: Request, res: Response) {

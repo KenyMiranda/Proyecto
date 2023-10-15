@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './components/users/users.component';
@@ -29,6 +29,13 @@ import { UpdateFormComponent } from './components/update-form/update-form.compon
 import { CalificacionesComponent } from './components/calificaciones/calificaciones.component';
 import { CalificacionesFormComponent } from './components/calificaciones-form/calificaciones-form.component';
 import { CalificacionesListComponent } from './components/calificaciones-list/calificaciones-list.component';
+import { CalificacionesService } from './services/calificaciones/calificaciones.service';
+import { FilterPipe } from './pipes/filter.pipe';
+import { FilterAlumnoPipe } from './pipes/filter-alumno.pipe';
+import { FilterMaestroPipe } from './pipes/filter-maestro.pipe';
+import { FilterAdminPipe } from './pipes/filter-admin.pipe';
+import { FilterHorarioPipe } from './pipes/filter-horario.pipe';
+import { FilterCalifPipe } from './pipes/filter-calif.pipe';
 
 @NgModule({
   declarations: [
@@ -51,9 +58,15 @@ import { CalificacionesListComponent } from './components/calificaciones-list/ca
     CalificacionesComponent,
     CalificacionesFormComponent,
     CalificacionesListComponent,
+    FilterPipe,
+    FilterAlumnoPipe,
+    FilterMaestroPipe,
+    FilterAdminPipe,
+    FilterHorarioPipe,
+    FilterCalifPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService],
+  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

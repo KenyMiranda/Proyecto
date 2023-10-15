@@ -9,28 +9,14 @@ import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 })
 export class MaestrosListComponent {
   arrayMaestros: any = []; 
-
+  filterPost = "";
   constructor(private maestrosService: MaestrosService){
 
   }
 
   ngOnInit() {
     this.getMaestro();
-    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
-    const myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
-        datasets: [
-          {
-            label: 'Calificaciones',
-            data: [85, 78, 92, 88, 95],
-            borderColor: 'blue',
-            fill: false,
-          },
-        ],
-      },
-    });
+
 
   }
 

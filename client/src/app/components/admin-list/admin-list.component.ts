@@ -8,6 +8,7 @@ import { AdminService } from 'src/app/services/admin/admin.service';
 })
   export class AdminListComponent implements OnInit {
   arrayAdmin : any = [];
+  filterPost = "";
 
   constructor(private adminService : AdminService){}
 

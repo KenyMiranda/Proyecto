@@ -16,6 +16,7 @@ import { UpdateFormComponent } from './components/update-form/update-form.compon
 import { AdminListComponent } from './components/admin-list/admin-list.component';
 import { CalificacionesFormComponent } from './components/calificaciones-form/calificaciones-form.component';
 import { CalificacionesComponent } from './components/calificaciones/calificaciones.component';
+import { CalificacionesListComponent } from './components/calificaciones-list/calificaciones-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -79,7 +80,11 @@ const routes: Routes = [
     component: CalificacionesFormComponent,
   },
   {
-    path : 'calificaciones',
+    path : 'calificaciones-list',
+    component: CalificacionesListComponent,
+  },
+  {
+    path: 'calificacion/:id',
     component: CalificacionesComponent,
   },
   {
@@ -87,6 +92,11 @@ const routes: Routes = [
     component: RegisterComponent,
   },
 
+  {
+    path: 'admin/update/:id',
+    component:UpdateFormComponent 
+  },
+  
   {
     path:'alumno/update/:id',
     component: UpdateFormComponent,

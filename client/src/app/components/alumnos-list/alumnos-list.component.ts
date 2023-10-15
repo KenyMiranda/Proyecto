@@ -9,7 +9,7 @@ import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
 })
 export class AlumnosListComponent implements OnInit {
   arrayAlumnos: any = []; 
-
+  filterPost = ""
   constructor(private alumnosService: AlumnosService , private router: Router){
     
 

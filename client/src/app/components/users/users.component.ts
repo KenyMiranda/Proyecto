@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   arrayusers: any = [];
+  filterPost = "";
   constructor(private usersService: UsersService , private router: Router) {}
 
   ngOnInit() {

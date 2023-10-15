@@ -4,6 +4,7 @@ import moment from "moment";
 class HorarioController {
   public async list(req: Request, res: Response): Promise<void> {
     const horario = await db.query("SELECT * FROM horarios ORDER BY Hora_inicio ASC");
+    
     res.json(horario);
   }
   public async listOne(req: Request, res: Response) {
@@ -17,7 +18,7 @@ class HorarioController {
 
   public async createHorario(req: Request, res: Response) {
     const hora_inicio = req.body.Hora_inicio;
-    const hora_final = req.body.Hora_final
+    const hora_final = req.body.Hora_final;
 
     const momentTiempo1 = moment(hora_inicio, "HH:mm:ss");
     const momentTiempo2 = moment(hora_final, "HH:mm:ss");

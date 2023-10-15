@@ -7,6 +7,7 @@ import alumnoRoutes from "./routes/alumnoRoutes";
 import maestroRoutes from "./routes/maestroRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import horarioRoutes from "./routes/horarioRoutes";
+import calificacionRoutes from "./routes/calificacionRoutes";
 
 class Server {
     public app: Application;
@@ -31,6 +32,7 @@ class Server {
         this.app.use('/maestro',maestroRoutes);
         this.app.use('/admin',adminRoutes);
         this.app.use('/horario',horarioRoutes);
+        this.app.use('/calificacion',calificacionRoutes);
     }
 
     start(): void {

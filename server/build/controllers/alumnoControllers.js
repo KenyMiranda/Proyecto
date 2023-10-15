@@ -17,6 +17,7 @@ const database_1 = __importDefault(require("../database"));
 class AlumnoController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            //const alumno = await db.query("SELECT first_nameU,last_nameU,last_nameU2,telephoneU,email FROM users WHERE id_rol=1");
             const alumno = yield database_1.default.query("SELECT * FROM alumnos");
             res.json(alumno);
         });

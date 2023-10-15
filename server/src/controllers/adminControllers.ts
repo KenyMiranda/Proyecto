@@ -2,7 +2,8 @@ import {Request,Response} from "express";
 import db from "../database";
 class AdminController {
     public async list(req: Request, res: Response): Promise <void> {
-        const admin = await db.query("SELECT first_nameU,last_nameU,last_nameU2,telephoneU,email FROM users WHERE id_rol=3");
+        //const admin = await db.query("SELECT first_nameU,last_nameU,last_nameU2,telephoneU,email FROM users WHERE id_rol=3");
+        const admin = await db.query("SELECT * from admin");
         res.json(admin);
       }
       public async listOne(req: Request, res: Response) {

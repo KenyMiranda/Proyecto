@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common'; 
 import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
+import { CalificacionesService } from 'src/app/services/calificaciones/calificaciones.service';
+import { Calificacion } from 'src/app/models/calificaciones';
 
 @Component({
   selector: 'app-calificaciones-form',
@@ -10,18 +12,27 @@ import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
 })
 export class CalificacionesFormComponent implements OnInit {
 
+  
   arrayAlumnos: any = []; 
   fechas: Date[] = [];
   diasAgregados = 6;
 
-  constructor(private alumnosService: AlumnosService , private datepipe: DatePipe){
+  calificacion : Calificacion= {
+    fecha_calif: new Date(),
+    calificacion:0,
+    id_alumno:0
+
+
+  }
+
+  constructor(private datepipe: DatePipe,private alumnosService: AlumnosService,private calificacionService: CalificacionesService){
     
 
   }
 
   ngOnInit() {
     this.getAlumnos();
-    //this.crearArrayDeFechas();
+    this.crearArrayDeFechas();
   }
 
   getAlumnos(){
@@ -44,5 +55,15 @@ export class CalificacionesFormComponent implements OnInit {
       
     }
     console.log(this.fechas);
+  }
+
+  saveCalificacion(){
+    this.calificacionService.saveCalificacion(this.calificacion).subscribe(
+      (res) => {
+        console.log(res);
+        
+      },
+      (err) => console.error(err)
+    );
   }
 }
