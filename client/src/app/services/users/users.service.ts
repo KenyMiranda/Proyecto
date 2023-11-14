@@ -28,6 +28,12 @@ export class UsersService {
     return this.http.post(`${this.API_URL}/user`,user);
    }
 
+   //LOGIN USUARIO 
+
+   loginUser(user:Users){
+    return this.http.post(`${this.API_URL}/user/login`,user);
+   }
+
    //BORRAR USUARIO 
 
     deleteUser(id : string) {

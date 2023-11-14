@@ -11,16 +11,28 @@
       <nav>
         <div class="nav-wrapper" style="background-color: #0066ff">
           <a routerLink="/" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo" style="width: px; height:62px; margin-left: 5px;"/></a>
-          
+  
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >
           <ul class="right hide-on-med-and-down">
             <li><a routerLink="/usuarios-list">Users</a></li>
-            <li><a routerLink="">Administradores</a></li>
-            <li><a routerLink="/alumnos-list">Alumnos</a></li>
+            <li><a routerLink="/admins-list">Administradores</a></li>
+            <li class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
+              <ul class="dropdown">
+                <li><a routerLink="/usuarios-list">Users</a></li>
+                <li><a routerLink="/admins-list">Administradores</a></li>
+              </ul>
+            </li>
+            
             <li><a routerLink="/maestros-list">Maestros</a></li>
-            <li><a routerLink="/horario">Horarios</a></li>
+            <li class="has-dropdown"><a routerLink="">Horarios</a>
+              <ul class="dropdown">
+                <li><a routerLink="/horario-form">Agregar Horario</a></li>
+                <li><a routerLink="/horario">Ver Horarios</a></li>
+              </ul>
+            </li>
+            <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
           </ul>
         </div>
       </nav>
@@ -30,7 +42,7 @@
         <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Language</label>
         <div class="control">
           <div class="select">
-            <select [(ngModel)]="horario.idioma" name="idioma">
+            <select [(ngModel)]="horario.idioma" name="idioma" required>
               <option>Select Language</option>
               <option value="English">English</option>
               <option value="Spanish">Spanish</option>
@@ -45,7 +57,7 @@
       <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Level</label>
       <div class="control">
         <div class="select">
-          <select [(ngModel)]="horario.nivel" name="nivel">
+          <select [(ngModel)]="horario.nivel" name="nivel" required>
             <option>Select Level</option>
             <option value="1A">1A</option>
             <option value="1B">1B</option>
@@ -73,7 +85,7 @@
   <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Day</label>
   <div class="control">
     <div class="select">
-      <select [(ngModel)]="horario.dia" name="dia">
+      <select [(ngModel)]="horario.dia" name="dia" required>
         <option>Select Day</option>
         <option value="Monday-Wednesday">Monday - Wednesday</option> 
         <option value="Tuesday-Thursday">Tuesday - Thursday</option> 
@@ -97,7 +109,7 @@
       <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Teacher</label>
       <div class="control">
         <div class="select">
-          <select [(ngModel)]="horario.id_maestro" name="horario.id_maestro">
+          <select [(ngModel)]="horario.id_maestro" name="horario.id_maestro" required>
             <option>Select Teacher</option>
             <option  *ngFor="let maestro of arrayMaestros[0]" value="{{maestro.id_maestro}}">{{maestro.first_name_M}}  {{maestro.last_name_M}}</option>
           </select>

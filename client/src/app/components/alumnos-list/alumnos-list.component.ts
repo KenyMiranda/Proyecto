@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alumnos-list',
@@ -31,20 +32,34 @@ export class AlumnosListComponent implements OnInit {
     );
   }
 
-  deleteAlumno(id_alumno: string) {
-    this.alumnosService.deleteAlumno(id_alumno).subscribe(
-      (res) => {
-      console.log(res);
-      this.getAlumnos();
+  deleteAlumno(id_alumno: string){
+    
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¡No podrás revertir esto!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminarlo',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.alumnosService.deleteAlumno(id_alumno).subscribe(
+            (res) => {
+            console.log(res);
+            this.getAlumnos();
+            
+            } , 
+            (err) => {console.error(err);
+            
+            }
       
-      } , 
-      (err) => {console.error(err);
-      
-      }
-
-      
-      
-    )
-
+            
+            
+          )
+          Swal.fire('Eliminado', 'El elemento ha sido eliminado.', 'success');
+        }
+      });
+    
+    
   }
 }

@@ -1,7 +1,7 @@
 import {Router} from "express";
 import horarioController from "../controllers/horarioController";
 
-class AlumnoRoutes{
+class HorarioRoutes{
     public router: Router = Router();
 
     constructor() {
@@ -19,5 +19,5 @@ class AlumnoRoutes{
     }
 }
 
-const alumnoRoutes = new AlumnoRoutes();
-export default alumnoRoutes.router;
+const horarioRoutes = new HorarioRoutes();
+export default horarioRoutes.router;

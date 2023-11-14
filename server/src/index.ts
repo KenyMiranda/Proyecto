@@ -8,6 +8,8 @@ import maestroRoutes from "./routes/maestroRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import horarioRoutes from "./routes/horarioRoutes";
 import calificacionRoutes from "./routes/calificacionRoutes";
+import claseRoutes from "./routes/claseRoutes";
+import grupoRoutes from "./routes/grupoRoutes";
 
 class Server {
     public app: Application;
@@ -33,11 +35,14 @@ class Server {
         this.app.use('/admin',adminRoutes);
         this.app.use('/horario',horarioRoutes);
         this.app.use('/calificacion',calificacionRoutes);
+        this.app.use('/clase',claseRoutes);
+        this.app.use('/grupo',grupoRoutes);
+        
     }
 
     start(): void {
         this.app.listen(this.app.get("port"), () => {
-            console.log("Server on port", this.app.get("port"));
+            console.log("Server on port", this.app.get("port"))
         });
     }
 }

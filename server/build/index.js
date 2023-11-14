@@ -13,6 +13,8 @@ const maestroRoutes_1 = __importDefault(require("./routes/maestroRoutes"));
 const adminRoutes_1 = __importDefault(require("./routes/adminRoutes"));
 const horarioRoutes_1 = __importDefault(require("./routes/horarioRoutes"));
 const calificacionRoutes_1 = __importDefault(require("./routes/calificacionRoutes"));
+const claseRoutes_1 = __importDefault(require("./routes/claseRoutes"));
+const grupoRoutes_1 = __importDefault(require("./routes/grupoRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -34,6 +36,8 @@ class Server {
         this.app.use('/admin', adminRoutes_1.default);
         this.app.use('/horario', horarioRoutes_1.default);
         this.app.use('/calificacion', calificacionRoutes_1.default);
+        this.app.use('/clase', claseRoutes_1.default);
+        this.app.use('/grupo', grupoRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get("port"), () => {

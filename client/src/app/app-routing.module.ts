@@ -17,6 +17,7 @@ import { AdminListComponent } from './components/admin-list/admin-list.component
 import { CalificacionesFormComponent } from './components/calificaciones-form/calificaciones-form.component';
 import { CalificacionesComponent } from './components/calificaciones/calificaciones.component';
 import { CalificacionesListComponent } from './components/calificaciones-list/calificaciones-list.component';
+import { ClasesComponent } from './components/clases/clases.component';
 const routes: Routes = [
   {
     path: '',
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     path: 'horario-form',
     component: HorariosFormComponent,
+  },
+
+  {
+    path :'clases',
+    component: ClasesComponent,
   },
 
   {

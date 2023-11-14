@@ -36,6 +36,11 @@ import { FilterMaestroPipe } from './pipes/filter-maestro.pipe';
 import { FilterAdminPipe } from './pipes/filter-admin.pipe';
 import { FilterHorarioPipe } from './pipes/filter-horario.pipe';
 import { FilterCalifPipe } from './pipes/filter-calif.pipe';
+import { ClasesComponent } from './components/clases/clases.component';
+import { ClasesService } from './services/clases/clases.service';
+import { GruposService } from './services/grupos/grupos.service';
+
+
 
 @NgModule({
   declarations: [
@@ -64,9 +69,10 @@ import { FilterCalifPipe } from './pipes/filter-calif.pipe';
     FilterAdminPipe,
     FilterHorarioPipe,
     FilterCalifPipe,
+    ClasesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,DatePipe],
+  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,GruposService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

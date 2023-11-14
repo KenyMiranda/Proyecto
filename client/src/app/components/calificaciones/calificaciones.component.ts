@@ -13,6 +13,7 @@ import { Chart } from 'chart.js';
 export class CalificacionesComponent implements OnInit {
   public calificaciones: any = [];
   public calificacionesAlumno: any = [];
+  public fechas : any = [];
 
   // Array de calificaciones (debes proporcionar tus propias calificaciones)
 
@@ -43,9 +44,10 @@ export class CalificacionesComponent implements OnInit {
             this.calificacionesAlumno.push(
               this.calificaciones[0][i].calificacion
             );
+            this.fechas.push(this.calificaciones[0][i].fecha_calif.substring(10,0));
           }
           if (this.calificacionesAlumno.length > 5)
-            this.calificacionesAlumno.splice(0, 1);
+            //this.calificacionesAlumno.splice(0, 1);
           console.log(objeto);
           console.log(this.calificaciones[0]);
           console.log(this.calificacionesAlumno);
@@ -55,7 +57,7 @@ export class CalificacionesComponent implements OnInit {
           const myChart = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+              labels: this.fechas,
               datasets: [
                 {
                   label: 'Calificaciones',
@@ -66,6 +68,15 @@ export class CalificacionesComponent implements OnInit {
               ],
             },
             options: {
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'Gráfico de Calificaciones ', // Aquí puedes especificar el título deseado
+                  font: {
+                    size: 16, // Tamaño de fuente del título
+                  },
+                },
+              },
               scales: {
                 y: {
                   beginAtZero: true, // Comienza en 0

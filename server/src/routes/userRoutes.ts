@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userController from "../controllers/userController";
+import validateToken from "./validateToken";
 class UserRoutes {
     public router: Router = Router();
 
@@ -13,6 +14,7 @@ class UserRoutes {
         this.router.post("/", userController.createUser);
         this.router.delete("/:id",userController.deleteUser);
         this.router.put("/:id",userController.updateUser);
+        this.router.post("/login",userController.loginUser);
     }
 }
 

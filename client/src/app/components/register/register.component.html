@@ -149,6 +149,7 @@
                 </div>
                 <input
                   type="password"
+                  
                   name="password"
                   [(ngModel)]="usuario.password"
                   id="password"
@@ -156,6 +157,15 @@
                   style="height: 35px;"
                   class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
+                <div>
+                  <button (click)="generatePassword()"
+                  class="w-30 px-2 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >Generar Contraseña</button>
+                  <p *ngIf="generatedPassword">Contraseña Generada: {{ generatedPassword }}</p>
+                </div>
+                <div >
+                  
+                </div>
               </div>
               
               <div class="select" style="margin-top:10px; margin-bottom: 10px;">
@@ -173,6 +183,9 @@
                 >
                   Sign in
                 </button>
+
+               
+                
               </div>
             </form>
   
@@ -184,7 +197,8 @@
   <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
   <link rel="stylesheet"
     href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
-  <footer class="relative bg-blueGray-200 pt-8 pb-6">
+  
+    <footer class="relative bg-blueGray-200 pt-8 pb-6">
     <div class="container mx-auto px-4" style="height:150px">
       <div class="flex flex-wrap text-left lg:text-left">
         <div class="w-full lg:w-6/12 px-4">

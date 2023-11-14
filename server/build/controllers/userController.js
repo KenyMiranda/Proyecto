@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const database_1 = __importDefault(require("../database"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class UserController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -79,9 +80,44 @@ class UserController {
     updateUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
+            const password = yield bcrypt_1.default.hash(req.body.password, 10);
+            req.body.password = password;
             const datos = req.body;
             yield database_1.default.query("UPDATE users SET ? WHERE id_user = ?", [datos, id]);
             res.json({ message: "User updated" });
+        });
+    }
+    loginUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const correo = req.body.email;
+            const contraseña = req.body.password;
+            const usuario = yield database_1.default.query("Select * from users where email =?", [
+                correo,
+            ]);
+            let rol = yield database_1.default.query("Select id_rol from users where email =?", [correo]);
+            let data = JSON.parse(JSON.stringify(usuario[0]));
+            let role = JSON.parse(JSON.stringify(rol[0]));
+            console.log(data[0]);
+            console.log(role[0]);
+            //console.log(password[0]);
+            if (!data[0]) {
+                return res.status(400).json({
+                    msg: "No existe correo en la base de datos",
+                });
+            }
+            //validar contraseña
+            const passwordValid = yield bcrypt_1.default.compare(contraseña, data[0].password);
+            console.log(passwordValid);
+            if (!passwordValid) {
+                return res.status(400).json({ message: "Password Incorrecta" });
+            }
+            //Generamos Token
+            const token = jsonwebtoken_1.default.sign({
+                email: correo,
+                rol: JSON.parse(JSON.stringify(role[0].id_rol))
+            }, process.env.SECRET_KEY || "pGZLwuX!rt9", { expiresIn: 10 });
+            console.log(token);
+            res.json(token);
         });
     }
 }

@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const horarioController_1 = __importDefault(require("../controllers/horarioController"));
-class AlumnoRoutes {
+class HorarioRoutes {
     constructor() {
         this.router = (0, express_1.Router)();
         this.config();
@@ -18,5 +18,5 @@ class AlumnoRoutes {
         this.router.put("/:id", horarioController_1.default.updateHorario);
     }
 }
-const alumnoRoutes = new AlumnoRoutes();
-exports.default = alumnoRoutes.router;
+const horarioRoutes = new HorarioRoutes();
+exports.default = horarioRoutes.router;
