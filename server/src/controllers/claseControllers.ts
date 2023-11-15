@@ -18,9 +18,29 @@ class ClaseController {
   }
 
   public async addClase(req: Request, res: Response){
-    let alumnoArray = req.body.id_alumno; 
+    let alumnoId = req.body.id_alumno; 
     let maestro = req.body.id_maestro;
+    let maestro2 = req.body.id_maestro2;
     let grupo = req.body.id_grupo;
+
+    if(maestro ===0) res.json({ message: 'Ingresar Maestro' });
+
+    if(maestro2 ===0){
+      maestro2 = maestro;
+    }
+
+    if(grupo===0){
+      res.json({ message: 'Ingresar Grupo' });
+    }
+
+    let alumnoArray = await db.query("Select * from clases where id_alumno = ?",alumnoId);
+    let alumno = JSON.parse(JSON.stringify(alumnoArray[0]));
+
+    if (alumno[0]) {
+      return res.status(400).json({
+        msg: "Alumno Inscrito en otra clase",
+      });
+    }
 
     const clase = await db.query("INSERT INTO clases SET ?", [req.body]);
     
