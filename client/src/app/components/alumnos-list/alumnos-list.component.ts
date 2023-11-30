@@ -49,9 +49,15 @@ export class AlumnosListComponent implements OnInit {
             this.getAlumnos();
             
             } , 
-            (err) => {console.error(err);
+            (err) => {Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+              footer: '<a href="#">Why do I have this issue?</a>'
+            });
+          } 
             
-            }
+            
       
             
             

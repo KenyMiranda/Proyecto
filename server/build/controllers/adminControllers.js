@@ -18,30 +18,54 @@ class AdminController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             //const admin = await db.query("SELECT first_nameU,last_nameU,last_nameU2,telephoneU,email FROM users WHERE id_rol=3");
-            const admin = yield database_1.default.query("SELECT * from admin");
-            res.json(admin);
+            try {
+                const admin = yield database_1.default.query("SELECT * from users WHERE id_rol=3 AND status='Activo'");
+                res.json(admin);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const admin = yield database_1.default.query("SELECT * FROM admin WHERE id_admin=?", [id]);
-            res.json(admin);
+            try {
+                const admin = yield database_1.default.query("SELECT * FROM users WHERE id_user=? AND id_rol=3 AND status='Activo'", [id]);
+                res.json(admin);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM admin WHERE id_admin = ?", [id]);
-            res.json({ text: "Administrador deleted" });
+            try {
+                yield database_1.default.query("DELETE FROM users WHERE id_user = ? AND id_rol=3", [id]);
+                res.json({ text: "Administrador deleted" });
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     updateAdmin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const datos = req.body;
-            yield database_1.default.query("UPDATE admin SET ? WHERE id_admin = ?", [datos, id]);
-            res.json({ message: "Admin updated" });
+            try {
+                yield database_1.default.query("UPDATE users SET ? WHERE id_user = ? AND id_rol = 3 AND status='Activo'", [datos, id]);
+                res.json({ message: "Admin updated" });
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
 }

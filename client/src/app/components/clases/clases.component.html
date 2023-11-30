@@ -21,17 +21,23 @@
                 <ul class="dropdown">
                   <li><a routerLink="/usuarios-list">Users</a></li>
                   <li><a routerLink="/admins-list">Administradores</a></li>
+                  <li><a routerLink="/usuarios-list">Users</a></li>
+                  <li><a routerLink="/admins-list">Administradores</a></li>
                 </ul>
               </li>
               
               <li><a routerLink="/maestros-list">Maestros</a></li>
-              <li class="has-dropdown"><a >Horarios</a>
+              <li><a routerLink="/grupos">Grupos</a></li>
+              <li><a routerLink="/clases">Clases</a></li>
+              <li class="has-dropdown"><a>Horarios</a>
                 <ul class="dropdown">
                   <li><a routerLink="/horario-form">Agregar Horario</a></li>
                   <li><a routerLink="/horario">Ver Horarios</a></li>
                 </ul>
               </li>
               <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
+              <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
+              <li><a routerLink="/calificaciones-list">Materiales</a></li>
             </ul>
           </div>
         </nav>
@@ -105,27 +111,31 @@
       >
       Escoger 
       </button>
-
-      <h5 *ngIf="seleccion1">Maestros</h5>
+      <div *ngIf="seleccion1" class="Maestros1">
+      <h5 >Maestros</h5>
+      <h6 *ngIf="seleccion1 && !seleccion2">Monday - Thursday or Full Saturday </h6>
+      <h6 *ngIf="seleccion2">Monday - Wednesday or First two hours Saturday</h6>
       <div class="field" style="margin-top: 25px;" *ngIf="seleccion1" >
         <div class="control">
           <div class="select" >
             <select [(ngModel)]="clase.id_maestro" name="horario.id_maestro" required >
               <option>Select Teacher</option>
-              <option  *ngFor="let maestro of arrayMaestros[0]" value="{{maestro.id_maestro}}">{{maestro.first_name_M}}  {{maestro.last_name_M}}</option>
+              <option  *ngFor="let maestro of arrayMaestros[0]" value="{{maestro.id_user}}">{{maestro.first_nameU}}  {{maestro.last_nameU}}</option>
             </select>
           </div>
           
         </div>
         
       </div>
-
+    </div>
+    <h6 *ngIf="seleccion2">Tuesday - Thursday or Last two hours Saturday </h6>
       <div class="field" style="margin-top: 25px;" *ngIf="seleccion2">
         <div class="control">
           <div class="select">
-            <select [(ngModel)]="clase.id_maestro" name="horario.id_maestro" required>
+            
+            <select [(ngModel)]="clase.id_maestro2" name="horario.id_maestro" required>
               <option>Select Teacher</option>
-              <option  *ngFor="let maestro of arrayMaestros[0]" value="{{maestro.id_maestro}}">{{maestro.first_name_M}}  {{maestro.last_name_M}}</option>
+              <option  *ngFor="let maestro of arrayMaestros[0]" value="{{maestro.id_user}}">{{maestro.first_nameU}}  {{maestro.last_nameU}}</option>
             </select>
           </div>
           
@@ -136,6 +146,7 @@
 
       <h5>Alumnos</h5>
       <input
+      [(ngModel)]="filterPost"
       type="text" style="height: 35px; width: 800px; margin-left: 20%;" name="search" placeholder="Search"
       class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
     />
@@ -162,20 +173,20 @@
                     </th>
                   </tr>
                 </thead>
-                <tr class="bg-gray-100 border-b" *ngFor="let alumno of arrayAlumnos[0]|filterAlumno:filterPost">
-                  <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ alumno.first_name_A }}</td>
+                <tr class="bg-gray-100 border-b" *ngFor="let alumno of arrayAlumnos[0]|filter:filterPost">
+                  <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ alumno.first_nameU }}</td>
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     
-                  {{ alumno.last_name_A }}
+                  {{ alumno.last_nameU }}
                   </td>
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    {{ alumno.last_name2_A }}
+                    {{ alumno.last_nameU2 }}
                   </td>
            
   
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     <!-- component -->
-                    <button (click)="agregarClase(alumno.id_alumno)"
+                    <button (click)="agregarClase(alumno.id_user)"
                     data-ripple-light="true"
                     data-popover-target="popover"
                     class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"

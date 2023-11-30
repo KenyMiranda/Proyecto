@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin/admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-list',
@@ -26,11 +27,33 @@ import { AdminService } from 'src/app/services/admin/admin.service';
   }
 
   deleteAdmin(id_admin: string){
-    this.adminService.deleteAdmin(id_admin).subscribe(
-      (res) => console.log(res)
-      
-    )
-    this.getAdmin();
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminarlo',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.adminService.deleteAdmin(id_admin).subscribe(
+          (res) => {
+          console.log(res);
+          this.getAdmin();
+          
+          } , 
+          (err) => {console.error(err);
+          
+          }
+    
+          
+          
+        )
+        Swal.fire('Eliminado', 'El elemento ha sido eliminado.', 'success');
+      }
+    });
+  
   }
 
 }

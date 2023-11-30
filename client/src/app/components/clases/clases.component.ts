@@ -31,7 +31,8 @@ export class ClasesComponent implements OnInit {
   clase : Clase = {
     id_grupo : 0,
     id_alumno : 0,
-    id_maestro :0
+    id_maestro :0,
+    id_maestro2:0
   }
   constructor(private claseService: ClasesService ,private alumnosService: AlumnosService , private maestrosService: MaestrosService,private gruposService:GruposService,private router:Router){}
   ngOnInit(): void {
@@ -89,7 +90,11 @@ export class ClasesComponent implements OnInit {
             location.reload();
           
           }, 2500);
-
+          Swal.fire({
+            title: "Done!",
+            text: "New group has been added.",
+            icon: "success"
+          });
          
           },
     
@@ -104,11 +109,7 @@ export class ClasesComponent implements OnInit {
         )
     
         
-        Swal.fire({
-          title: "Done!",
-          text: "New group has been added.",
-          icon: "success"
-        });
+        
         
       }
 
@@ -119,15 +120,20 @@ export class ClasesComponent implements OnInit {
 
   numeroMaestro(){
     console.log(this.numeroMaes);
+   
     if (this.seleccion2 ==true) this.seleccion2 = false;
+
+
 
     if(this.numeroMaes ==1) {
 
       this.seleccion1 = true;
-    } else {
+    } 
+    if(this.numeroMaes ==2) {
+
+      this.seleccion1 = true;
       this.seleccion2 = true;
-      
-    }
+    } 
     
 
   }
@@ -148,15 +154,23 @@ export class ClasesComponent implements OnInit {
           result => {
             console.log(result);
             //this.router.navigate(['/horario']);
+            Swal.fire({
+              title: "Done!",
+              text: "The student has been added.",
+              icon: "success"
+            });
             
           },
-          err => console.log(err)
+          (err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+              footer: '<a href="#">Why do I have this issue?</a>'
+            });
+          }
         );
-        Swal.fire({
-          title: "Done!",
-          text: "The student has been added.",
-          icon: "success"
-        });
+       
       }
     });
     

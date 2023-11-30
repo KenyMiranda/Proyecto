@@ -21,23 +21,29 @@
             <ul class="dropdown">
               <li><a routerLink="/usuarios-list">Users</a></li>
               <li><a routerLink="/admins-list">Administradores</a></li>
+              <li><a routerLink="/usuarios-list">Users</a></li>
+              <li><a routerLink="/admins-list">Administradores</a></li>
             </ul>
           </li>
           
           <li><a routerLink="/maestros-list">Maestros</a></li>
-          <li class="has-dropdown"><a routerLink="">Horarios</a>
+          <li><a routerLink="/grupos">Grupos</a></li>
+          <li><a routerLink="/clases">Clases</a></li>
+          <li class="has-dropdown"><a>Horarios</a>
             <ul class="dropdown">
               <li><a routerLink="/horario-form">Agregar Horario</a></li>
               <li><a routerLink="/horario">Ver Horarios</a></li>
             </ul>
           </li>
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Materiales</a></li>
         </ul>
       </div>
     </nav>
   </header>
         <input
-        type="text" style="height: 35px; width: 800px; margin-left: 20%;"placeholder="Search" [(ngModel)]="filterPost"
+        type="text" style="height: 35px; width: 800px; margin-left: 20%;"placeholder="Search"
         class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
       />
         <div class="flex flex-col">
@@ -68,25 +74,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-gray-100 border-b" *ngFor="let admin of arrayAdmin[0]|filterAdmin:filterPost" >
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ admin.first_name_AD }}</td>
+              <tr class="bg-gray-100 border-b" *ngFor="let admin of arrayAdmin[0]" >
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ admin.first_nameU }}</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   
-                    {{ admin.last_name_AD }}
+                    {{ admin.last_nameU }}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    {{ admin.last_name2_AD }}
+                    {{ admin.last_nameU2 }}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    {{ admin.telephone_AD}}
+                    {{ admin.telephoneU}}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    {{ admin.email_AD}}
+                    {{ admin.email}}
                 </td>
 
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   <!-- component -->
                   <button
+                  [routerLink]="['/usuario/update',admin.id_user]"
                   data-ripple-light="true"
                   data-popover-target="popover"
                   class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -98,7 +105,7 @@
                 <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
                   <button
                   data-ripple-light="true"
-                  (click)="deleteAdmin(admin.id_admin)"
+                  (click)="deleteAdmin(admin.id_user)"
                   data-popover-target="popover"
                   class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   >

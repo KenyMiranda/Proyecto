@@ -38,7 +38,7 @@ export class HorariosService {
 
   //ACTUALIZAR HORARIO
 
-  updateHorario(id : string , updatedHorario:Horario){
+  updateHorario(id : number|undefined, updatedHorario:Horario){
     return this.http.put(`${this.API_URL}/horario/${id}`,updatedHorario);
   }
 

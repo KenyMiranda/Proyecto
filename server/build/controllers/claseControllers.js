@@ -17,7 +17,7 @@ const database_1 = __importDefault(require("../database"));
 class ClaseController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const clase = yield database_1.default.query("SELECT * FROM clases");
+            const clase = yield database_1.default.query("SELECT * FROM clases c JOIN grupos g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;");
             res.json(clase);
         });
     }
@@ -34,23 +34,45 @@ class ClaseController {
             let maestro = req.body.id_maestro;
             let maestro2 = req.body.id_maestro2;
             let grupo = req.body.id_grupo;
-            if (maestro === 0)
-                res.json({ message: 'Ingresar Maestro' });
-            if (maestro2 === 0) {
-                maestro2 = maestro;
-            }
-            if (grupo === 0) {
-                res.json({ message: 'Ingresar Grupo' });
-            }
-            let alumnoArray = yield database_1.default.query("Select * from clases where id_alumno = ?", alumnoId);
+            /*
+            let alumnoArray = await db.query(
+              "Select * from clases where id_alumno = ? AND ",
+              alumnoId
+            );
             let alumno = JSON.parse(JSON.stringify(alumnoArray[0]));
-            if (alumno[0]) {
+            console.log(alumno[0]);
+        
+            try {
+              if (alumno[0]) {
                 return res.status(400).json({
-                    msg: "Alumno Inscrito en otra clase",
+                  msg: "Alumno Inscrito en otra clase",
                 });
+              }
+            } catch (error) {
+              console.error("Error al ejecutar la consulta MySQL:", error);
+              res.status(500).send("Error interno del servidor");
             }
-            const clase = yield database_1.default.query("INSERT INTO clases SET ?", [req.body]);
-            res.json({ message: 'Registros insertados correctamente' });
+            */
+            console.log(maestro);
+            console.log(maestro2);
+            try {
+                if (maestro2 == 0) {
+                    req.body.id_maestro2 = req.body.id_maestro;
+                }
+                if (maestro == 0 || grupo == 0) {
+                    return res.status(400).json({
+                        msg: "Favor de llenar los campos",
+                    });
+                }
+                else {
+                    const clase = yield database_1.default.query("INSERT INTO clases SET ?", [req.body]);
+                    res.json({ message: "Registros insertados correctamente" });
+                }
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     deleteClase(req, res) {

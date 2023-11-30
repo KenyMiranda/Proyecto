@@ -22,17 +22,23 @@
               <ul class="dropdown">
                 <li><a routerLink="/usuarios-list">Users</a></li>
                 <li><a routerLink="/admins-list">Administradores</a></li>
+                <li><a routerLink="/usuarios-list">Users</a></li>
+                <li><a routerLink="/admins-list">Administradores</a></li>
               </ul>
             </li>
             
             <li><a routerLink="/maestros-list">Maestros</a></li>
-            <li class="has-dropdown"><a routerLink="">Horarios</a>
+            <li><a routerLink="/grupos">Grupos</a></li>
+            <li><a routerLink="/clases">Clases</a></li>
+            <li class="has-dropdown"><a>Horarios</a>
               <ul class="dropdown">
                 <li><a routerLink="/horario-form">Agregar Horario</a></li>
                 <li><a routerLink="/horario">Ver Horarios</a></li>
               </ul>
             </li>
             <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
+            <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
+            <li><a routerLink="/calificaciones-list">Materiales</a></li>
           </ul>
         </div>
       </nav>
@@ -54,26 +60,14 @@
 
   <div>
     <div class="field">
-      <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Level</label>
+      <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Group</label>
       <div class="control">
         <div class="select">
-          <select [(ngModel)]="horario.nivel" name="nivel" required>
-            <option>Select Level</option>
-            <option value="1A">1A</option>
-            <option value="1B">1B</option>
-            <option value="1C">1C</option>
-            <option value="2A">2A</option>
-            <option value="2B">2B</option>
-            <option value="2C">2C</option>
-            <option value="3A">3A</option>
-            <option value="3B">3B</option>
-            <option value="3C">3C</option>
-            <option value="4A">4A</option>
-            <option value="4B">4B</option>
-            <option value="4C">4C</option>
-            <option value="5A">5A</option>
-            <option value="5B">5B</option>
-            <option value="5C">5C</option>
+          <select [(ngModel)]="horario.id_grupo" name="grupo" required>
+            <option>Select Group</option>
+            <option *ngFor="let clase of arrayClases[0]"   
+              value="{{ clase.id_grupo}}">{{ clase.nombre_grupo }}</option>
+
             
 
           </select>
@@ -87,8 +81,7 @@
     <div class="select">
       <select [(ngModel)]="horario.dia" name="dia" required>
         <option>Select Day</option>
-        <option value="Monday-Wednesday">Monday - Wednesday</option> 
-        <option value="Tuesday-Thursday">Tuesday - Thursday</option> 
+        <option value="Monday-Thursday">Monday - Thursday</option> 
         <option value = "Saturday">Saturday</option>     
       </select>
     </div>
@@ -105,20 +98,10 @@
   <input type="time" name="Hora_final" id="email" [(ngModel)]="horario.Hora_final" style="width:150px" placeholder="example@example.com" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 </div>
 
-    <div class="field">
-      <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Teacher</label>
-      <div class="control">
-        <div class="select">
-          <select [(ngModel)]="horario.id_maestro" name="horario.id_maestro" required>
-            <option>Select Teacher</option>
-            <option  *ngFor="let maestro of arrayMaestros[0]" value="{{maestro.id_maestro}}">{{maestro.first_name_M}}  {{maestro.last_name_M}}</option>
-          </select>
-        </div>
-      </div>
-    </div>
+   
 
     <div class="mt-6">
-      <button style="width:340px; margin-left:40%" (click)="saveHorario()" 
+      <button style="width:340px; margin-left:40%" (click)=" edit ? updateHorario():saveHorario()" 
           class=" px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
           Save
       </button>

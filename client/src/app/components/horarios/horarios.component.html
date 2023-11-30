@@ -23,17 +23,23 @@
             <ul class="dropdown">
               <li><a routerLink="/usuarios-list">Users</a></li>
               <li><a routerLink="/admins-list">Administradores</a></li>
+              <li><a routerLink="/usuarios-list">Users</a></li>
+              <li><a routerLink="/admins-list">Administradores</a></li>
             </ul>
           </li>
           
           <li><a routerLink="/maestros-list">Maestros</a></li>
-          <li class="has-dropdown"><a routerLink="">Horarios</a>
+          <li><a routerLink="/grupos">Grupos</a></li>
+          <li><a routerLink="/clases">Clases</a></li>
+          <li class="has-dropdown"><a>Horarios</a>
             <ul class="dropdown">
               <li><a routerLink="/horario-form">Agregar Horario</a></li>
               <li><a routerLink="/horario">Ver Horarios</a></li>
             </ul>
           </li>
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Materiales</a></li>
         </ul>
       </div>
     </nav>
@@ -42,11 +48,13 @@
   type="text" style="height: 35px; width: 800px; margin-left: 20%;"placeholder="Search" [(ngModel)]="filterPost"
   class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 />
+<button (click)="exportarAExcel()">Exportar a Excel</button>
+
   <div class="flex flex-col">
     <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
       <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
         <div class="overflow-hidden">
-          <table class="min-w-full">
+          <table class="min-w-full" #tabla>
             <thead class="bg-white border-b">
               <tr>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -73,53 +81,79 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-gray-100 border-b" *ngFor="let horario of arrayHorarios[0]|filterHorario:filterPost">
+              <tr class="bg-gray-100 border-b" *ngFor="let horario of arrayHorarios[0]|filterHorario:filterPost:arrayClases[0]:arrayMaestros[0]:arrayGrupos[0]">
 
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {{horario.Hora_inicio.substring(0, 5)+ horario.Hora_inicio.substring(15)}} - 
                   {{horario.Hora_final.substring(0, 5)+ horario.Hora_final.substring(15)}}
-                </td>
+                  <br>
+                  <br>
+                    <!-- component -->
+                    <button
+                   
+                    data-ripple-light="true"
+                    data-popover-target="popover"
+                    class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    [routerLink]="['/horario/update',horario.id_horario]"
+                    >
+                    UPDATE
+                    </button>
+                    <br>
+                    <br>
+
+                 
+                    <button
+                    data-ripple-light="true"
+                    (click)="deleteHorario(horario.id_horario)"
+                    data-popover-target="popover"
+                    class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    
+                    >
+                    DELETE
+                    </button>
                 
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Language :{{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Level : {{horario.nivel}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Teacher :{{obtenerNombre(horario.id_maestro)}}</p>
+                
+                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
                   
+                  <p  *ngIf="horario.dia==='Monday-Thursday' "> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                 
                   
 
                 </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Language :{{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Level : {{horario.nivel}} </p> <br>
-                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Teacher :{{obtenerNombre(horario.id_maestro)}}</p>
+                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
                   
 
                 </td>              
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Language :{{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Monday-Wednesday'"> Level : {{horario.nivel}} </p> <br>
-                  <p class="maestro" *ngIf="horario.dia==='Monday-Wednesday'"> Teacher :{{obtenerNombre(horario.id_maestro)}}</p>
+                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
                   
 
                 </td>     
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Language :{{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Tuesday-Thursday'"> Level : {{horario.nivel}} </p> <br>
-                  <p  *ngIf="horario.dia==='Tuesday-Thursday'"> Teacher : {{obtenerNombre(horario.id_maestro)}}</p>
+                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
                   
 
                 </td>
 
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >
+                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
 
                   
 
                 </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
                   <p *ngIf="horario.dia==='Saturday'"> Language : {{horario.idioma}} </p> <br>
-                  <p *ngIf="horario.dia==='Saturday'"> Level: {{horario.nivel}} </p> <br>
-                  <p *ngIf="horario.dia==='Saturday'"> Teacher : {{obtenerNombre(horario.id_maestro)}}</p>
-                  
+                  <p  *ngIf="horario.dia==='Saturday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Saturday'"> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Saturday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
 
                 </td>
 

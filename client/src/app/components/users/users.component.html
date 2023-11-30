@@ -21,10 +21,14 @@
             <ul class="dropdown">
               <li><a routerLink="/usuarios-list">Users</a></li>
               <li><a routerLink="/admins-list">Administradores</a></li>
+              <li><a routerLink="/usuarios-list">Users</a></li>
+              <li><a routerLink="/admins-list">Administradores</a></li>
             </ul>
           </li>
           
           <li><a routerLink="/maestros-list">Maestros</a></li>
+          <li><a routerLink="/grupos">Grupos</a></li>
+          <li><a routerLink="/clases">Clases</a></li>
           <li class="has-dropdown"><a>Horarios</a>
             <ul class="dropdown">
               <li><a routerLink="/horario-form">Agregar Horario</a></li>
@@ -32,6 +36,8 @@
             </ul>
           </li>
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Materiales</a></li>
         </ul>
       </div>
     </nav>
@@ -69,6 +75,9 @@
                     Role
                   </th>
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Status
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                     Action
                   </th>
                 </tr>
@@ -98,6 +107,10 @@
                     <p *ngIf="user.id_rol===2">Maestro</p>
                     <p *ngIf="user.id_rol===3">Administrador</p>
 
+                  </td>
+
+                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    {{ user.status}}
                   </td>
 
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

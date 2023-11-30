@@ -26,7 +26,14 @@ export class UsersComponent implements OnInit {
         console.log(this.arrayusers[0]);
       },
 
-      (err) => console.error(err)
+      (err) => {
+        Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+    }
     );
 
   }
@@ -47,7 +54,14 @@ export class UsersComponent implements OnInit {
             console.log(res);
             this.getUsers();
           },
-          (err) => console.error(err)
+          (err) => {
+            Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        }
     
         );
         Swal.fire({

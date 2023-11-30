@@ -9,7 +9,7 @@ export class FilterPipe implements PipeTransform {
     
     let resultPost = [];
     for(let post of value) {
-      if(post.first_nameU.toLowerCase().indexOf(args.toLowerCase())>-1||post.last_nameU.toLowerCase().indexOf(args.toLowerCase())>-1||post.telephoneU.indexOf(args)>-1){
+      if(post.first_nameU.toLowerCase().indexOf(args.toLowerCase())>-1||post.last_nameU.toLowerCase().indexOf(args.toLowerCase())>-1||post.telephoneU.indexOf(args)>-1||post.status.toLowerCase().indexOf(args.toLowerCase())>-1){
         resultPost.push(post);
       } 
       

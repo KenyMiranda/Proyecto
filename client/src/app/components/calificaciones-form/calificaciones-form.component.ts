@@ -4,6 +4,8 @@ import { DatePipe } from '@angular/common';
 import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
 import { CalificacionesService } from 'src/app/services/calificaciones/calificaciones.service';
 import { Calificacion } from 'src/app/models/calificaciones';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-calificaciones-form',
@@ -25,10 +27,27 @@ export class CalificacionesFormComponent implements OnInit {
 
   }
 
-  constructor(private datepipe: DatePipe,private alumnosService: AlumnosService,private calificacionService: CalificacionesService){
-    
+  //formulario: FormGroup;
 
+  constructor(private datepipe: DatePipe,private alumnosService: AlumnosService,
+    private calificacionService: CalificacionesService,private formBuilder: FormBuilder){
+      /*
+      this.formulario = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]]
+      });
+      */
   }
+  /*
+  submitForm() {
+    if (this.formulario.valid) {
+      // Tu lógica para manejar el envío del formulario aquí
+      console.log('Formulario válido. Datos:', this.formulario.value);
+    } else {
+      // Tu lógica para manejar el formulario no válido aquí
+      console.log('Formulario no válido. Por favor, corrige los errores.');
+    }
+  }
+  */
 
   ngOnInit() {
     this.getAlumnos();
@@ -57,13 +76,42 @@ export class CalificacionesFormComponent implements OnInit {
     console.log(this.fechas);
   }
 
-  saveCalificacion(){
-    this.calificacionService.saveCalificacion(this.calificacion).subscribe(
-      (res) => {
-        console.log(res);
-        
-      },
-      (err) => console.error(err)
-    );
+  saveCalificacion(id:number){
+    this.calificacion.id_alumno = id;
+    Swal.fire({
+      title: "Assign grade ?",
+      text: "This grade will be assing to this student!",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, add it!"
+    }).then((result) => {
+      
+      if (result.isConfirmed) {
+        this.calificacionService.saveCalificacion(this.calificacion).subscribe(
+          result => {
+            console.log(result);
+            //this.router.navigate(['/horario']);
+            Swal.fire({
+              title: "Done!",
+              text: "The grade has been added.",
+              icon: "success"
+            });
+            
+          },
+          (err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+              
+            });
+          }
+        );
+       
+      }
+    });
+   
   }
 }

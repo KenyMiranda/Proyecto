@@ -6,6 +6,8 @@ export interface Users{
     telephoneU : string;
     email: string;
     password: string;
+    
     id_rol?: number;
+    status?: string;
 
 }

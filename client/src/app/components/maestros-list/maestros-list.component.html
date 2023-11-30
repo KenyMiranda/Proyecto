@@ -22,17 +22,23 @@
             <ul class="dropdown">
               <li><a routerLink="/usuarios-list">Users</a></li>
               <li><a routerLink="/admins-list">Administradores</a></li>
+              <li><a routerLink="/usuarios-list">Users</a></li>
+              <li><a routerLink="/admins-list">Administradores</a></li>
             </ul>
           </li>
           
           <li><a routerLink="/maestros-list">Maestros</a></li>
-          <li class="has-dropdown"><a routerLink="">Horarios</a>
+          <li><a routerLink="/grupos">Grupos</a></li>
+          <li><a routerLink="/clases">Clases</a></li>
+          <li class="has-dropdown"><a>Horarios</a>
             <ul class="dropdown">
               <li><a routerLink="/horario-form">Agregar Horario</a></li>
               <li><a routerLink="/horario">Ver Horarios</a></li>
             </ul>
           </li>
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Materiales</a></li>
         </ul>
       </div>
     </nav>
@@ -69,25 +75,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-gray-100 border-b" *ngFor="let maestro of arrayMaestros[0]|filterMaestro:filterPost">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ maestro.first_name_M }}</td>
+              <tr class="bg-gray-100 border-b" *ngFor="let maestro of arrayMaestros[0]">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ maestro.first_nameU }}</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   
-                {{ maestro.last_name_M }}
+                {{ maestro.last_nameU }}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ maestro.last_name2_M }}
+                  {{ maestro.last_nameU2 }}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ maestro.telephone_M}}
+                  {{ maestro.telephoneU}}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ maestro.email_M}}
+                  {{ maestro.email}}
                 </td>
 
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   <!-- component -->
                   <button
+                  [routerLink]="['/usuario/update',maestro.id_user]"
                   data-ripple-light="true"
                   data-popover-target="popover"
                   class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -101,7 +108,7 @@
                   data-ripple-light="true"
                   data-popover-target="popover"
                   class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  (click)="deleteMaestro(maestro.id_maestro)"
+                  (click)="deleteMaestro(maestro.id_user)"
                   >
                   DELETE
                   </button>

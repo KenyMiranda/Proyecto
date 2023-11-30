@@ -22,43 +22,31 @@
               <ul class="dropdown">
                 <li><a routerLink="/usuarios-list">Users</a></li>
                 <li><a routerLink="/admins-list">Administradores</a></li>
+                <li><a routerLink="/usuarios-list">Users</a></li>
+                <li><a routerLink="/admins-list">Administradores</a></li>
               </ul>
             </li>
             
             <li><a routerLink="/maestros-list">Maestros</a></li>
-            <li class="has-dropdown"><a routerLink="">Horarios</a>
+            <li><a routerLink="/grupos">Grupos</a></li>
+            <li><a routerLink="/clases">Clases</a></li>
+            <li class="has-dropdown"><a>Horarios</a>
               <ul class="dropdown">
                 <li><a routerLink="/horario-form">Agregar Horario</a></li>
                 <li><a routerLink="/horario">Ver Horarios</a></li>
               </ul>
             </li>
             <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
+            <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
+            <li><a routerLink="/calificaciones-list">Materiales</a></li>
           </ul>
         </div>
       </nav>
     </header>
     <form>
-      <div class="field">
-        <label
-          for="email"
-          class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-          >Alumno</label
-        >
-        <div class="control">
-          <div class="select">
-            <select [(ngModel)]="calificacion.id_alumno" name="horario.id_maestro">
-              <option>Select Alumno</option>
-              <option
-                *ngFor="let alumno of arrayAlumnos[0]"
-                value="{{ alumno.id_alumno}}"
-              >
-                {{ alumno.first_name_A }} {{ alumno.last_name_A }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div>
+      
+      
+      <div style="margin-left: 30px; margin-top: 20px;">
         <label
           for="email"
           class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
@@ -75,32 +63,98 @@
         />
       </div>
 
-      <div>
-        <label
-          for="email"
-          class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-          >Calificacion</label
-        >
-        <input
-          type="text"
-          name="Hora_inicio"
-          id="email"
-          [(ngModel)]="calificacion.calificacion"
-          style="width: 150px"
-          placeholder="example@example.com"
-          class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-        />
-      </div>
+      
 
-      <div class="mt-6">
-        <button
-          style="width: 340px; margin-left: 40%"
-          (click)="saveCalificacion()"
-          class="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-        >
-          Save
-        </button>
-      </div>
     </form>
+
+    <div class="flex flex-col">
+      <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <table class="min-w-full">
+              <thead class="bg-white border-b">
+                <tr>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    First Name
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Last Name
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Second Last Name
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Grade
+                  </th>
+  
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tr class="bg-gray-100 border-b" *ngFor="let alumno of arrayAlumnos[0]">
+                <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ alumno.first_nameU }}</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  
+                {{ alumno.last_nameU }}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{ alumno.last_nameU2 }}
+                </td>
+
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <input type="text"
+                  [(ngModel)]="calificacion.calificacion"
+                  placeholder="Ingresar Calificacion">
+                </td>
+         
+
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <!-- component -->
+                  <button 
+                  data-ripple-light="true"
+                  data-popover-target="popover"
+                  (click)="saveCalificacion(alumno.id_user)"
+                  class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  >
+                  AGREGAR
+                  </button>
+                </td>
+
+                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+             
+                </td>
+              </tr>
+            </table>
+  
+            
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+    <!-- 
+    <form [formGroup]="formulario">
+      <label for="email">Correo Electrónico:</label>
+      <input type="text" id="email" formControlName="email">
+    
+      <div *ngIf="formulario.get('email')?.invalid && (formulario.get('email')?.dirty || formulario.get('email')?.touched)">
+        <div *ngIf="formulario.get('email')?.errors?.['required']">
+          El correo electrónico es requerido.
+        </div>
+        <div *ngIf="formulario.get('email')?.errors?.['email']">
+          Ingresa un correo electrónico válido.
+        </div>
+      </div>
+      
+    
+      <button type="submit" [disabled]="formulario.invalid">Enviar</button>
+    </form>
+    -->
+    
   </body>
 </html>
+
+
+

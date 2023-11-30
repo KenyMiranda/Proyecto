@@ -18,30 +18,54 @@ class AlumnoController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             //const alumno = await db.query("SELECT first_nameU,last_nameU,last_nameU2,telephoneU,email FROM users WHERE id_rol=1");
-            const alumno = yield database_1.default.query("SELECT * FROM alumnos");
-            res.json(alumno);
+            try {
+                const alumno = yield database_1.default.query("SELECT * FROM users WHERE id_rol=1 AND status='Activo'");
+                res.json(alumno);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const alumno = yield database_1.default.query("SELECT * FROM alumnos WHERE id_alumno=?", [id]);
-            res.json(alumno);
+            try {
+                const alumno = yield database_1.default.query("SELECT * FROM users WHERE id_user=? AND id_rol=1 AND status='Activo'", [id]);
+                res.json(alumno);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     deleteAlumno(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM alumnos WHERE id_alumno=?", [id]);
-            res.json({ text: "Alumno deleted" });
+            try {
+                yield database_1.default.query("DELETE FROM users WHERE id_user=? AND id_rol=1 ", [id]);
+                res.json({ text: "Alumno deleted" });
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     updateAlumno(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const datos = req.body;
-            yield database_1.default.query("UPDATE alumnos SET ? WHERE id_alumno = ?", [datos, id]);
-            res.json({ message: "Alumno updated" });
+            try {
+                yield database_1.default.query("UPDATE users SET ? WHERE id_user = ? AND id_rol=1 AND status='Activo'", [datos, id]);
+                res.json({ message: "Alumno updated" });
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
 }

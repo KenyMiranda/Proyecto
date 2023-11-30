@@ -10,6 +10,7 @@ import horarioRoutes from "./routes/horarioRoutes";
 import calificacionRoutes from "./routes/calificacionRoutes";
 import claseRoutes from "./routes/claseRoutes";
 import grupoRoutes from "./routes/grupoRoutes";
+import claseHorarioRoutes from "./routes/clasesHorariosRoutes";
 
 class Server {
     public app: Application;
@@ -37,6 +38,7 @@ class Server {
         this.app.use('/calificacion',calificacionRoutes);
         this.app.use('/clase',claseRoutes);
         this.app.use('/grupo',grupoRoutes);
+        this.app.use('/claseHorario',claseHorarioRoutes)
         
     }
 

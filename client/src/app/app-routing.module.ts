@@ -18,6 +18,9 @@ import { CalificacionesFormComponent } from './components/calificaciones-form/ca
 import { CalificacionesComponent } from './components/calificaciones/calificaciones.component';
 import { CalificacionesListComponent } from './components/calificaciones-list/calificaciones-list.component';
 import { ClasesComponent } from './components/clases/clases.component';
+import { GruposComponent } from './components/grupos/grupos.component';
+import { GrabacionesComponent } from './components/grabaciones/grabaciones.component';
+import { MaterialesComponent } from './components/materiales/materiales.component';
 const routes: Routes = [
   {
     path: '',
@@ -31,10 +34,7 @@ const routes: Routes = [
     path: 'alumnos',
     component: AlumnosComponent,
   },
-  { path: 'registro',   
-    component: RegisterComponent,
-  
-  },
+  { path: 'registro', component: RegisterComponent },
   {
     path: 'update',
     component: UpdateFormComponent,
@@ -59,9 +59,21 @@ const routes: Routes = [
   },
 
   {
-    path :'clases',
+    path: 'clases',
     component: ClasesComponent,
   },
+
+  {
+    path: 'grupos',
+    component: GruposComponent,
+  },
+
+  { path: 'grabaciones', 
+    component: GrabacionesComponent },
+
+
+  { path: 'materiales', 
+    component: MaterialesComponent },
 
   {
     path: 'usuarios-list',
@@ -82,11 +94,11 @@ const routes: Routes = [
     component: AlumnosListComponent,
   },
   {
-    path : 'calificacion-form',
+    path: 'calificacion-form',
     component: CalificacionesFormComponent,
   },
   {
-    path : 'calificaciones-list',
+    path: 'calificaciones-list',
     component: CalificacionesListComponent,
   },
   {
@@ -99,17 +111,22 @@ const routes: Routes = [
   },
 
   {
-    path: 'admin/update/:id',
-    component:UpdateFormComponent 
+    path: 'horario/update/:id',
+    component: HorariosFormComponent,
   },
-  
+
   {
-    path:'alumno/update/:id',
+    path: 'admin/update/:id',
     component: UpdateFormComponent,
   },
 
   {
-    path : 'maestro/update/:id',
+    path: 'alumno/update/:id',
+    component: UpdateFormComponent,
+  },
+
+  {
+    path: 'maestro/update/:id',
     component: UpdateFormComponent,
   },
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Calificacion } from 'src/app/models/calificaciones';
 import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
 import { CalificacionesService } from 'src/app/services/calificaciones/calificaciones.service';
+import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-horarios.service';
+
 
 @Component({
   selector: 'app-calificaciones-list',
@@ -13,6 +15,7 @@ export class CalificacionesListComponent implements OnInit {
   arrayCalificaciones: any = [];
   arrayFechas: any = [];
   arrayCalif : any = [];
+  arrayClases : any =[];
   calificacion: Calificacion = {
     fecha_calif: new Date(),
     calificacion: 0,
@@ -23,11 +26,13 @@ export class CalificacionesListComponent implements OnInit {
 
   constructor(
     private alumnosService: AlumnosService,
-    private calificacionesService: CalificacionesService
+    private calificacionesService: CalificacionesService,
+    private clasesHorarioService: ClasesHorariosService
   ) {}
   ngOnInit() {
     this.getAlumnos();
     this.getCalificaciones();
+    this.getClases();
   }
 
   getAlumnos() {
@@ -38,6 +43,20 @@ export class CalificacionesListComponent implements OnInit {
       },
 
       (err) => console.error(err)
+    );
+  }
+
+  getClases(){
+    this.clasesHorarioService.getClasesHorarios().subscribe(
+      (res) => {
+
+        this.arrayClases = res;
+        console.log(this.arrayClases[0]);
+      },
+      (err) => console.error(err)
+
+      
+
     );
   }
 

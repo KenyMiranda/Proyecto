@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlumnosService } from './services/alumnos/alumnos.service';
 import { AdminService } from './services/admin/admin.service';
 import { MaestrosService } from './services/maestros/maestros.service';
@@ -39,6 +39,10 @@ import { FilterCalifPipe } from './pipes/filter-calif.pipe';
 import { ClasesComponent } from './components/clases/clases.component';
 import { ClasesService } from './services/clases/clases.service';
 import { GruposService } from './services/grupos/grupos.service';
+import { GruposComponent } from './components/grupos/grupos.component';
+import { ClasesHorariosService } from './services/clasesHorarios/clases-horarios.service';
+import { GrabacionesComponent } from './components/grabaciones/grabaciones.component';
+import { MaterialesComponent } from './components/materiales/materiales.component';
 
 
 
@@ -70,9 +74,12 @@ import { GruposService } from './services/grupos/grupos.service';
     FilterHorarioPipe,
     FilterCalifPipe,
     ClasesComponent,
+    GruposComponent,
+    GrabacionesComponent,
+    MaterialesComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,GruposService,DatePipe],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule,ReactiveFormsModule],
+  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
