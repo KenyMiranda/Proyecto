@@ -21,6 +21,7 @@ import { ClasesComponent } from './components/clases/clases.component';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { GrabacionesComponent } from './components/grabaciones/grabaciones.component';
 import { MaterialesComponent } from './components/materiales/materiales.component';
+import { ClasesListComponent } from './components/clases-list/clases-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -49,18 +50,23 @@ const routes: Routes = [
   },
 
   {
-    path: 'horario',
+    path: 'horarios',
     component: HorariosComponent,
   },
 
   {
-    path: 'horario-form',
+    path: 'horarios-form',
     component: HorariosFormComponent,
   },
 
   {
     path: 'clases',
     component: ClasesComponent,
+  },  
+  
+  {
+    path: 'clases-list',
+    component: ClasesListComponent,
   },
 
   {
@@ -94,7 +100,7 @@ const routes: Routes = [
     component: AlumnosListComponent,
   },
   {
-    path: 'calificacion-form',
+    path: 'calificaciones-form/:id',
     component: CalificacionesFormComponent,
   },
   {
@@ -102,7 +108,7 @@ const routes: Routes = [
     component: CalificacionesListComponent,
   },
   {
-    path: 'calificacion/:id',
+    path: 'calificaciones/:id',
     component: CalificacionesComponent,
   },
   {
@@ -111,7 +117,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'horario/update/:id',
+    path: 'horarios/update/:id',
     component: HorariosFormComponent,
   },
 

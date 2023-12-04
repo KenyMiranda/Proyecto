@@ -21,7 +21,7 @@ export class HorariosFormComponent  implements OnInit {
   horario : Horario = {
     
     idioma:"",
-    dia:"",
+    //dia:"",
     Hora_inicio:"",
     Hora_final:"",
     id_grupo:0,

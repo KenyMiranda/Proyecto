@@ -17,22 +17,20 @@ const database_1 = __importDefault(require("../database"));
 class ClaseController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const clase = yield database_1.default.query("SELECT * FROM clases c JOIN grupos g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;");
+            const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;");
             res.json(clase);
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const clase = yield database_1.default.query("SELECT * FROM clases WHERE id_clase=?", [id]);
+            const clase = yield database_1.default.query("SELECT * FROM clase WHERE id_clase=?", [id]);
             res.json(clase);
         });
     }
     addClase(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let alumnoId = req.body.id_alumno;
-            let maestro = req.body.id_maestro;
-            let maestro2 = req.body.id_maestro2;
             let grupo = req.body.id_grupo;
             /*
             let alumnoArray = await db.query(
@@ -53,19 +51,14 @@ class ClaseController {
               res.status(500).send("Error interno del servidor");
             }
             */
-            console.log(maestro);
-            console.log(maestro2);
             try {
-                if (maestro2 == 0) {
-                    req.body.id_maestro2 = req.body.id_maestro;
-                }
-                if (maestro == 0 || grupo == 0) {
+                if (alumnoId == 0 || grupo == 0) {
                     return res.status(400).json({
                         msg: "Favor de llenar los campos",
                     });
                 }
                 else {
-                    const clase = yield database_1.default.query("INSERT INTO clases SET ?", [req.body]);
+                    const clase = yield database_1.default.query("INSERT INTO clase SET ?", [req.body]);
                     res.json({ message: "Registros insertados correctamente" });
                 }
             }
@@ -78,7 +71,7 @@ class ClaseController {
     deleteClase(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            const clase = yield database_1.default.query("Delete from clases where id_clase = ?", id);
+            const clase = yield database_1.default.query("Delete from clase where id_clase = ?", id);
             res.json({ text: "Clase eliminada" });
         });
     }
@@ -86,7 +79,7 @@ class ClaseController {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
             const datos = req.body;
-            yield database_1.default.query("UPDATE clases SET ? WHERE id_clase = ?", [datos, id]);
+            yield database_1.default.query("UPDATE clase SET ? WHERE id_clase = ?", [datos, id]);
             res.json({ message: "Clase updated" });
         });
     }

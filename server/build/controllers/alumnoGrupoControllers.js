@@ -12,26 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.claseHorarioController = void 0;
+exports.alumnoGrupoController = void 0;
 const database_1 = __importDefault(require("../database"));
-class ClaseHorarioController {
+class AlumnoGrupoController {
     list(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;");
-                res.json(clase);
-            }
-            catch (error) {
-                console.error("Error al ejecutar la consulta MySQL:", error);
-                res.status(500).send("Error interno del servidor");
-            }
-        });
-    }
-    listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const clase = yield database_1.default.query("SELECT * FROM horarios h JOIN grupos g ON h.id_grupo = g.id_grupo WHERE id_horario =? GROUP BY g.id_grupo,h.dia;", [id]);
+                const clase = yield database_1.default.query("SELECT id_user,first_nameU,last_nameU,last_nameU2 from users u JOIN clase c ON u.id_user = c.id_alumno WHERE c.id_grupo =?;", id);
                 res.json(clase);
             }
             catch (error) {
@@ -41,5 +29,5 @@ class ClaseHorarioController {
         });
     }
 }
-exports.claseHorarioController = new ClaseHorarioController();
-exports.default = exports.claseHorarioController;
+exports.alumnoGrupoController = new AlumnoGrupoController();
+exports.default = exports.alumnoGrupoController;

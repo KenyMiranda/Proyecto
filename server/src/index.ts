@@ -11,6 +11,7 @@ import calificacionRoutes from "./routes/calificacionRoutes";
 import claseRoutes from "./routes/claseRoutes";
 import grupoRoutes from "./routes/grupoRoutes";
 import claseHorarioRoutes from "./routes/clasesHorariosRoutes";
+import alumnoGrupoRoutes from "./routes/alumnosGruposRoutes";
 
 class Server {
     public app: Application;
@@ -38,7 +39,8 @@ class Server {
         this.app.use('/calificacion',calificacionRoutes);
         this.app.use('/clase',claseRoutes);
         this.app.use('/grupo',grupoRoutes);
-        this.app.use('/claseHorario',claseHorarioRoutes)
+        this.app.use('/claseHorario',claseHorarioRoutes);
+        this.app.use('/alumnoGrupo',alumnoGrupoRoutes);
         
     }
 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="nav-wrapper" style="background-color: #0066ff">
+        <a routerLink="/" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo"
+            style="width: px; height:62px; margin-left: 5px;" /></a>
+
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a routerLink="/usuarios-list">Users</a></li>
+          <li><a routerLink="/admins-list">Administradores</a></li>
+          <li class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
+            <ul class="dropdown">
+              <li><a routerLink="/usuarios-list">Users</a></li>
+              <li><a routerLink="/admins-list">Administradores</a></li>
+              <li><a routerLink="/usuarios-list">Users</a></li>
+              <li><a routerLink="/admins-list">Administradores</a></li>
+            </ul>
+          </li>
+
+          <li><a routerLink="/maestros-list">Maestros</a></li>
+          <li><a routerLink="/grupos">Grupos</a></li>
+          <li><a routerLink="/clases">Clases</a></li>
+          <li class="has-dropdown"><a>Horarios</a>
+            <ul class="dropdown">
+              <li><a routerLink="/horario-form">Agregar Horario</a></li>
+              <li><a routerLink="/horario">Ver Horarios</a></li>
+            </ul>
+          </li>
+          <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
+          <li><a routerLink="/calificaciones-list">Materiales</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <input type="text" style="height: 35px; width: 800px; margin-left: 20%;" name="search" placeholder="Search"
+    class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
+      *ngFor="let clase of arrayClases[0]">
+      <div class="flex-1 flex flex-col p-8">
+        <img class="w-32 h-32 flex-shrink-0 mx-auto rounded-full"
+          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+          alt="">
+        <h3 class="mt-6 text-gray-900 text-sm font-medium">{{clase.nombre_grupo}}</h3>
+        <dl class="mt-1 flex-grow flex flex-col justify-between">
+          <dt class="sr-only">Title</dt>
+          <h4 class="mt-6 text-gray-900 text-sm font-medium">Category</h4>
+          <dd class="text-gray-500 text-sm">{{clase.categoria}} <br></dd>
+          <h4 class="mt-6 text-gray-900 text-sm font-medium">Teachers</h4>
+
+          
+          <dd class="mt-3">
+            <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{obtenerNombreMaestro(clase.id_maestro)}}</span> <br/><br>
+            <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{obtenerNombreMaestro2(clase.id_maestro)}}</span>            
+
+          </dd>
+        </dl>
+      </div>
+      <div>
+        <div class="-mt-px flex divide-x divide-gray-200">
+          <div class="w-0 flex-1 flex">
+            <a (click)="getAlumnos(clase.id_grupo)"
+              class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+              <!-- Heroicon name: solid/mail -->
+
+              <span class="ml-3">View list</span>
+            </a>
+          </div>
+   
+        </div>
+      </div>
+    </li>
+
+
+
+    <!-- More people... -->
+
+  </ul>
+  <br>
+  <h6 *ngIf="click">Lista de Alumnos </h6>
+  <div *ngIf="click" class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  First Name
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Last Name
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Second Last Name
+                </th>
+
+
+              </tr>
+            </thead>
+            <tr class="bg-gray-100 border-b" *ngFor="let alumno of arrayAlumnos[0]">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {{alumno.first_nameU}}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                {{alumno.last_nameU}}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                {{alumno.last_nameU2}}
+              </td>
+
+
+
+
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

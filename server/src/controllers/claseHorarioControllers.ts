@@ -4,7 +4,7 @@ class ClaseHorarioController {
   public async list(req: Request, res: Response): Promise<void> {
     try {
       const clase = await db.query(
-        "SELECT * FROM horarios h JOIN grupos g ON h.id_grupo = g.id_grupo GROUP BY g.id_grupo,h.dia;"
+        "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;"
       );
       res.json(clase);
     } catch (error) {

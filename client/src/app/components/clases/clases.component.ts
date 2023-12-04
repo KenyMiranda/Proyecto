@@ -23,16 +23,22 @@ export class ClasesComponent implements OnInit {
   seleccion2 : boolean = false;
   agregarGrupo : boolean = false;
   numeroMaes : number = 0 ;
+  
 
   filterPost = ""
   grupo : Grupo ={
-    nombre_grupo : ""
+    nombre_grupo : "",
+    categoria:"",
+    id_maestro:0,
+    id_maestro2:0,
+   
+
   }
   clase : Clase = {
     id_grupo : 0,
-    id_alumno : 0,
-    id_maestro :0,
-    id_maestro2:0
+    id_alumno : 0
+    
+    
   }
   constructor(private claseService: ClasesService ,private alumnosService: AlumnosService , private maestrosService: MaestrosService,private gruposService:GruposService,private router:Router){}
   ngOnInit(): void {
@@ -102,7 +108,7 @@ export class ClasesComponent implements OnInit {
             Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Something went wrong!",
+            text: "Something went wrong! {err.message}",
             footer: '<a href="#">Why do I have this issue?</a>'
           });
         }
@@ -134,6 +140,13 @@ export class ClasesComponent implements OnInit {
       this.seleccion1 = true;
       this.seleccion2 = true;
     } 
+    
+
+  }
+
+  escogerGrupo(id:number){
+
+    this.clase.id_grupo = id;
     
 
   }
@@ -180,6 +193,44 @@ export class ClasesComponent implements OnInit {
     console.log('ID del alumno: ' + id);
   }
 
+  nombreMaestro(id: number){
+    const maestro = this.arrayMaestros[0].find((m: { id_user: number; }) => m.id_user === id);
+    return maestro ? `${maestro.first_nameU}`+`  ${maestro.last_nameU}` : 'Maestro no encontrado';
+  }
+  obtenerGrupo(idGrupo: number):any {
+
+    const grupo = this.arrayGrupos[0].find((m: { id_grupo: number; }) => m.id_grupo === idGrupo);
+    return grupo ? `${grupo.nombre_grupo}` : '';
+
+   
+      
+  }
+
+  obtenerNombreMaestro(idGrupo: number): any {
+    // Encuentra la clase correspondiente al id_grupo
+    const grupo = this.arrayGrupos[0].find((c: {id_grupo:number})=> c.id_grupo === idGrupo);
+
+    // Si se encuentra la clase, encuentra el maestro correspondiente al id_maestro
+    if (grupo) {
+      const maestro = this.arrayMaestros[0].find((m: {id_user:number}) => m.id_user === grupo.id_maestro);
+      return maestro ? `${maestro.first_nameU} ${maestro.last_nameU}` : 'Maestro no encontrado';
+    }
+
+    
+  }
+
+  obtenerNombreMaestro2(idGrupo: number): any {
+    // Encuentra la clase correspondiente al id_grupo
+    const grupo = this.arrayGrupos[0].find((c: {id_grupo:number})=> c.id_grupo === idGrupo);
+
+    // Si se encuentra la clase, encuentra el maestro correspondiente al id_maestro
+    if (grupo) {
+      const maestro = this.arrayMaestros[0].find((m: {id_user:number}) => m.id_user === grupo.id_maestro2);
+      return maestro ? `${maestro.first_nameU} ${maestro.last_nameU}` : 'Maestro no encontrado';
+    }
+
+  
+  }
   
 
 }

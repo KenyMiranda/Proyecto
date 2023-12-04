@@ -43,6 +43,8 @@ import { GruposComponent } from './components/grupos/grupos.component';
 import { ClasesHorariosService } from './services/clasesHorarios/clases-horarios.service';
 import { GrabacionesComponent } from './components/grabaciones/grabaciones.component';
 import { MaterialesComponent } from './components/materiales/materiales.component';
+import { ClasesListComponent } from './components/clases-list/clases-list.component';
+import { AlumnoGruposService } from './services/alumnoGrupos/alumno-grupos.service';
 
 
 
@@ -77,9 +79,10 @@ import { MaterialesComponent } from './components/materiales/materiales.componen
     GruposComponent,
     GrabacionesComponent,
     MaterialesComponent,
+    ClasesListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule,ReactiveFormsModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,DatePipe],
+  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,AlumnoGruposService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

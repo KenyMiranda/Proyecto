@@ -34,7 +34,7 @@ class AlumnoController {
           res.json({text: "Alumno deleted"});
         } catch (error) {
           console.error("Error al ejecutar la consulta MySQL:", error);
-          res.status(500).send("Error interno del servidor");
+          res.status(500).send(error);
         }
 
       

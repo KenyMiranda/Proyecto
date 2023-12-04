@@ -3,7 +3,7 @@ export default{
         host:'localhost',
         user:'root',
         password:'',
-        database:'ingles',
+        database:'ingles2',
         port:3306
         
     }
