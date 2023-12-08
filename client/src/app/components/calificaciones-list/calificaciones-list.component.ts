@@ -18,17 +18,16 @@ import Swal from 'sweetalert2';
   styleUrls: ['./calificaciones-list.component.css'],
 })
 export class CalificacionesListComponent implements AfterViewInit {
-  @ViewChild('miInput', { static: true })
-  miInput!: ElementRef; 
-  inputValue: string = '80';
+ 
 
   arrayAlumnos: any = [];
   arrayCalificaciones: any = [];
+  arrayCalifAlumno:any = [];
   arrayFechas: any = [];
   arrayCalif: any = [];
   arrayClases: any = [];
   calificacion: Calificacion = {
-    fecha_calif: new Date(),
+    fecha_calif: "",
     calificacion: 0,
     id_alumno: 0,
   };
@@ -43,32 +42,14 @@ export class CalificacionesListComponent implements AfterViewInit {
     private alumnosGrupoService: AlumnoGruposService
   ) {}
   ngAfterViewInit() {
-    this.getCalificaciones();
+    
     this.getClases();
   }
 
-  onInputChange() {
-    if (this.miInput) {
-      const inputValue = this.miInput.nativeElement.value;
-      console.log('Valor del input:', inputValue);
-      // Puedes realizar cualquier acción con el valor del input aquí
-    }
-  }
+  
 
   onClickButton(id: number) {
-    if (this.miInput && this.miInput.nativeElement) {
-      const inputValue = this.miInput.nativeElement.value;
-      console.log('Valor del input:', inputValue);
-    } else {
-      console.error('miInput es undefined o su propiedad nativeElement es undefined.');
-    }
-    const inputValue = this.miInput.nativeElement.value;
-    this.calificacion.calificacion = inputValue;
-
-    console.log('Valor del input:', this.calificacion.calificacion);
-    this.calificacion.id_alumno = id;
-
-    // Aquí puedes realizar cualquier acción con el valor del input
+   
 
     Swal.fire({
       title: 'Assign grade ?',
@@ -105,7 +86,7 @@ export class CalificacionesListComponent implements AfterViewInit {
   }
   getAlumnos(id: number) {
     this.click = true;
-
+    //[routerLink]="['/calificaciones',alumno.id_user]" 
     this.alumnosGrupoService.getAlumnos(id.toString()).subscribe(
       (res) => {
         this.arrayAlumnos = res;
@@ -113,6 +94,13 @@ export class CalificacionesListComponent implements AfterViewInit {
       },
       (err) => console.error(err)
     );
+    
+    this.getCalificaciones(id)
+
+    
+
+
+    
   }
 
   getClases() {
@@ -125,14 +113,17 @@ export class CalificacionesListComponent implements AfterViewInit {
     );
   }
 
-  getCalificaciones() {
+
+
+  getCalificaciones(id:number) {
     const objeto: any = {};
-    this.calificacionesService.getCalificaciones().subscribe(
+    this.calificacionesService.getCalificaciones(id.toString()).subscribe(
       (res) => {
         this.arrayCalificaciones = res;
         for (let i = 0; i < this.arrayCalificaciones[0].length; i++) {
           objeto[i] = this.arrayCalificaciones[0][i];
-          //let fecha = objeto[i].fecha_calif;
+          let fecha = objeto[i].fecha_calif;
+          
           if (this.arrayFechas.length === 0) {
             this.arrayFechas.push(objeto[i].fecha_calif);
           } else {
@@ -140,8 +131,9 @@ export class CalificacionesListComponent implements AfterViewInit {
             if (!(fecha == objeto[i].fecha_calif))
               this.arrayFechas.push(objeto[i].fecha_calif);
           }
+          
 
-          if (this.arrayFechas.length > 5) this.arrayFechas.splice(0, 1);
+          //if (this.arrayFechas.length > 5) this.arrayFechas.splice(0, 1);
         }
 
         console.log(this.arrayCalificaciones[0]);
@@ -151,11 +143,11 @@ export class CalificacionesListComponent implements AfterViewInit {
     );
   }
 
-  obtenerCalificacion(id_alumno: number, fecha: Date): number {
+  obtenerCalificacion(id_alumno: number, fecha: Date): any {
     const maestro = this.arrayCalificaciones[0].find(
       (m: { id_alumno: number; fecha_calif: Date }) =>
         m.id_alumno === id_alumno && m.fecha_calif === fecha
     );
-    return maestro ? maestro.calificacion : 0;
+    return maestro ? maestro.calificacion : '';
   }
 }

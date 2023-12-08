@@ -33,22 +33,23 @@
           <li><a routerLink="/clases">Clases</a></li>
           <li class="has-dropdown"><a>Horarios</a>
             <ul class="dropdown">
-              <li><a routerLink="/horario-form">Agregar Horario</a></li>
-              <li><a routerLink="/horario">Ver Horarios</a></li>
+              <li><a routerLink="/horarios-form">Agregar Horario</a></li>
+              <li><a routerLink="/horarios">Ver Horarios</a></li>
             </ul>
           </li>
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
-          <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
-          <li><a routerLink="/calificaciones-list">Materiales</a></li>
+          <li><a routerLink="">Grabaciones</a></li>
+          <li><a routerLink="">Materiales</a></li>
         </ul>
       </div>
     </nav>
   </header>
   <input
+  *ngIf="isAdmin"
   type="text" style="height: 35px; width: 800px; margin-left: 20%;"placeholder="Search" [(ngModel)]="filterPost"
   class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 />
-<button (click)="exportarAExcel()">Exportar a Excel</button>
+<button *ngIf="isAdmin" (click)="exportarAExcel()">Exportar a Excel</button>
 
   <div class="flex flex-col">
     <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -90,11 +91,11 @@
                   <br>
                     <!-- component -->
                     <button
-                   
+                    *ngIf="isAdmin"
                     data-ripple-light="true"
                     data-popover-target="popover"
                     class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    [routerLink]="['/horario/update',horario.id_horario]"
+                    [routerLink]="['/horarios/update',horario.id_horario]"
                     >
                     UPDATE
                     </button>
@@ -104,6 +105,7 @@
                  
                     <button
                     data-ripple-light="true"
+                    *ngIf="isAdmin"
                     (click)="deleteHorario(horario.id_horario)"
                     data-popover-target="popover"
                     class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"

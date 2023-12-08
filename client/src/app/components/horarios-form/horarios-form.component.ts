@@ -51,14 +51,17 @@ export class HorariosFormComponent  implements OnInit {
     this.clases.getClases().subscribe(
       (res) => {
         this.arrayClases = res;
-       console.log(res);
+       console.log(this.arrayClases[0]);
       },
 
       (err) => console.error(err)
     );
+    
+    
   }
     saveHorario(){
     
+
 
       Swal.fire({
         title: "Save this schedule?",
@@ -104,7 +107,7 @@ export class HorariosFormComponent  implements OnInit {
   
        
       });
-
+      
     }
 
     updateHorario(){

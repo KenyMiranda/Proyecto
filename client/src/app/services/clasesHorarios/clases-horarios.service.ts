@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,18 @@ export class ClasesHorariosService {
 
     //OBTENER TODOS LOS USUARIOS 
     getClasesHorarios() {
-      return this.http.get(`${this.API_URL}/claseHorario`);
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.get(`${this.API_URL}/claseHorario`,{ headers:header });
    }
 
    //OBTENER UN USUARIO 
 
    getClaseHorario(id : string) {
-    return this.http.get(`${this.API_URL}/claseHorario/${id}`);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/claseHorario/${id}`,{ headers:header });
    }
 }

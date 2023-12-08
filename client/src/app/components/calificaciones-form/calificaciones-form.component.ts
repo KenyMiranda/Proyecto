@@ -29,9 +29,10 @@ export class CalificacionesFormComponent implements AfterViewInit {
   diasAgregados = 6;
 
   calificacion: Calificacion = {
-    fecha_calif: new Date(),
+    fecha_calif: "",
     calificacion: 0,
     id_alumno: 0,
+    
   };
 
   //formulario: FormGroup;
@@ -65,6 +66,7 @@ export class CalificacionesFormComponent implements AfterViewInit {
   ngAfterViewInit() {
     const params = this.activatedRoute.snapshot.params;
     if (params['id']) {
+      this.calificacion.id_grupo = params['id'];
       this.alumnosGruposService.getAlumnos(params['id']).subscribe((res) => {
         this.arrayAlumnos = res;
 
@@ -81,6 +83,7 @@ export class CalificacionesFormComponent implements AfterViewInit {
     }
 
     console.log(this.myElements)
+    
   }
   /*
   getAlumnos(){

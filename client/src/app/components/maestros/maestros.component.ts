@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-maestros',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class MaestrosComponent {
 
+  isAdmin: boolean = false;
+
+  constructor(private authService: AuthService) {
+
+  }
+
+  ngOnInit(): void {
+    // Obtener el estado de administrador desde el servicio de autenticación
+    
+  }
 }

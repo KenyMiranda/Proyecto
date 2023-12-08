@@ -17,22 +17,26 @@ const database_1 = __importDefault(require("../database"));
 class CalificacionController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const calificacion = yield database_1.default.query("SELECT * FROM calificaciones");
+            const { id } = req.params;
+            const calificacion = yield database_1.default.query("SELECT * FROM calificaciones WHERE id_grupo = ?", id);
             res.json(calificacion);
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            const calificacion = yield database_1.default.query("SELECT * FROM calificaciones WHERE id_alumno=?", [id]);
+            const id = req.params.id;
+            const idG = req.params.idG;
+            const calificacion = yield database_1.default.query("SELECT * FROM calificaciones WHERE id_alumno=? AND id_grupo=?", [id, idG]);
             res.json(calificacion);
         });
     }
     addCalificacion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let calif = req.body.calificacion;
+            let fecha = req.body.fecha_calif;
+            let grupo = req.body.id_grupo;
             try {
-                let calificacion = yield database_1.default.query("Select * from calificaciones where id_alumno = ? AND fecha_calif = ?", [req.body.id_alumno, req.body.fecha_calif]);
+                let calificacion = yield database_1.default.query("Select * from calificaciones where id_alumno = ? AND fecha_calif = ? AND id_grupo=?", [req.body.id_alumno, req.body.fecha_calif, grupo]);
                 let numero = "";
                 let num = 0; //numero para saber si hay calificacion repetido al mismo alumno en la misma fecha
                 for (numero in calificacion[0]) {
@@ -44,7 +48,7 @@ class CalificacionController {
                     console.log(req.body);
                 }
                 else {
-                    if (calif < 0 || calif > 100 || calif === "") {
+                    if (calif < 0 || calif > 100 || calif === "" || fecha == "") {
                         res.status(500).send("Error en las calificaciones");
                         console.log(req.body);
                     }

@@ -3,25 +3,28 @@ import db from "../database";
 
 class CalificacionController {
   public async list(req: Request, res: Response): Promise<void> {
-    const calificacion = await db.query("SELECT * FROM calificaciones");
+    const { id } = req.params;
+    const calificacion = await db.query("SELECT * FROM calificaciones WHERE id_grupo = ?",id);
     res.json(calificacion);
   }
 
   public async listOne(req: Request, res: Response) {
-    const { id } = req.params;
+    const id  = req.params.id;
+    const idG = req.params.idG;
     const calificacion = await db.query(
-      "SELECT * FROM calificaciones WHERE id_alumno=?",
-      [id]
+      "SELECT * FROM calificaciones WHERE id_alumno=? AND id_grupo=?",
+      [id,idG]
     );
     res.json(calificacion);
   }
 
   public async addCalificacion(req: Request, res: Response) {
     let calif = req.body.calificacion;
-    
+    let fecha = req.body.fecha_calif;
+    let grupo = req.body.id_grupo
 
     try {
-      let calificacion = await db.query("Select * from calificaciones where id_alumno = ? AND fecha_calif = ?", [req.body.id_alumno,req.body.fecha_calif]);
+      let calificacion = await db.query("Select * from calificaciones where id_alumno = ? AND fecha_calif = ? AND id_grupo=?", [req.body.id_alumno,req.body.fecha_calif,grupo]);
       let numero : string="" ;
       let num : number = 0; //numero para saber si hay calificacion repetido al mismo alumno en la misma fecha
       
@@ -36,7 +39,7 @@ class CalificacionController {
         console.log(num);
         console.log(req.body);
       } else {
-      if (calif < 0 || calif > 100 || calif === "") {
+      if (calif < 0 || calif > 100 || calif === ""||fecha=="") {
         res.status(500).send("Error en las calificaciones");
         console.log(req.body);
       } else {

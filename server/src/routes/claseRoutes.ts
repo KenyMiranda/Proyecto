@@ -1,5 +1,6 @@
 import {Router} from "express";
 import claseController from "../controllers/claseControllers";
+import validateToken from "./validateToken";
 
 class ClaseRoutes{
     public router: Router = Router();
@@ -9,11 +10,11 @@ class ClaseRoutes{
     }
 
     config(): void {
-        this.router.post("/",claseController.addClase);
-        this.router.get("/", claseController.list);
-        this.router.get("/:id", claseController.listOne);
-        this.router.delete("/:id",claseController.deleteClase);
-        this.router.put("/:id",claseController.updateClase);
+        this.router.post("/",validateToken,claseController.addClase);
+        this.router.get("/",validateToken, claseController.list);
+        this.router.get("/:id",validateToken, claseController.listOne);
+        this.router.delete("/:id",validateToken,claseController.deleteClase);
+        this.router.put("/:id",validateToken,claseController.updateClase);
         
         
     }

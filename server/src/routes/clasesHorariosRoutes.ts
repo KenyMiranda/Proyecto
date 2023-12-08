@@ -1,5 +1,6 @@
 import {Router} from "express";
 import claseHorarioController from "../controllers/claseHorarioControllers";
+import validateToken from "./validateToken";
 
 class ClaseHorarioRoutes{
     public router: Router = Router();
@@ -9,8 +10,8 @@ class ClaseHorarioRoutes{
     }
 
     config(): void {
-        this.router.get("/", claseHorarioController.list);
-        this.router.get("/:id", claseHorarioController.listOne);
+        this.router.get("/", validateToken, claseHorarioController.list);
+        this.router.get("/:id", validateToken,claseHorarioController.listOne);
 
         
         

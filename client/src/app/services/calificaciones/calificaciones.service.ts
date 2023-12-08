@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders } from '@angular/common/http';
 import {Calificacion} from '../../models/calificaciones';
 @Injectable({
   providedIn: 'root'
@@ -12,31 +12,46 @@ export class CalificacionesService {
    }
 
    //OBTENER TODOS LOS USUARIOS 
-   getCalificaciones() {
-      return this.http.get(`${this.API_URL}/calificacion`);
+   getCalificaciones(id : string) {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.get(`${this.API_URL}/calificacion/${id}`);
    }
 
    //OBTENER UN USUARIO 
 
-   getCalificacion(id : string) {
-    return this.http.get(`${this.API_URL}/calificacion/${id}`);
+   getCalificacion(idG:string,id : string) {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/calificacion/${idG}/${id}`);
    }
 
    //GUARDAR USUARIO 
 
    saveCalificacion(calificacion:Calificacion){
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
     return this.http.post(`${this.API_URL}/calificacion`,calificacion);
    }
 
    //BORRAR USUARIO 
 
     deleteCalificacion(id : string) {
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
       return this.http.delete(`${this.API_URL}/calificacion/${id}`);
     }
 
     //ACTUALIZAR USUARIO
 
     updateCalificacion(id : undefined|number , updatedCalificacion:Calificacion){
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
       return this.http.put(`${this.API_URL}/calificacion/${id}`,updatedCalificacion);
     }
 }

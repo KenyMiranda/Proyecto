@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users/users.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
@@ -11,19 +13,22 @@ import Swal from 'sweetalert2';
 export class UsersComponent implements OnInit {
   arrayusers: any = [];
   filterPost = "";
-  constructor(private usersService: UsersService , private router: Router) {}
+  constructor(private usersService: UsersService , private router: Router , private authService: AuthService) {}
 
   ngOnInit() {
     this.getUsers();
-
+    //this.authService.getIdFromToken();
 
   }
 
   getUsers() {
+    
     this.usersService.getUsers().subscribe(
       (res) => {
+        
         this.arrayusers = res;
         console.log(this.arrayusers[0]);
+        
       },
 
       (err) => {

@@ -1,5 +1,6 @@
 import {Router} from "express";
 import alumnoGrupoController from "../controllers/alumnoGrupoControllers";
+import validateToken from "./validateToken";
 
 class AlumnoGrupoRoutes{
     public router: Router = Router();
@@ -9,7 +10,7 @@ class AlumnoGrupoRoutes{
     }
 
     config(): void {
-        this.router.get("/:id", alumnoGrupoController.list);
+        this.router.get("/:id",validateToken, alumnoGrupoController.list);
 
         
         

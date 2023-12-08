@@ -36,8 +36,8 @@
             </ul>
           </li>
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
-          <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
-          <li><a routerLink="/calificaciones-list">Materiales</a></li>
+          <li><a routerLink="">Grabaciones</a></li>
+          <li><a routerLink="">Materiales</a></li>
         </ul>
       </div>
     </nav>
@@ -60,12 +60,26 @@
                 <dd class="text-gray-500 text-sm"></dd>
                 <dd class="text-gray-500 text-sm">{{grupos.categoria}}</dd>
                 <dt class="sr-only">Role</dt>
+                <h3 class="mt-6 text-gray-900 text-sm font-medium">Teachers</h3>
                 <dd class="mt-3">
-                  <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">Admin</span>
+                  <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{obtenerNombreMaestro(grupos.id_maestro)}}</span><br><br>
+                  <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{obtenerNombreMaestro2(grupos.id_maestro2)}}</span>
                 </dd>
               </dl>
             </div>
-            
+            <div>
+              <div class="-mt-px flex divide-x divide-gray-200">
+                <div class="w-0 flex-1 flex">
+                  <a 
+                    class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center bg-red-300  py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+                    <!-- Heroicon name: solid/mail -->
+      
+                    <span class="ml-3 text-gray-800 text-xs font-medium ">Delete Group</span>
+                  </a>
+                </div>
+         
+              </div>
+            </div>
           </li>
         
         

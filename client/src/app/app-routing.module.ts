@@ -22,6 +22,9 @@ import { GruposComponent } from './components/grupos/grupos.component';
 import { GrabacionesComponent } from './components/grabaciones/grabaciones.component';
 import { MaterialesComponent } from './components/materiales/materiales.component';
 import { ClasesListComponent } from './components/clases-list/clases-list.component';
+import { adminGuardGuard } from './guards/admin-guard.guard';
+import { maestroGuardGuard } from './guards/maestro-guard.guard';
+import { alumnoGuardGuard } from './guards/alumno-guard.guard';
 const routes: Routes = [
   {
     path: '',
@@ -30,48 +33,61 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    
   },
   {
     path: 'alumnos',
     component: AlumnosComponent,
+    canActivate :[adminGuardGuard]
+    
+    
   },
   { path: 'registro', component: RegisterComponent },
   {
     path: 'update',
     component: UpdateFormComponent,
+    canActivate : [adminGuardGuard]
   },
   {
     path: 'maestros',
     component: MaestrosComponent,
+    canActivate : [maestroGuardGuard]
   },
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate : [adminGuardGuard]
   },
 
   {
     path: 'horarios',
     component: HorariosComponent,
+    canActivate : [adminGuardGuard,maestroGuardGuard]
   },
 
   {
     path: 'horarios-form',
     component: HorariosFormComponent,
+    canActivate : [adminGuardGuard]
+    
   },
 
   {
     path: 'clases',
     component: ClasesComponent,
+    canActivate : [adminGuardGuard]
   },  
   
   {
     path: 'clases-list',
     component: ClasesListComponent,
+    canActivate : [adminGuardGuard]
   },
 
   {
     path: 'grupos',
     component: GruposComponent,
+    canActivate : [adminGuardGuard]
   },
 
   { path: 'grabaciones', 
@@ -84,46 +100,56 @@ const routes: Routes = [
   {
     path: 'usuarios-list',
     component: UsersComponent,
+    canActivate : [adminGuardGuard]
   },
 
   {
     path: 'admins-list',
     component: AdminListComponent,
+    canActivate : [adminGuardGuard]
   },
 
   {
     path: 'maestros-list',
     component: MaestrosListComponent,
+    canActivate : [adminGuardGuard]
   },
   {
     path: 'alumnos-list',
     component: AlumnosListComponent,
+    canActivate : [adminGuardGuard]
   },
   {
     path: 'calificaciones-form/:id',
     component: CalificacionesFormComponent,
+    canActivate : [adminGuardGuard]
   },
   {
     path: 'calificaciones-list',
     component: CalificacionesListComponent,
+    canActivate : [adminGuardGuard]
   },
   {
-    path: 'calificaciones/:id',
+    path: 'calificaciones/:idG/:id',
     component: CalificacionesComponent,
+    
   },
   {
     path: 'usuario/update/:id',
     component: RegisterComponent,
+    canActivate : [adminGuardGuard]
   },
 
   {
     path: 'horarios/update/:id',
     component: HorariosFormComponent,
+    canActivate : [adminGuardGuard]
   },
 
   {
     path: 'admin/update/:id',
     component: UpdateFormComponent,
+    canActivate : [adminGuardGuard]
   },
 
   {
@@ -138,7 +164,9 @@ const routes: Routes = [
 
   {
     path: '**',
-    component: Error404Component,
+    //component: Error404Component,
+    redirectTo :'login',pathMatch:'full'
+    
   },
 ];
 

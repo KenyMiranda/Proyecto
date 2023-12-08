@@ -1,48 +1,67 @@
 import { Injectable } from '@angular/core';
-import {HttpClient } from '@angular/common/http';
-import {Users} from '../../models/users';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Users } from '../../models/users';
+import { Router } from '@angular/router';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
-
   API_URL = 'http://localhost:3000';
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private router: Router) {}
 
-   }
+  //OBTENER TODOS LOS USUARIOS
+  getUsers() {
+    //return this.http.get(`${this.API_URL}/user`);
+    const token = localStorage.getItem('token');
+   
 
-   //OBTENER TODOS LOS USUARIOS 
-   getUsers() {
-      return this.http.get(`${this.API_URL}/user`);
-   }
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
 
-   //OBTENER UN USUARIO 
+    return this.http.get(`${this.API_URL}/user`, { headers: header });
+  }
 
-   getUser(id : string) {
-    return this.http.get(`${this.API_URL}/user/${id}`);
-   }
+  //OBTENER UN USUARIO
 
-   //GUARDAR USUARIO 
+  getUser(id: string) {
+    const token = localStorage.getItem('token');
 
-   saveUser(user:Users){
-    return this.http.post(`${this.API_URL}/user`,user);
-   }
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/user/${id}`, { headers: header });
+  }
 
-   //LOGIN USUARIO 
+  //GUARDAR USUARIO
 
-   loginUser(user:Users){
-    return this.http.post(`${this.API_URL}/user/login`,user);
-   }
+  saveUser(user: Users) {
+    const token = localStorage.getItem('token');
 
-   //BORRAR USUARIO 
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.post(`${this.API_URL}/user`, user, { headers: header });
+  }
 
-    deleteUser(id : string) {
-      return this.http.delete(`${this.API_URL}/user/${id}`);
-    }
+  //LOGIN USUARIO
 
-    //ACTUALIZAR USUARIO
+  loginUser(user: Users) {
+    return this.http.post(`${this.API_URL}/user/login`, user);
+  }
 
-    updateUser(id : number|undefined , updatedUser:Users){
-      return this.http.put(`${this.API_URL}/user/${id}`,updatedUser);
-    }
+  //BORRAR USUARIO
+
+  deleteUser(id: string) {
+    const token = localStorage.getItem('token');
+   
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.API_URL}/user/${id}`, { headers: header });
+  }
+
+  //ACTUALIZAR USUARIO
+
+  updateUser(id: number | undefined, updatedUser: Users) {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.put(`${this.API_URL}/user/${id}`, updatedUser, {
+      headers: header,
+    });
+  }
 }

@@ -1,5 +1,6 @@
 import {Router} from "express";
 import adminController from "../controllers/adminControllers";
+import validateToken from "./validateToken";
 
 class AdminRoutes{
     public router: Router = Router();
@@ -9,10 +10,10 @@ class AdminRoutes{
     }
 
     config(): void {
-        this.router.get("/", adminController.list);
-        this.router.get("/:id", adminController.listOne);
-        this.router.delete("/:id", adminController.delete);
-        this.router.put("/:id", adminController.updateAdmin);
+        this.router.get("/",validateToken,adminController.list);
+        this.router.get("/:id",validateToken, adminController.listOne);
+        this.router.delete("/:id", validateToken,adminController.delete);
+        this.router.put("/:id",validateToken, adminController.updateAdmin);
         
     }
 }

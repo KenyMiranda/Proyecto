@@ -5,16 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const maestroControllers_1 = __importDefault(require("../controllers/maestroControllers"));
+const validateToken_1 = __importDefault(require("./validateToken"));
 class MaestroRoutes {
     constructor() {
         this.router = (0, express_1.Router)();
         this.config();
     }
     config() {
-        this.router.get("/", maestroControllers_1.default.list);
-        this.router.get("/:id", maestroControllers_1.default.listOne);
-        this.router.delete("/:id", maestroControllers_1.default.delete);
-        this.router.put("/:id", maestroControllers_1.default.updateMaestro);
+        this.router.get("/", validateToken_1.default, maestroControllers_1.default.list);
+        this.router.get("/:id", validateToken_1.default, maestroControllers_1.default.listOne);
+        this.router.delete("/:id", validateToken_1.default, maestroControllers_1.default.delete);
+        this.router.put("/:id", validateToken_1.default, maestroControllers_1.default.updateMaestro);
     }
 }
 const maestroRoutes = new MaestroRoutes();

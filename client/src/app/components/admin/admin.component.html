@@ -8,14 +8,14 @@
 <body>
   <nav>
     <div class="nav-wrapper" style="background-color: #0066ff;">
-      <a routerLink="/" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo" style="width: px; height:62px; margin-left: 5px;"/></a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a (click)="logout()" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo" style="width: px; height:62px; margin-left: 5px;"/></a>
+      <a (click)="logout()" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a routerLink="/alumnos-list"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Alumnos</a></li>
         <li><a routerLink="/maestros-list"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Maestros</a></li>
-        <li><a routerLink="/horario"><i class="fa-regular fa-calendar"></i>Horarios</a></li>
+        <li><a routerLink="/horarios"><i class="fa-regular fa-calendar"></i>Horarios</a></li>
         <li><a routerLink="/usuarios-list"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Users</a></li>
-        <li><a routerLink="/"> <i class="fa-solid fa-list-ol"></i>Calificaciones</a></li>
+        <li><a routerLink="/calificaciones-form"> <i class="fa-solid fa-list-ol"></i>Calificaciones</a></li>
       </ul>
     </div>
   </nav>

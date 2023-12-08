@@ -9,11 +9,11 @@ class UserRoutes {
     }
 
     config(): void {
-        this.router.get("/", userController.list);
-        this.router.get("/:id", userController.getOne);
-        this.router.post("/", userController.createUser);
-        this.router.delete("/:id",userController.deleteUser);
-        this.router.put("/:id",userController.updateUser);
+        this.router.get("/",validateToken,userController.list);
+        this.router.get("/:id",validateToken, userController.getOne);
+        this.router.post("/", validateToken, userController.createUser);
+        this.router.delete("/:id", validateToken,userController.deleteUser);
+        this.router.put("/:id",validateToken,userController.updateUser);
         this.router.post("/login",userController.loginUser);
     }
 }

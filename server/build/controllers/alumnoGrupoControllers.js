@@ -19,7 +19,7 @@ class AlumnoGrupoController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const clase = yield database_1.default.query("SELECT id_user,first_nameU,last_nameU,last_nameU2 from users u JOIN clase c ON u.id_user = c.id_alumno WHERE c.id_grupo =?;", id);
+                const clase = yield database_1.default.query("SELECT id_user,first_nameU,last_nameU,last_nameU2,c.id_grupo from users u JOIN clase c ON u.id_user = c.id_alumno WHERE c.id_grupo =?;", id);
                 res.json(clase);
             }
             catch (error) {

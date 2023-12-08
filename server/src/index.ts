@@ -12,6 +12,7 @@ import claseRoutes from "./routes/claseRoutes";
 import grupoRoutes from "./routes/grupoRoutes";
 import claseHorarioRoutes from "./routes/clasesHorariosRoutes";
 import alumnoGrupoRoutes from "./routes/alumnosGruposRoutes";
+import validateToken from "./routes/validateToken";
 
 class Server {
     public app: Application;

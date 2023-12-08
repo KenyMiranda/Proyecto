@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders } from '@angular/common/http';
 import {Clase} from '../../models/clases';
 
 @Injectable({
@@ -15,30 +15,45 @@ export class ClasesService {
 
    //OBTENER TODOS LOS USUARIOS 
    getClases() {
-      return this.http.get(`${this.API_URL}/clase`);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.get(`${this.API_URL}/clase`,{ headers:header });
    }
 
    //OBTENER UN USUARIO 
 
    getClase(id : string) {
-    return this.http.get(`${this.API_URL}/clase/${id}`);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/clase/${id}`,{ headers:header });
    }
 
    //GUARDAR USUARIO 
 
    saveClase(clase:Clase){
-    return this.http.post(`${this.API_URL}/clase`,clase);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.post(`${this.API_URL}/clase`,clase,{ headers:header });
    }
 
    //BORRAR USUARIO 
 
     deleteClase(id : string) {
-      return this.http.delete(`${this.API_URL}/clase/${id}`);
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.delete(`${this.API_URL}/clase/${id}`,{ headers:header });
     }
 
     //ACTUALIZAR USUARIO
 
     updateClase(id : undefined|number , updatedClase:Clase){
-      return this.http.put(`${this.API_URL}/clase/${id}`,updatedClase);
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.put(`${this.API_URL}/clase/${id}`,updatedClase,{ headers:header });
     }
 }

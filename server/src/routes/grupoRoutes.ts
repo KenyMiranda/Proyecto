@@ -1,5 +1,6 @@
 import {Router} from "express";
 import grupoController from "../controllers/grupoControllers";
+import validateToken from "./validateToken";
 
 class GrupoRoutes{
     public router: Router = Router();
@@ -9,11 +10,11 @@ class GrupoRoutes{
     }
 
     config(): void {
-        this.router.post("/",grupoController.addGrupo);
-        this.router.get("/", grupoController.list);
-        this.router.get("/:id", grupoController.listOne);
-        this.router.delete("/:id",grupoController.deleteGrupo);
-        this.router.put("/:id",grupoController.updateGrupo);
+        this.router.post("/",validateToken,grupoController.addGrupo);
+        this.router.get("/", validateToken,grupoController.list);
+        this.router.get("/:id", validateToken,grupoController.listOne);
+        this.router.delete("/:id",validateToken,grupoController.deleteGrupo);
+        this.router.put("/:id",validateToken,grupoController.updateGrupo);
         
         
     }

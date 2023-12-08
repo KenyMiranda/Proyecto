@@ -1,5 +1,6 @@
 import {Router} from "express";
 import horarioController from "../controllers/horarioController";
+import validateToken from "./validateToken";
 
 class HorarioRoutes{
     public router: Router = Router();
@@ -9,11 +10,11 @@ class HorarioRoutes{
     }
 
     config(): void {
-        this.router.post("/",horarioController.createHorario);
-        this.router.get("/", horarioController.list);
-        this.router.get("/:id", horarioController.listOne);
-        this.router.delete("/:id",horarioController.deleteHorario);
-        this.router.put("/:id",horarioController.updateHorario);
+        this.router.post("/",validateToken,horarioController.createHorario);
+        this.router.get("/",validateToken, horarioController.list);
+        this.router.get("/:id",validateToken, horarioController.listOne);
+        this.router.delete("/:id",validateToken,horarioController.deleteHorario);
+        this.router.put("/:id",validateToken,horarioController.updateHorario);
         
         
     }

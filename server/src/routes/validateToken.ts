@@ -4,9 +4,10 @@ const validateToken = (req:Request, res:Response, next:NextFunction) => {
     const headerToken = req.headers['authorization'];
     
     if(headerToken !== undefined && headerToken.startsWith('Bearer')) {
-
+     
         try {
             const bearerToken = headerToken.slice(7);
+            
             jwt.verify(bearerToken,process.env.SECRET_KEY||'pGZLwuX!rt9');
             next();
         } catch (error) {
@@ -22,4 +23,4 @@ const validateToken = (req:Request, res:Response, next:NextFunction) => {
     }
 }
 
-export default validateToken
+export default validateToken;

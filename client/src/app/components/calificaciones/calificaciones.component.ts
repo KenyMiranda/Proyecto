@@ -18,7 +18,7 @@ export class CalificacionesComponent implements OnInit {
   // Array de calificaciones (debes proporcionar tus propias calificaciones)
 
   calificacion: Calificacion = {
-    fecha_calif: new Date(),
+    fecha_calif: "",
     calificacion: 0,
     id_alumno: 0,
   };
@@ -34,9 +34,9 @@ export class CalificacionesComponent implements OnInit {
   generarGrafica() {
     const objeto: any = {};
     const params = this.activatedRoute.snapshot.params;
-    if (params['id']) {
+    if (params['idG']&&params['id']) {
       this.calificacionesService
-        .getCalificacion(params['id'])
+        .getCalificacion(params['idG'],params['id'])
         .subscribe((res) => {
           this.calificaciones = res;
           for (let i = 0; i < this.calificaciones[0].length; i++) {
@@ -46,7 +46,7 @@ export class CalificacionesComponent implements OnInit {
             );
             this.fechas.push(this.calificaciones[0][i].fecha_calif.substring(10,0));
           }
-          if (this.calificacionesAlumno.length > 5)
+          //if (this.calificacionesAlumno.length > 5)
             //this.calificacionesAlumno.splice(0, 1);
           console.log(objeto);
           console.log(this.calificaciones[0]);
@@ -79,7 +79,8 @@ export class CalificacionesComponent implements OnInit {
               },
               scales: {
                 y: {
-                  beginAtZero: true, // Comienza en 0
+                  beginAtZero:true,
+                  min:0, // Comienza en 0
                   max: 100, // Valor máximo en el eje Y
                 },
               },

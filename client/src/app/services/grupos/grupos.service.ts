@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders } from '@angular/common/http';
 import {Grupo} from '../../models/grupos';
 
 @Injectable({
@@ -15,31 +15,46 @@ export class GruposService {
 
    //OBTENER TODOS LOS USUARIOS 
    getGrupos() {
-      return this.http.get(`${this.API_URL}/grupo`);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.get(`${this.API_URL}/grupo`,{ headers:header });
    }
 
    //OBTENER UN USUARIO 
 
    getGrupo(id : string) {
-    return this.http.get(`${this.API_URL}/grupo/${id}`);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/grupo/${id}`,{ headers:header });
    }
 
    //GUARDAR USUARIO 
 
    saveGrupo(grupo:Grupo){
-    return this.http.post(`${this.API_URL}/grupo`,grupo);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.post(`${this.API_URL}/grupo`,grupo,{ headers:header });
    }
 
    //BORRAR USUARIO 
 
     deleteGrupo(id : string) {
-      return this.http.delete(`${this.API_URL}/grupo/${id}`);
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.delete(`${this.API_URL}/grupo/${id}`,{ headers:header });
     }
 
     //ACTUALIZAR USUARIO
 
     updateGrupo(id : undefined|number , updatedGrupo:Grupo){
-      return this.http.put(`${this.API_URL}/grupo/${id}`,updatedGrupo);
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.put(`${this.API_URL}/grupo/${id}`,updatedGrupo,{ headers:header });
     }
 }
 

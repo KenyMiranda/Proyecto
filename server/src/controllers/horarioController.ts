@@ -12,7 +12,7 @@ class HorarioController {
   public async listOne(req: Request, res: Response) {
     const { id } = req.params;
     const horario = await db.query(
-      "SELECT * FROM horarios WHERE id_horario=?",
+      "select * from horarios h JOIN grupo g ON h.id_grupo = g.id_grupo WHERE g.id_maestro=?;",
       [id]
     );
     res.json(horario);
@@ -77,7 +77,7 @@ class HorarioController {
       //console.log(num);
       
     } catch (error) {
-      
+      console.log("asdas"+error);
       res.status(500).send("Error al ejecutar la consulta MySQL:");
     }
   }
