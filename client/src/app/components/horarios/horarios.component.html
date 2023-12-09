@@ -23,8 +23,7 @@
             <ul class="dropdown">
               <li><a routerLink="/usuarios-list">Users</a></li>
               <li><a routerLink="/admins-list">Administradores</a></li>
-              <li><a routerLink="/usuarios-list">Users</a></li>
-              <li><a routerLink="/admins-list">Administradores</a></li>
+              
             </ul>
           </li>
           
@@ -50,7 +49,7 @@
   class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 />
 <button *ngIf="isAdmin" (click)="exportarAExcel()">Exportar a Excel</button>
-
+<h5 style="text-align:center">SEMANA 1</h5><br>
   <div class="flex flex-col">
     <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
       <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -82,16 +81,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-gray-100 border-b" *ngFor="let horario of arrayHorarios[0]|filterHorario:filterPost:arrayClases[0]:arrayMaestros[0]:arrayGrupos[0]">
+              <tr  class="bg-gray-100 border-b" *ngFor="let horario of arrayHorarios[0]|filterHorario:filterPost:arrayClases[0]:arrayMaestros[0]:arrayGrupos[0]">
 
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td *ngIf="horario.semana==1" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {{horario.Hora_inicio.substring(0, 5)+ horario.Hora_inicio.substring(15)}} - 
                   {{horario.Hora_final.substring(0, 5)+ horario.Hora_final.substring(15)}}
                   <br>
                   <br>
                     <!-- component -->
                     <button
-                    *ngIf="isAdmin"
+                    *ngIf="isAdmin && horario.semana==1"
                     data-ripple-light="true"
                     data-popover-target="popover"
                     class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -105,7 +104,7 @@
                  
                     <button
                     data-ripple-light="true"
-                    *ngIf="isAdmin"
+                    *ngIf="isAdmin&&horario.semana==1"
                     (click)="deleteHorario(horario.id_horario)"
                     data-popover-target="popover"
                     class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -115,8 +114,8 @@
                     </button>
                 
                 
-                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                <td  *ngIf="horario.semana==1" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
                   <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
                   
                   <p  *ngIf="horario.dia==='Monday-Thursday' "> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
@@ -124,37 +123,158 @@
                   
 
                 </td>
-                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                <td *ngIf="horario.semana==1" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
                   <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
                   <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
                   
 
                 </td>              
-                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                <td *ngIf="horario.semana==1"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
                   <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
                   <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
                   
 
                 </td>     
-                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
-                  <p *ngIf="horario.dia==='Monday-Thursday'"> Language :{{horario.idioma}} </p> <br>
+                <td *ngIf="horario.semana==1"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
                   <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
                   <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
                   
 
                 </td>
 
-                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                <td *ngIf="horario.semana==1" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
 
                   
 
                 </td>
-                <td class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
-                  <p *ngIf="horario.dia==='Saturday'"> Language : {{horario.idioma}} </p> <br>
+                <td *ngIf="horario.semana==1"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+                 
                   <p  *ngIf="horario.dia==='Saturday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
                   <p  *ngIf="horario.dia==='Saturday'"> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                
+
+                </td>
+
+
+
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 style="text-align:center">SEMANA 2</h5><br>
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full" #tabla>
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  HOUR
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  MONDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  TUESDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  WEDNESDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  THURSDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  FRIDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  SATURDAY
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  class="bg-gray-100 border-b" *ngFor="let horario of arrayHorarios[0]|filterHorario:filterPost:arrayClases[0]:arrayMaestros[0]:arrayGrupos[0]">
+
+                <td *ngIf="horario.semana==2" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {{horario.Hora_inicio.substring(0, 5)+ horario.Hora_inicio.substring(15)}} - 
+                  {{horario.Hora_final.substring(0, 5)+ horario.Hora_final.substring(15)}}
+                  <br>
+                  <br>
+                    <!-- component -->
+                    <button
+                    *ngIf="isAdmin && horario.semana==2"
+                    data-ripple-light="true"
+                    data-popover-target="popover"
+                    class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    [routerLink]="['/horarios/update',horario.id_horario]"
+                    >
+                    UPDATE
+                    </button>
+                    <br>
+                    <br>
+
+                 
+                    <button
+                    data-ripple-light="true"
+                    *ngIf="isAdmin&&horario.semana==2"
+                    (click)="deleteHorario(horario.id_horario)"
+                    data-popover-target="popover"
+                    class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    
+                    >
+                    DELETE
+                    </button>
+                
+                
+                <td  *ngIf="horario.semana==2" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday' "> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                 
+                  
+
+                </td>
+                <td *ngIf="horario.semana==2" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>              
+                <td *ngIf="horario.semana==2"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>     
+                <td *ngIf="horario.semana==2"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>
+
+                <td *ngIf="horario.semana==2" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+
+                  
+
+                </td>
+                <td *ngIf="horario.semana==2"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+                 
+                  <p  *ngIf="horario.dia==='Saturday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  
                   <p  *ngIf="horario.dia==='Saturday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
 
                 </td>
@@ -170,6 +290,249 @@
       </div>
     </div>
   </div>
+
+  <h5 style="text-align:center">SEMANA 3</h5><br>
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full" #tabla>
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  HOUR
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  MONDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  TUESDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  WEDNESDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  THURSDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  FRIDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  SATURDAY
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  class="bg-gray-100 border-b" *ngFor="let horario of arrayHorarios[0]|filterHorario:filterPost:arrayClases[0]:arrayMaestros[0]:arrayGrupos[0]">
+
+                <td *ngIf="horario.semana==3" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {{horario.Hora_inicio.substring(0, 5)+ horario.Hora_inicio.substring(15)}} - 
+                  {{horario.Hora_final.substring(0, 5)+ horario.Hora_final.substring(15)}}
+                  <br>
+                  <br>
+                    <!-- component -->
+                    <button
+                    *ngIf="isAdmin && horario.semana==3"
+                    data-ripple-light="true"
+                    data-popover-target="popover"
+                    class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    [routerLink]="['/horarios/update',horario.id_horario]"
+                    >
+                    UPDATE
+                    </button>
+                    <br>
+                    <br>
+
+                 
+                    <button
+                    data-ripple-light="true"
+                    *ngIf="isAdmin&&horario.semana==3"
+                    (click)="deleteHorario(horario.id_horario)"
+                    data-popover-target="popover"
+                    class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    
+                    >
+                    DELETE
+                    </button>
+                
+                
+                <td  *ngIf="horario.semana==3" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday' "> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                 
+                  
+
+                </td>
+                <td *ngIf="horario.semana==3" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>              
+                <td *ngIf="horario.semana==3"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+           
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>     
+                <td *ngIf="horario.semana==3"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>
+
+                <td *ngIf="horario.semana==3" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+
+                  
+
+                </td>
+                <td *ngIf="horario.semana==3"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+                
+                  <p  *ngIf="horario.dia==='Saturday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  
+                  <p  *ngIf="horario.dia==='Saturday'"> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+
+                </td>
+
+
+
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 style="text-align:center">SEMANA 4</h5><br>
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full" #tabla>
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  HOUR
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  MONDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  TUESDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  WEDNESDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  THURSDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  FRIDAY
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  SATURDAY
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  class="bg-gray-100 border-b" *ngFor="let horario of arrayHorarios[0]|filterHorario:filterPost:arrayClases[0]:arrayMaestros[0]:arrayGrupos[0]">
+
+                <td *ngIf="horario.semana==4" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {{horario.Hora_inicio.substring(0, 5)+ horario.Hora_inicio.substring(15)}} - 
+                  {{horario.Hora_final.substring(0, 5)+ horario.Hora_final.substring(15)}}
+                  <br>
+                  <br>
+                    <!-- component -->
+                    <button
+                    *ngIf="isAdmin && horario.semana==4"
+                    data-ripple-light="true"
+                    data-popover-target="popover"
+                    class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    [routerLink]="['/horarios/update',horario.id_horario]"
+                    >
+                    UPDATE
+                    </button>
+                    <br>
+                    <br>
+
+                 
+                    <button
+                    data-ripple-light="true"
+                    *ngIf="isAdmin&&horario.semana==4"
+                    (click)="deleteHorario(horario.id_horario)"
+                    data-popover-target="popover"
+                    class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    
+                    >
+                    DELETE
+                    </button>
+                
+                
+                <td  *ngIf="horario.semana==4" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday' "> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                 
+                  
+
+                </td>
+                <td *ngIf="horario.semana==4" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+              
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>              
+                <td *ngIf="horario.semana==4"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+                  
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>     
+                <td *ngIf="horario.semana==4"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+             
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  <p  *ngIf="horario.dia==='Monday-Thursday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
+                  
+
+                </td>
+
+                <td *ngIf="horario.semana==4" class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap" >
+
+                  
+
+                </td>
+                <td *ngIf="horario.semana==4"class="text-sm text-gray-900 font-light px-4 py-4 whitespace-nowrap">
+                 
+                  <p  *ngIf="horario.dia==='Saturday'"> Group : {{obtenerGrupo(horario.id_grupo)}}</p> <br>
+                  
+                  <p  *ngIf="horario.dia==='Saturday'"> Teacher : {{obtenerNombreMaestro2(horario.id_grupo)}}</p> <br>
+
+                </td>
+
+
+
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </body>
 
 </html>

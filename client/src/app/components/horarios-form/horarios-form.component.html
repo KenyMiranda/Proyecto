@@ -44,37 +44,105 @@
       </nav>
     </header>
     <form>
-      <div class="field">
-        <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Language</label>
-        <div class="control">
-          <div class="select">
-            <select [(ngModel)]="horario.idioma" name="idioma" required>
-              <option>Select Language</option>
-              <option value="English">English</option>
-              <option value="Spanish">Spanish</option>
-              <option value="French">French</option>
-            </select>
-          </div>
-        </div>
-      </div>
+     
+
+      
 
   <div>
     <div class="field">
-      <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Group</label>
+      <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Semana</label>
       <div class="control">
         <div class="select">
-          <select [(ngModel)]="horario.id_grupo" name="grupo" required>
+          <select [(ngModel)]="horario.semana" name="grupo" required>
             <option>Select Group</option>
-            <option *ngFor="let clase of arrayClases[0]"   
-              value="{{ clase.id_grupo}}">{{ clase.nombre_grupo }}---{{clase.categoria}}</option>
+            <option value="1">Semana 1</option>
+            <option value="2">Semana 2</option>
+            <option value="3">Semana 3</option>
+            <option value="4">Semana 4</option>
 
             
 
           </select>
         </div>
+
       </div>
     </div>
 </div>
+
+
+<div class="flex flex-col">
+  <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="overflow-hidden">
+        <h5>Grupos</h5>
+
+        <input  type="text" style="height: 35px; width: 800px; margin-left: 20%" name="search"
+          placeholder="Search"
+          class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+        <table class="min-w-full">
+          <thead class="bg-white border-b">
+            <tr>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                ID
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Nombre Grupo
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Categoria
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Maestro 1
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Maestro 2
+              </th>
+
+              <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tr class="bg-gray-100 border-b" *ngFor="let clase of arrayClases[0]">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ clase.id_grupo }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ clase.nombre_grupo }}
+            </td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+              {{ clase.categoria }}
+            </td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+              {{obtenerNombreMaestro(clase.id_maestro)}}
+            </td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+              {{obtenerNombreMaestro(clase.id_maestro2)}}
+            </td>
+
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+              <!-- component -->
+              <button (click)="escogerGrupo(clase.id_grupo)" data-ripple-light="true" data-popover-target="popover"
+                class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                ESCOGER
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h5 style="margin-left:30px">Grupo Seleccionado</h5>
+  <div class="field" style="margin-left:30px">
+    <div class="control">
+      <p>ID:</p>
+      <input type="text" [(ngModel)]="horario.id_grupo" style="width: 60px; " disabled />{{
+     horario.id_grupo}} {{grupo.categoria}}
+    </div>
+  </div>
+
 <!--
 <div class="field">
   <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Day</label>
@@ -89,6 +157,8 @@
   </div>
 </div>
 -->
+
+
 <div>
   <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Start Time</label>
   <input type="time" name="Hora_inicio" id="email" [(ngModel)]="horario.Hora_inicio" style="width:150px" placeholder="example@example.com" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />

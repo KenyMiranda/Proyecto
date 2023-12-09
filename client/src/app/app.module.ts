@@ -45,6 +45,7 @@ import { GrabacionesComponent } from './components/grabaciones/grabaciones.compo
 import { MaterialesComponent } from './components/materiales/materiales.component';
 import { ClasesListComponent } from './components/clases-list/clases-list.component';
 import { AlumnoGruposService } from './services/alumnoGrupos/alumno-grupos.service';
+import { GrabacionesService } from './services/grabaciones/grabaciones.service';
 
 
 
@@ -84,7 +85,7 @@ import { AlumnoGruposService } from './services/alumnoGrupos/alumno-grupos.servi
     ClasesListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule,ReactiveFormsModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,AlumnoGruposService,DatePipe],
+  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,AlumnoGruposService,GrabacionesService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

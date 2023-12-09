@@ -7,6 +7,9 @@ import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 import { GruposService } from 'src/app/services/grupos/grupos.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-horarios.service';
+import { Clase } from 'src/app/models/clases';
+import { Grupo } from 'src/app/models/grupos';
 
 @Component({
   selector: 'app-horarios-form',
@@ -17,16 +20,35 @@ export class HorariosFormComponent  implements OnInit {
   arrayMaestros : any=[];
   arrayHorario : any=[];
   arrayClases : any =[];
+  arrayGrupos : any =[];
   edit : boolean = false;
   horario : Horario = {
     
-    idioma:"",
+    //idioma:"",
     //dia:"",
     Hora_inicio:"",
     Hora_final:"",
+    semana:0,
     id_grupo:0,
   }
-  constructor(private maestrosService: MaestrosService , private horariosService : HorariosService , private router: Router,private clases : ClasesService,private grupos : GruposService,private activatedRoute: ActivatedRoute){
+
+  clase : Clase = {
+    id_grupo : 0,
+    id_alumno : 0
+    
+    
+  }
+
+  grupo : Grupo = {
+    nombre_grupo:"",
+    categoria:"",
+    Idioma:"",
+    id_maestro:0,
+    id_maestro2:0
+    
+    
+  }
+  constructor(private maestrosService: MaestrosService , private horariosService : HorariosService , private router: Router,private clasesHorarioService: ClasesHorariosService,private grupos : GruposService,private activatedRoute: ActivatedRoute){
     
 
   }
@@ -48,14 +70,36 @@ export class HorariosFormComponent  implements OnInit {
         console.log(this.horario.id_horario);
       });
     }
-    this.clases.getClases().subscribe(
+    this.clasesHorarioService.getClasesHorarios().subscribe(
       (res) => {
         this.arrayClases = res;
        console.log(this.arrayClases[0]);
       },
 
       (err) => console.error(err)
+    )
+
+    this.maestrosService.getMaestros().subscribe(
+      (res) => {
+        this.arrayMaestros = res;
+       console.log(this.arrayMaestros[0]);
+      },
+
+      (err) => console.error(err)
+
     );
+    this.grupos.getGrupos().subscribe(
+      (res) => {
+        this.arrayGrupos = res;
+       console.log(this.arrayGrupos[0]);
+      },
+
+      (err) => console.error(err)
+
+    );
+
+    
+    
     
     
   }
@@ -141,6 +185,54 @@ export class HorariosFormComponent  implements OnInit {
       } 
       );
     }
+
+    escogerGrupo(id:number){
+
+      this.horario.id_grupo = id;
+      
+  
+    }
+
+    obtenerNombreMaestro(idMaestro: number): string {
+      // Encuentra la clase correspondiente al id_grupo
+      //const clase = this.arrayClases[0].find((c: {id_grupo:number})=> c.id_grupo === idGrupo);
+  
+      // Si se encuentra la clase, encuentra el maestro correspondiente al id_maestro
+      
+        const maestro = this.arrayMaestros[0].find((m: {id_user:number}) => m.id_user === idMaestro);
+        return maestro ? `${maestro.first_nameU} ${maestro.last_nameU}` : 'Maestro no encontrado';
+      
+  
+      
+    }
+
+    obtenerNombreMaestro2(idMaestro: number): string {
+      // Encuentra la clase correspondiente al id_grupo
+      //const clase = this.arrayClases[0].find((c: {id_grupo:number})=> c.id_grupo === idGrupo);
+  
+      // Si se encuentra la clase, encuentra el maestro correspondiente al id_maestro
+      
+        const maestro = this.arrayMaestros[0].find((m: {id_user:number}) => m.id_user === idMaestro);
+        return maestro ? `${maestro.first_nameU} ${maestro.last_nameU}` : 'Maestro no encontrado';
+      
+  
+      
+    }
+
+    obtenerGrupo(idGrupo: number):any {
+
+      const grupo = this.arrayGrupos[0].find((m: { id_grupo: number; }) => m.id_grupo === idGrupo);
+      return grupo ? `${grupo.nombre_grupo}` : '';
+  
+     
+        
+    }
+
+ 
+
+   
+  
+ 
 
    
 }

@@ -38,7 +38,7 @@ const routes: Routes = [
   {
     path: 'alumnos',
     component: AlumnosComponent,
-    canActivate :[adminGuardGuard]
+    canActivate :[alumnoGuardGuard]
     
     
   },
@@ -62,7 +62,7 @@ const routes: Routes = [
   {
     path: 'horarios',
     component: HorariosComponent,
-    canActivate : [adminGuardGuard,maestroGuardGuard]
+    //canActivate : [adminGuardGuard]
   },
 
   {

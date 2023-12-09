@@ -18,7 +18,7 @@
         <ul class="right hide-on-med-and-down">
          
           <li><a routerLink="/login"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Log In</a></li>
-          <li><a routerLink="/registro"><i class="fa-solid fa-user-plus" style="margin-right: 10px;"></i>Sign Up</a></li>
+          <li *ngIf="isAdmin"><a routerLink="/registro"><i class="fa-solid fa-user-plus" style="margin-right: 10px;"></i>Sign Up</a></li>
 
         </ul>
       </div>

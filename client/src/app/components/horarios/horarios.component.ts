@@ -4,6 +4,7 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  
 } from '@angular/core';
 import { HorariosService } from 'src/app/services/horarios/horarios.service';
 import { MaestrosService } from 'src/app/services/maestros/maestros.service';
@@ -11,6 +12,7 @@ import { ClasesService } from 'src/app/services/clases/clases.service';
 import { GruposService } from 'src/app/services/grupos/grupos.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 
 // Importar sin definiciones de tipo
@@ -40,12 +42,13 @@ export class HorariosComponent implements OnInit {
     private maestrosService: MaestrosService,
     private clasesService: ClasesService,
     private gruposService: GruposService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
   id: any = this.authService.getIdFromToken();
   rol: any = this.authService.getRoleFromToken();
   public dia: boolean = true;
-  isAdmin :boolean = false;
+  isAdmin: boolean = false;
   ngOnInit() {
     this.obtenerHorarios();
     this.obtenerClases();
@@ -100,19 +103,19 @@ export class HorariosComponent implements OnInit {
 
         (err) => console.error(err)
       );
-    } else if(this.rol==3) {
+    } else if (this.rol == 3) {
       this.horariosService.getHorarios().subscribe(
         (res) => {
           this.arrayHorarios = res;
-  
+
           console.log(this.arrayHorarios[0]);
         },
-  
+
         (err) => console.error(err)
       );
-    }
-
-   
+    } else {this.router.navigate(['/alumnos']);} 
+      
+    
   }
 
   obtenerGrupos() {

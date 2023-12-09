@@ -136,6 +136,10 @@ class UserController {
         correo,
       ]);
 
+      let nombre :any = await db.query("Select first_nameU,last_nameU from users where email =?", [
+        correo,
+      ]);
+      let nombreU = JSON.parse(JSON.stringify(nombre[0]));
       let data = JSON.parse(JSON.stringify(usuario[0]));
       let role = JSON.parse(JSON.stringify(rol[0]));
 
@@ -164,6 +168,7 @@ class UserController {
         {
           
           email: correo,
+          nombre:JSON.parse(JSON.stringify(nombreU[0].first_nameU+"  "+nombreU[0].last_nameU)),
           rol: JSON.parse(JSON.stringify(role[0].id_rol)),
           id:JSON.parse(JSON.stringify(data[0].id_user)),
         },

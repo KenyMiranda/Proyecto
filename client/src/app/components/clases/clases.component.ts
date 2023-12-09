@@ -29,6 +29,7 @@ export class ClasesComponent implements OnInit {
   grupo : Grupo ={
     nombre_grupo : "",
     categoria:"",
+    Idioma:"",
     id_maestro:0,
     id_maestro2:0,
    

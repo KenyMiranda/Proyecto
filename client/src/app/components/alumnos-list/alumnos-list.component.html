@@ -15,6 +15,10 @@
           ><i class="material-icons">menu</i></a
         >
         <ul class="right hide-on-med-and-down">
+          <li class="has-dropdown"><a style="margin-right: 40px;">{{nombreUsuario}}</a> <ul class="dropdown">
+            <li><a (click)="logout()">Cerrar Sesion</a></li>
+          </ul>
+        </li>
           <li><a routerLink="/usuarios-list">Users</a></li>
           <li><a routerLink="/admins-list">Administradores</a></li>
           <li class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
@@ -36,8 +40,8 @@
             </ul>
           </li>
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
-          <li><a routerLink="/calificaciones-list">Grabaciones</a></li>
-          <li><a routerLink="/calificaciones-list">Materiales</a></li>
+          <li><a routerLink="/grabaciones">Grabaciones</a></li>
+          <li><a routerLink="">Materiales</a></li>
         </ul>
       </div>
     </nav>

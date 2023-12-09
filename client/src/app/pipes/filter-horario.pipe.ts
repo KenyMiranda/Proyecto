@@ -8,10 +8,11 @@ export class FilterHorarioPipe implements PipeTransform {
   transform(value: any, args: any, clases: any[], usuarios: any[], grupos: any): any {
     let resultPost = [];
     for (let post of value) {
-      const idiomaMatches = post.idioma.toLowerCase().includes(args.toLowerCase());
+      
       const maestroMatches = this.obtenerNombreMaestro(post.id_grupo, clases, usuarios).toLowerCase().includes(args.toLowerCase());
+      const maestroMatches2 = this.obtenerNombreMaestro2(post.id_grupo, clases, usuarios).toLowerCase().includes(args.toLowerCase());
       const grupoMatches = this.obtenerNombreGrupo(post.id_grupo, grupos).toLowerCase().includes(args.toLowerCase());
-      if (idiomaMatches || maestroMatches||grupoMatches) {
+      if (maestroMatches||grupoMatches||maestroMatches2) {
         resultPost.push(post);
       }
     }
@@ -24,6 +25,18 @@ export class FilterHorarioPipe implements PipeTransform {
     if (clase) {
       const idMaestro = clase.id_maestro;
       const usuario = usuarios.find(u => u.id_user === idMaestro);
+      
+      return usuario ? usuario.first_nameU : '';
+    }
+
+    return '';
+  }
+  obtenerNombreMaestro2(idGrupo: number, clases: any[], usuarios: any[]): string {
+    const clase = clases.find(c => c.id_grupo === idGrupo);
+    
+    if (clase) {
+      const idMaestro2 = clase.id_maestro2;
+      const usuario = usuarios.find(u => u.id_user === idMaestro2);
       
       return usuario ? usuario.first_nameU : '';
     }

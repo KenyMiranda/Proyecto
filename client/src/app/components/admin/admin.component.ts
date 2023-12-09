@@ -9,6 +9,15 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AdminComponent {
   constructor(private authService: AuthService, private router: Router) {}
+  public nombreUsuario: any="";
+
+  ngOnInit(){
+
+    
+
+    this.nombreUsuario=this.authService.getNameFromToken();
+
+  }
 
   logout(): void {
     this.authService.removeToken(); // Elimina el token al cerrar sesión

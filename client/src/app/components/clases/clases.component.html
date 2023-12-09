@@ -136,6 +136,20 @@
     </select>
   </div>
 
+  <div class="field">
+    <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Language</label>
+    <div class="control">
+      <div class="select">
+        <select [(ngModel)]="grupo.Idioma" name="idioma" required>
+          <option>Select Language</option>
+          <option value="English">English</option>
+          <option value="Spanish">Spanish</option>
+          <option value="French">French</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <h5 *ngIf="agregarGrupo">Numero de Maestros</h5>
   <div *ngIf="agregarGrupo" class="select">
     <select [(ngModel)]="numeroMaes" name="horario.id_maestro" required>
@@ -156,7 +170,7 @@
     <h6 *ngIf="seleccion1 && !seleccion2">
       Monday - Thursday or Full Saturday
     </h6>
-    <h6 *ngIf="seleccion2">Monday - Wednesday or First two hours Saturday</h6>
+    <h6 *ngIf="seleccion2">Monday - Wednesday or First and Third Saturday</h6>
     <div class="field" style="margin-top: 25px" *ngIf="seleccion1">
       <div class="control">
         <div class="select">
@@ -170,7 +184,7 @@
       </div>
     </div>
   </div>
-  <h6 *ngIf="seleccion2">Tuesday - Thursday or Last two hours Saturday</h6>
+  <h6 *ngIf="seleccion2">Tuesday - Thursday or Second and Fourth Saturday</h6>
   <div class="field" style="margin-top: 25px" *ngIf="seleccion2">
     <div class="control">
       <div class="select">

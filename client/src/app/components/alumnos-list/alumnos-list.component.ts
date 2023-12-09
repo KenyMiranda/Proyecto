@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,14 +12,21 @@ import Swal from 'sweetalert2';
 export class AlumnosListComponent implements OnInit {
   arrayAlumnos: any = []; 
   filterPost = ""
-  constructor(private alumnosService: AlumnosService , private router: Router){
+  public nombreUsuario: any="";
+  constructor(private alumnosService: AlumnosService , private router: Router,private authService: AuthService){
     
 
   }
 
   ngOnInit() {
     this.getAlumnos();
+    this.nombreUsuario=this.authService.getNameFromToken();
 
+  }
+
+  logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
 
   getAlumnos(){

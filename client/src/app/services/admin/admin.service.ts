@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Admin } from 'src/app/models/admin';
 
@@ -14,30 +14,45 @@ export class AdminService {
 
    //OBTENER TODOS LOS MAESTROS
    getAdmins() {
-      return this.http.get(`${this.API_URL}/admin`);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.get(`${this.API_URL}/admin`,{ headers:header });
    }
 
    //OBTENER UN MAESTROS
 
    getAdmin(id : string) {
-    return this.http.get(`${this.API_URL}/admin/${id}`);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/admin/${id}`,{ headers:header });
    }
 
    //GUARDAR MAESTROS
 
    saveAdmin(user:Admin){
-    return this.http.post(`${this.API_URL}/admin`,user);
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.post(`${this.API_URL}/admin`,user,{ headers:header });
    }
 
    //BORRAR MAESTROS 
 
     deleteAdmin(id : string) {
-      return this.http.delete(`${this.API_URL}/admin/${id}`);
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.delete(`${this.API_URL}/admin/${id}`,{ headers:header });
     }
 
     //ACTUALIZAR MAESTROS
 
     updateAdmin(id : string , updatedUser:Admin){
-      return this.http.put(`${this.API_URL}/admin/${id}`,updatedUser);
+      const token = localStorage.getItem('token');
+
+      const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.put(`${this.API_URL}/admin/${id}`,updatedUser,{ headers:header });
     }
 }

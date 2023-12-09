@@ -21,6 +21,22 @@ export class AuthService {
     }
     
   }
+
+  getNameFromToken():string|null{
+    let token =this.getToken();
+    if (token) {
+      try {
+        const decoded: any = jwtDecode(token);
+
+        return decoded.nombre; // Ajusta esto según la estructura de tu token
+      } catch (error) {
+        console.error('Error al decodificar el token:', error);
+        return null;
+      }
+    }
+
+    return null;
+  }
   getRoleFromToken(): string | null | number {
     //const token = localStorage.getItem('token');
     let token =this.getToken();
