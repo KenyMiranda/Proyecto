@@ -14,6 +14,7 @@ class ClaseHorarioRoutes {
     config() {
         this.router.get("/", validateToken_1.default, claseHorarioControllers_1.default.list);
         this.router.get("/:id", validateToken_1.default, claseHorarioControllers_1.default.listOne);
+        this.router.post("/:id", validateToken_1.default, claseHorarioControllers_1.default.agregarNuevoGrupo);
     }
 }
 const claseHorarioRoutes = new ClaseHorarioRoutes();

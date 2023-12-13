@@ -7,6 +7,7 @@ import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 import { GruposService } from 'src/app/services/grupos/grupos.service';
 import { ClasesService } from 'src/app/services/clases/clases.service';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class ClasesComponent implements OnInit {
     
     
   }
-  constructor(private claseService: ClasesService ,private alumnosService: AlumnosService , private maestrosService: MaestrosService,private gruposService:GruposService,private router:Router){}
+  constructor(private claseService: ClasesService ,private alumnosService: AlumnosService ,private authService: AuthService, private maestrosService: MaestrosService,private gruposService:GruposService,private router:Router){}
   ngOnInit(): void {
     
     this.maestrosService.getMaestros().subscribe(
@@ -70,6 +71,16 @@ export class ClasesComponent implements OnInit {
 
       (err) => console.error(err)
     );
+  }
+
+
+  nombreUsuario = this.authService.getNameFromToken();
+
+
+
+logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
 
   agregarGrupos() {
@@ -179,7 +190,7 @@ export class ClasesComponent implements OnInit {
             Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: "Something went wrong!",
+              text: ""+err.error.msg,
               footer: '<a href="#">Why do I have this issue?</a>'
             });
           }

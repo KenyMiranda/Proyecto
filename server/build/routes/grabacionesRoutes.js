@@ -14,6 +14,7 @@ class GrabacionRoutes {
     config() {
         this.router.get("/", validateToken_1.default, grabacionControllers_1.default.list);
         this.router.get("/:id", validateToken_1.default, grabacionControllers_1.default.listOne);
+        this.router.get("/:id/:fecha", validateToken_1.default, grabacionControllers_1.default.listRecording);
         this.router.post("/", validateToken_1.default, grabacionControllers_1.default.addGrabacion);
         this.router.put("/:id", validateToken_1.default, grabacionControllers_1.default.updateG);
         this.router.delete("/:id", validateToken_1.default, grabacionControllers_1.default.deleteG);

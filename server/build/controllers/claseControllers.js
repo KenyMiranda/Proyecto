@@ -32,25 +32,20 @@ class ClaseController {
         return __awaiter(this, void 0, void 0, function* () {
             let alumnoId = req.body.id_alumno;
             let grupo = req.body.id_grupo;
-            /*
-            let alumnoArray = await db.query(
-              "Select * from clases where id_alumno = ? AND ",
-              alumnoId
-            );
+            let alumnoArray = yield database_1.default.query("Select * from clase where id_alumno = ? AND id_grupo=? ", [alumnoId, grupo]);
             let alumno = JSON.parse(JSON.stringify(alumnoArray[0]));
             console.log(alumno[0]);
-        
             try {
-              if (alumno[0]) {
-                return res.status(400).json({
-                  msg: "Alumno Inscrito en otra clase",
-                });
-              }
-            } catch (error) {
-              console.error("Error al ejecutar la consulta MySQL:", error);
-              res.status(500).send("Error interno del servidor");
+                if (alumno[0]) {
+                    return res.status(400).json({
+                        msg: "Alumno Inscrito ya en esta clase",
+                    });
+                }
             }
-            */
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
             try {
                 if (alumnoId == 0 || grupo == 0) {
                     return res.status(400).json({

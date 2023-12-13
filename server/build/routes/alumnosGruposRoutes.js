@@ -13,6 +13,8 @@ class AlumnoGrupoRoutes {
     }
     config() {
         this.router.get("/:id", validateToken_1.default, alumnoGrupoControllers_1.default.list);
+        this.router.get("/s/:id", validateToken_1.default, alumnoGrupoControllers_1.default.listOne);
+        this.router.delete("/:id/:idG", validateToken_1.default, alumnoGrupoControllers_1.default.delete);
     }
 }
 const alumnoGrupoRoutes = new AlumnoGrupoRoutes();

@@ -15,6 +15,10 @@
           ><i class="material-icons">menu</i></a
         >
         <ul class="right hide-on-med-and-down">
+          <li class="has-dropdown"><a style="margin-right: 40px;">{{nombreUsuario}}</a> <ul class="dropdown">
+            <li><a (click)="logout()">Cerrar Sesion</a></li>
+          </ul>
+        </li>
           <li><a routerLink="/usuarios-list">Users</a></li>
           <li><a routerLink="/admins-list">Administradores</a></li>
           <li class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
@@ -28,15 +32,16 @@
           
           <li><a routerLink="/maestros-list">Maestros</a></li>
           <li><a routerLink="/grupos">Grupos</a></li>
-          <li><a routerLink="/clases">Clases</a></li>
+          <li><a routerLink="/clases">Clases</a>
+          </li>
           <li class="has-dropdown"><a>Horarios</a>
             <ul class="dropdown">
-              <li><a routerLink="/horario-form">Agregar Horario</a></li>
-              <li><a routerLink="/horario">Ver Horarios</a></li>
+              <li><a routerLink="/horarios-form">Agregar Horario</a></li>
+              <li><a routerLink="/horarios">Ver Horarios</a></li>
             </ul>
           </li>
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
-          <li><a routerLink="">Grabaciones</a></li>
+          <li><a routerLink="/grabaciones">Grabaciones</a></li>
           <li><a routerLink="">Materiales</a></li>
         </ul>
       </div>
@@ -71,15 +76,16 @@
               <div class="-mt-px flex divide-x divide-gray-200">
                 <div class="w-0 flex-1 flex">
                   <a 
+                    (click)="obtenerGrupo(grupos.id_grupo)"
                     class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center bg-blue-300  py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
                     <!-- Heroicon name: solid/mail -->
-      
+                    
                     <span class="ml-3 text-gray-800 text-xs font-medium ">Update Group</span>
                   </a>
                 </div>
 
                 <div class="w-0 flex-1 flex">
-                  <a 
+                  <a (click)="eliminarGrupo(grupos.id_grupo)"
                     class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center bg-red-300  py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
                     <!-- Heroicon name: solid/mail -->
       
@@ -96,6 +102,84 @@
           <!-- More people... -->
           
         </ul>
+
+        <div *ngIf="edit">
+
+        <h6 >Nombre del Grupo</h6>
+        <input type="text" name="last_name" [(ngModel)]="grupo.nombre_grupo"
+          style="height: 35px; width: 150px" id="password" placeholder="New Group Name"
+          class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+      
+      
+      
+        <h5 >Categoria del Grupo</h5>
+        <div class="select" >
+          <select [(ngModel)]="grupo.categoria" name="horario.id_maestro" required>
+            <option>Select Category</option>
+            <option value="Monday-Thursday">Monday Thursday</option>
+            <option value="Saturday">Saturday</option>
+          </select>
+        </div>
+      
+        <div class="field">
+          <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Language</label>
+          <div class="control">
+            <div class="select">
+              <select [(ngModel)]="grupo.Idioma" name="idioma" required>
+                <option>Select Language</option>
+                <option value="English">English</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+        <!-- This example requires Tailwind CSS v2.0+ -->
+      
+        <div  class="Maestros1">
+          <h5>Maestros</h5>
+         
+          
+          <div class="field" style="margin-top: 25px">
+            <div class="control">
+              <div class="select">
+                <select [(ngModel)]="grupo.id_maestro" name="horario.id_maestro" required>
+                  <option>Select Teacher</option>
+                  <option *ngFor="let maestro of arrayMaestros[0]" value="{{ maestro.id_user }}">
+                    {{ maestro.first_nameU }} {{ maestro.last_nameU }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="field" style="margin-top: 25px" >
+          <div class="control">
+            <div class="select">
+              <select [(ngModel)]="grupo.id_maestro2" name="horario.id_maestro" required>
+                <option>Select Teacher</option>
+                <option *ngFor="let maestro of arrayMaestros[0]" value="{{ maestro.id_user }}">
+                  {{ maestro.first_nameU }} {{ maestro.last_nameU }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      
+        <button (click)="actualizarGrupo()"  data-ripple-light="true" data-popover-target="popover"
+          class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+          Guardar Grupo
+        </button>
+        <button style="margin-left:40px" (click)="recargar()"  data-ripple-light="true" data-popover-target="popover"
+        class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+       Volver
+      </button>
+        </div>
+        
   </div>
 </body>
 </html>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/models/users';
 import { UsersService } from '../../services/users/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-register',
@@ -9,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+
   usuario: Users = {
     id_user: 0,
     first_nameU: '',
@@ -21,6 +23,8 @@ export class RegisterComponent implements OnInit {
     status: 'Activo',
   };
   generatedPassword: string = '';
+  isLogin: boolean = this.authService.isLogin();
+  nombreUsuario : any = this.authService.getNameFromToken();
 
   generatePassword() {
     const length = 12; // Longitud de la contraseña (ajusta según tus necesidades)
@@ -39,7 +43,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService: UsersService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,private authService: AuthService
   ) {}
 
   ngOnInit() {

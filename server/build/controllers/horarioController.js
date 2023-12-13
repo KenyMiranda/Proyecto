@@ -25,7 +25,7 @@ class HorarioController {
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const horario = yield database_1.default.query("select * from horarios h JOIN grupo g ON h.id_grupo = g.id_grupo WHERE g.id_maestro=?;", [id]);
+            const horario = yield database_1.default.query("select * from horarios WHERE id_horario=?;", [id]);
             res.json(horario);
         });
     }

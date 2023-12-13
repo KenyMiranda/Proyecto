@@ -73,15 +73,15 @@ const routes: Routes = [
   },
 
   {
-    path: 'clases',
+    path: 'clases-list',
     component: ClasesComponent,
     canActivate : [adminGuardGuard]
   },  
   
   {
-    path: 'clases-list',
+    path: 'clases',
     component: ClasesListComponent,
-    canActivate : [adminGuardGuard]
+    //canActivate : [adminGuardGuard]
   },
 
   {
@@ -89,8 +89,10 @@ const routes: Routes = [
     component: GruposComponent,
     canActivate : [adminGuardGuard]
   },
-
   { path: 'grabaciones', 
+  component: GrabacionesComponent },
+
+  { path: 'grabaciones/:id/:id2', 
     component: GrabacionesComponent },
 
 
@@ -122,12 +124,12 @@ const routes: Routes = [
   {
     path: 'calificaciones-form/:id',
     component: CalificacionesFormComponent,
-    canActivate : [adminGuardGuard]
+    //canActivate : [adminGuardGuard]
   },
   {
     path: 'calificaciones-list',
     component: CalificacionesListComponent,
-    canActivate : [adminGuardGuard]
+    //canActivate : [adminGuardGuard]
   },
   {
     path: 'calificaciones/:idG/:id',

@@ -28,6 +28,33 @@ class AlumnoGrupoController {
             }
         });
     }
+    listOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE c.id_alumno=? GROUP BY g.id_grupo;", id);
+                res.json(clase);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const { idG } = req.params;
+            try {
+                const clase = yield database_1.default.query("DELETE FROM clase WHERE id_alumno =? AND id_grupo=?;", [id, idG]);
+                res.json("Alumno deleted");
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
+        });
+    }
 }
 exports.alumnoGrupoController = new AlumnoGrupoController();
 exports.default = exports.alumnoGrupoController;

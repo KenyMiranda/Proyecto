@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
+import { AuthService } from 'src/app/services/auth.service';
 import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 import Swal from 'sweetalert2';
 
@@ -11,7 +13,7 @@ import Swal from 'sweetalert2';
 export class MaestrosListComponent {
   arrayMaestros: any = []; 
   filterPost = "";
-  constructor(private maestrosService: MaestrosService){
+  constructor(private maestrosService: MaestrosService,private authService: AuthService,private router: Router){
 
   }
 
@@ -19,6 +21,15 @@ export class MaestrosListComponent {
     this.getMaestro();
 
 
+  }
+
+  nombreUsuario = this.authService.getNameFromToken();
+
+
+
+logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
 
   getMaestro() {

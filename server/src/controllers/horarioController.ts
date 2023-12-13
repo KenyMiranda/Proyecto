@@ -12,7 +12,7 @@ class HorarioController {
   public async listOne(req: Request, res: Response) {
     const { id } = req.params;
     const horario = await db.query(
-      "select * from horarios h JOIN grupo g ON h.id_grupo = g.id_grupo WHERE g.id_maestro=?;",
+      "select * from horarios WHERE id_horario=?;",
       [id]
     );
     res.json(horario);

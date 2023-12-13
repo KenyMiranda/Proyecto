@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-horarios.service';
 import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 import { AlumnoGruposService } from 'src/app/services/alumnoGrupos/alumno-grupos.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { Grupo } from 'src/app/models/grupos';
 
 @Component({
   selector: 'app-clases-list',
@@ -14,13 +18,30 @@ export class ClasesListComponent implements OnInit {
   arrayAlumnos : any = [];
   id : number = 0;
   click : boolean = false;
-  constructor(private clasesHorarioService: ClasesHorariosService, private maestroService : MaestrosService,private alumnoGrupoService : AlumnoGruposService){}
+  agregarGrupo : boolean = false;
+  idGrupo :any;
+  isAdmin = this.authService.isAdmin()
+  isMaestro = this.authService.isMaestro();
+
+  grupo : Grupo ={
+    nombre_grupo:""
+  }
+  constructor(private clasesHorarioService: ClasesHorariosService, private router : Router ,private authService: AuthService,private maestroService : MaestrosService,private alumnoGrupoService : AlumnoGruposService){}
 
   ngOnInit() {
 
     this.getClases();
     this.getMaestro();
     
+  }
+
+  nombreUsuario = this.authService.getNameFromToken();
+
+
+
+logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
 
   getClases(){
@@ -34,6 +55,24 @@ export class ClasesListComponent implements OnInit {
 
       
 
+    );
+  }
+
+  copiarGrupo(id: number){
+    this.agregarGrupo=true;
+    this.idGrupo = id;
+
+  }
+
+  agregarGrupoNuevo(){
+    console.log(this.idGrupo);
+    this.clasesHorarioService.postNuevoGrupoCopiado(this.idGrupo.toString(),this.grupo).subscribe(
+      (res) => {
+
+        console.log(res);
+        location.reload();
+      },
+      (err) => console.error(err)
     );
   }
 
@@ -62,6 +101,48 @@ export class ClasesListComponent implements OnInit {
       },
       (err) => console.error(err)
     );
+  }
+
+  borrarAlumno(id: number,idG:number){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.alumnoGrupoService.deleteAlumnoClase(id.toString(),idG.toString()).subscribe(
+          (res) => {
+            console.log(res);
+            setTimeout(() => {
+         
+             location.reload();
+           
+           }, 2500);
+          },
+          (err) => {
+            Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: ""+err.error.msg,
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        }
+    
+        );
+        Swal.fire({
+          title: "Deleted!",
+          
+          text: "The user has been deleted.",
+          icon: "success"
+        });
+      }
+      
+    });
+   
   }
 
 

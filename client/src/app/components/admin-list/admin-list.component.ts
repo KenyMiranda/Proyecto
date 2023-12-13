@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,10 +13,19 @@ import Swal from 'sweetalert2';
   arrayAdmin : any = [];
   filterPost = "";
 
-  constructor(private adminService : AdminService){}
+  constructor(private adminService : AdminService,private authService: AuthService,private router: Router){}
 
   ngOnInit() {
     this.getAdmin();
+  }
+
+  nombreUsuario = this.authService.getNameFromToken();
+
+
+
+logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
 
   getAdmin(){

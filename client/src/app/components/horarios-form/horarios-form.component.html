@@ -16,6 +16,10 @@
             ><i class="material-icons">menu</i></a
           >
           <ul class="right hide-on-med-and-down">
+            <li class="has-dropdown"><a style="margin-right: 40px;">{{nombreUsuario}}</a> <ul class="dropdown">
+              <li><a (click)="logout()">Cerrar Sesion</a></li>
+            </ul>
+          </li>
             <li><a routerLink="/usuarios-list">Users</a></li>
             <li><a routerLink="/admins-list">Administradores</a></li>
             <li class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
@@ -37,7 +41,7 @@
               </ul>
             </li>
             <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
-            <li><a routerLink="">Grabaciones</a></li>
+            <li><a routerLink="/grabaciones">Grabaciones</a></li>
             <li><a routerLink="">Materiales</a></li>
           </ul>
         </div>
@@ -74,7 +78,7 @@
   <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
       <div class="overflow-hidden">
-        <h5>Grupos</h5>
+        <h5>Clases</h5>
 
         <input  type="text" style="height: 35px; width: 800px; margin-left: 20%" name="search"
           placeholder="Search"
@@ -134,7 +138,7 @@
   </div>
 </div>
 
-<h5 style="margin-left:30px">Grupo Seleccionado</h5>
+<h5 style="margin-left:30px">Clase Seleccionado</h5>
   <div class="field" style="margin-left:30px">
     <div class="control">
       <p>ID:</p>

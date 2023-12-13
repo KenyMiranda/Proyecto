@@ -12,6 +12,7 @@ class GrabacionRoutes {
   config(): void {
     this.router.get("/", validateToken, grabacionController.list);
     this.router.get("/:id", validateToken,grabacionController.listOne);
+    this.router.get("/:id/:fecha", validateToken,grabacionController.listRecording);
     this.router.post("/", validateToken,grabacionController.addGrabacion);
     this.router.put("/:id", validateToken,grabacionController.updateG);
     this.router.delete("/:id", validateToken,grabacionController.deleteG);

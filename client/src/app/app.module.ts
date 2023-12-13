@@ -85,7 +85,7 @@ import { GrabacionesService } from './services/grabaciones/grabaciones.service';
     ClasesListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule,ReactiveFormsModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,AlumnoGruposService,GrabacionesService,DatePipe],
+  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,AlumnoGruposService,GrabacionesService,GrabacionesComponent,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

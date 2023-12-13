@@ -40,7 +40,7 @@ class CalificacionController {
         console.log(req.body);
       } else {
       if (calif < 0 || calif > 100 || calif === ""||fecha=="") {
-        res.status(500).send("Error en las calificaciones");
+        res.status(400).json({ error: "Error en las calificaciones o fecha" });
         console.log(req.body);
       } else {
         try {
@@ -48,6 +48,7 @@ class CalificacionController {
           res.json({ text: "Grade added" });
           console.log(req.body);
         } catch (error) {
+          
           console.error("Error al ejecutar la consulta MySQL:", error);
           res.status(500).send("Error al insertar calificacion");
         }
@@ -92,7 +93,7 @@ class CalificacionController {
 
   public async deleteCalificacion(req: Request, res: Response) {
     const { id } = req.params;
-    await db.query("DELETE FROM calificaciones WHERE id_califacion=?", [id]);
+    await db.query("DELETE FROM calificaciones WHERE id_calificacion=?", [id]);
     res.json({ text: "Grade deleted" });
   }
 

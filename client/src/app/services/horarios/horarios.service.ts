@@ -29,6 +29,14 @@ export class HorariosService {
 
   }
 
+  getHorarioMaestro(id: string){
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/horarioMaestro/${id}`,{ headers:header });
+
+  }
+
   //GUARDAR HORARIO
 
   saveHorario(horario: Horario){

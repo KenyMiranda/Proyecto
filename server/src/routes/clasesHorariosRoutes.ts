@@ -12,6 +12,7 @@ class ClaseHorarioRoutes{
     config(): void {
         this.router.get("/", validateToken, claseHorarioController.list);
         this.router.get("/:id", validateToken,claseHorarioController.listOne);
+        this.router.post("/:id", validateToken,claseHorarioController.agregarNuevoGrupo);
 
         
         

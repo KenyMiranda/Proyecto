@@ -11,6 +11,8 @@ import { CalificacionesService } from 'src/app/services/calificaciones/calificac
 import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-horarios.service';
 import { AlumnoGruposService } from 'src/app/services/alumnoGrupos/alumno-grupos.service';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calificaciones-list',
@@ -34,12 +36,18 @@ export class CalificacionesListComponent implements AfterViewInit {
   click: boolean = false;
 
   filterPost = '';
+  rol = this.authService.getRoleFromToken();
+  id: any = this.authService.getIdFromToken();
+  isAdmin = this.authService.isAdmin();
+  isMaestro = this.authService.isMaestro();
+
+  isAlumno :boolean = false;
 
   constructor(
     private alumnosService: AlumnosService,
     private calificacionesService: CalificacionesService,
     private clasesHorarioService: ClasesHorariosService,
-    private alumnosGrupoService: AlumnoGruposService
+    private alumnosGrupoService: AlumnoGruposService,private authService: AuthService, private router: Router
   ) {}
   ngAfterViewInit() {
     
@@ -84,6 +92,15 @@ export class CalificacionesListComponent implements AfterViewInit {
       }
     });
   }
+
+  nombreUsuario = this.authService.getNameFromToken();
+
+
+
+logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
+  }
   getAlumnos(id: number) {
     this.click = true;
     //[routerLink]="['/calificaciones',alumno.id_user]" 
@@ -104,13 +121,38 @@ export class CalificacionesListComponent implements AfterViewInit {
   }
 
   getClases() {
-    this.clasesHorarioService.getClasesHorarios().subscribe(
-      (res) => {
-        this.arrayClases = res;
-        console.log(this.arrayClases[0]);
-      },
-      (err) => console.error(err)
-    );
+
+    if(this.rol=="1"){
+      this.isAlumno=true;
+      this.alumnosGrupoService.getClases(this.id).subscribe(
+        (res) => {
+          this.arrayClases = res;
+         console.log(this.arrayClases[0]);
+        },
+  
+        (err) => console.error(err)
+      );
+    }
+    else if(this.rol=="2"){
+      this.clasesHorarioService.getClaseHorario(this.id).subscribe(
+        (res) => {
+          this.arrayClases = res;
+         console.log(this.arrayClases[0]);
+        },
+  
+        (err) => console.error(err)
+      );
+    
+    } else {
+      this.clasesHorarioService.getClasesHorarios().subscribe(
+        (res) => {
+          this.arrayClases = res;
+         console.log(this.arrayClases[0]);
+        },
+  
+        (err) => console.error(err)
+      );
+    }
   }
 
 

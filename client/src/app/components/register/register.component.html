@@ -16,7 +16,8 @@
           ><i class="material-icons">menu</i></a
         >
         <ul class="right hide-on-med-and-down">
-          <li><a routerLink="/login">Log In</a></li>
+          <li style="margin-right: 40px;">{{nombreUsuario}}</li>
+          <li *ngIf="!isLogin"><a routerLink="/login">Log In</a></li>
         </ul>
       </div>
     </nav>

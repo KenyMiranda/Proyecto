@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-horarios.service';
 import { Clase } from 'src/app/models/clases';
 import { Grupo } from 'src/app/models/grupos';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-horarios-form',
@@ -48,7 +49,9 @@ export class HorariosFormComponent  implements OnInit {
     
     
   }
-  constructor(private maestrosService: MaestrosService , private horariosService : HorariosService , private router: Router,private clasesHorarioService: ClasesHorariosService,private grupos : GruposService,private activatedRoute: ActivatedRoute){
+  nombreUsuario = this.authService.getNameFromToken();
+  
+  constructor(private maestrosService: MaestrosService ,private authService: AuthService,private horariosService : HorariosService , private router: Router,private clasesHorarioService: ClasesHorariosService,private grupos : GruposService,private activatedRoute: ActivatedRoute){
     
 
   }
@@ -103,6 +106,13 @@ export class HorariosFormComponent  implements OnInit {
     
     
   }
+
+  logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
+    
+  }
+
     saveHorario(){
     
 
@@ -168,7 +178,7 @@ export class HorariosFormComponent  implements OnInit {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
               Swal.fire("Saved!", "", "success");
-              this.router.navigate(['/horario']);
+              this.router.navigate(['/horarios']);
             } else if (result.isDenied) {
               Swal.fire("Changes are not saved", "", "info");
             }

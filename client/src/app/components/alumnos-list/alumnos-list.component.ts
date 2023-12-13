@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class AlumnosListComponent implements OnInit {
   arrayAlumnos: any = []; 
   filterPost = ""
-  public nombreUsuario: any="";
+  nombreUsuario = this.authService.getNameFromToken();
   constructor(private alumnosService: AlumnosService , private router: Router,private authService: AuthService){
     
 
@@ -20,13 +20,14 @@ export class AlumnosListComponent implements OnInit {
 
   ngOnInit() {
     this.getAlumnos();
-    this.nombreUsuario=this.authService.getNameFromToken();
+    
 
   }
 
   logout(): void {
     this.authService.removeToken(); // Elimina el token al cerrar sesión
     this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
+    
   }
 
   getAlumnos(){
@@ -36,7 +37,7 @@ export class AlumnosListComponent implements OnInit {
         console.log(this.arrayAlumnos[0]);
       },
 
-      (err) => console.error(err)
+      (err) => console.error(err.error.msg)
     );
   }
 

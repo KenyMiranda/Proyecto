@@ -76,8 +76,66 @@ class GrupoController {
     deleteGrupo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            const grupo = yield database_1.default.query("Delete from grupo where id_grupo = ?", id);
-            res.json({ text: "Grupo eliminado" });
+            try {
+                let grupo = yield database_1.default.query("Select*from clase where id_grupo = ?", id);
+                let calificacion = yield database_1.default.query("Select*from calificaciones where id_grupo = ?", id);
+                let grabacion = yield database_1.default.query("SELECT * FROM grabaciones g JOIN clase c ON g.id_clase = c.id_clase WHERE c.id_grupo =?;", id);
+                let horario = yield database_1.default.query("SELECT * FROM horarios where id_grupo=?", id);
+                grupo = JSON.parse(JSON.stringify(grupo[0]));
+                calificacion = JSON.parse(JSON.stringify(calificacion[0]));
+                grabacion = JSON.parse(JSON.stringify(grabacion[0]));
+                horario = JSON.parse(JSON.stringify(horario[0]));
+                if (grabacion[0]) {
+                    try {
+                        yield database_1.default.query("DELETE g FROM grabaciones g JOIN clase c ON g.id_clase = c.id_clase WHERE c.id_grupo = ?;", id);
+                        console.log("grabacion");
+                    }
+                    catch (error) { }
+                }
+                else if (horario[0]) {
+                    try {
+                        console.log("horario");
+                        yield database_1.default.query("DELETE FROM horarios WHERE id_grupo = ?;", id);
+                    }
+                    catch (error) {
+                        console.error("Error al ejecutar la consulta MySQL:", error);
+                        res.status(500).send("Error interno del servidor");
+                    }
+                }
+                else if (calificacion[0]) {
+                    try {
+                        console.log("calif");
+                        yield database_1.default.query("DELETE FROM calificaciones WHERE id_grupo = ?;", id);
+                    }
+                    catch (error) {
+                        console.error("Error al ejecutar la consulta MySQL:", error);
+                        res.status(500).send("Error interno del servidor");
+                    }
+                }
+                else if (grupo[0]) {
+                    try {
+                        console.log("grupo");
+                        yield database_1.default.query("DELETE FROM clase WHERE id_grupo = ?;", id);
+                    }
+                    catch (error) {
+                        console.error("Error al ejecutar la consulta MySQL:", error);
+                        res.status(500).send("Error interno del servidor");
+                    }
+                }
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
+            try {
+                const grupo = yield database_1.default.query("Delete from grupo where id_grupo = ?", id);
+                res.json("grupo borrado");
+            }
+            catch (error) {
+                res.status(400).json({
+                    msg: 'No se puede eliminar el grupo por que esta en uso'
+                });
+            }
         });
     }
     updateGrupo(req, res) {

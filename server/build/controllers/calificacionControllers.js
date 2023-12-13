@@ -49,7 +49,7 @@ class CalificacionController {
                 }
                 else {
                     if (calif < 0 || calif > 100 || calif === "" || fecha == "") {
-                        res.status(500).send("Error en las calificaciones");
+                        res.status(400).json({ error: "Error en las calificaciones o fecha" });
                         console.log(req.body);
                     }
                     else {
@@ -102,7 +102,7 @@ class CalificacionController {
     deleteCalificacion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM calificaciones WHERE id_califacion=?", [id]);
+            yield database_1.default.query("DELETE FROM calificaciones WHERE id_calificacion=?", [id]);
             res.json({ text: "Grade deleted" });
         });
     }

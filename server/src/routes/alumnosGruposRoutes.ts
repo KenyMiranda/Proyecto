@@ -11,6 +11,8 @@ class AlumnoGrupoRoutes{
 
     config(): void {
         this.router.get("/:id",validateToken, alumnoGrupoController.list);
+        this.router.get("/s/:id",validateToken, alumnoGrupoController.listOne);
+        this.router.delete("/:id/:idG",validateToken, alumnoGrupoController.delete);
 
         
         

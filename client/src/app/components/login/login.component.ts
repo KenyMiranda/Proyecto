@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  isLogin = this.authService.isLogin();
+  isAdmin = this.authService.isAdmin();
 
   constructor(
     private userService: UsersService,
@@ -57,9 +59,9 @@ export class LoginComponent {
 
         localStorage.setItem('token', token.toString());
         let rol = this.authService.getRoleFromToken();
-        if(rol==3)this.router.navigate(['/admin']);
-        if(rol==2)this.router.navigate(['/maestros']);
-        if(rol==1)this.router.navigate(['/alumnos']);
+        if(rol==3)this.router.navigate(['/usuarios-list']);
+        if(rol==2)this.router.navigate(['/horarios']);
+        if(rol==1)this.router.navigate(['/grabaciones']);
       },
       error: (error: any) => {
         // Manejar el error aquí

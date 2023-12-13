@@ -13,12 +13,19 @@ import { HttpHeaders } from '@angular/common/http';
 export class UsersComponent implements OnInit {
   arrayusers: any = [];
   filterPost = "";
+  nombreUsuario = this.authService.getNameFromToken();
   constructor(private usersService: UsersService , private router: Router , private authService: AuthService) {}
 
   ngOnInit() {
     this.getUsers();
     //this.authService.getIdFromToken();
 
+  }
+
+  logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
+    
   }
 
   getUsers() {
@@ -35,8 +42,8 @@ export class UsersComponent implements OnInit {
         Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Something went wrong!",
-        footer: '<a href="#">Why do I have this issue?</a>'
+        text: ""+err.error.msg,
+       
       });
     }
     );
@@ -63,7 +70,7 @@ export class UsersComponent implements OnInit {
             Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Something went wrong!",
+            text: ""+err.error.msg,
             footer: '<a href="#">Why do I have this issue?</a>'
           });
         }

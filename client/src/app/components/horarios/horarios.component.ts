@@ -49,12 +49,19 @@ export class HorariosComponent implements OnInit {
   rol: any = this.authService.getRoleFromToken();
   public dia: boolean = true;
   isAdmin: boolean = false;
+  nombreUsuario = this.authService.getNameFromToken();
   ngOnInit() {
     this.obtenerHorarios();
     this.obtenerClases();
     this.obtenerMaestros();
     this.obtenerGrupos();
     this.isAdmin = this.authService.isAdmin();
+  }
+
+  logout(): void {
+    this.authService.removeToken(); // Elimina el token al cerrar sesión
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
+    
   }
 
   obtenerClases() {
@@ -94,7 +101,7 @@ export class HorariosComponent implements OnInit {
 
   obtenerHorarios() {
     if (this.rol == 2) {
-      this.horariosService.getHorario(this.id).subscribe(
+      this.horariosService.getHorarioMaestro(this.id).subscribe(
         (res) => {
           this.arrayHorarios = res;
 
@@ -130,13 +137,33 @@ export class HorariosComponent implements OnInit {
     );
   }
 
-  exportarAExcel(): void {
-    /*
+  exportarAExcel() {
+    
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.tabla.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Horario');
+    const cell = ws["getCell"](2, 1);
+    cell.setStyle({ alignment: { horizontal: "center" } });
     XLSX.writeFile(wb, 'horario.xlsx');
-    */
+    
+
+    /*
+   // Obtenemos los datos de la tabla
+  const data = this.table.querySelectorAll("tr").map((row: { querySelectorAll: (arg0: string) => any; }) => {
+    const cells = row.querySelectorAll("td");
+    return cells.map((cell: { textContent: any; }) => cell.textContent);
+  });
+
+  // Generamos el archivo Excel
+  const workbook = XLSX.utils.book_new();
+  const worksheet = workbook.addWorksheet("Horario");
+  worksheet.fromArray(data, {
+    header: true,
+  });
+
+  // Guardamos el archivo Excel
+  workbook.writeFile("horario.xlsx");
+  */
   }
 
   private obtenerDatosParaExportar(): any[][] {

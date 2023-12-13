@@ -27,6 +27,13 @@ export class GrabacionesService {
     return this.http.get(`${this.API_URL}/grabacion/${id}`,{ headers:header });
    }
 
+   getGrabacionFecha(id : string,fecha:string) {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/grabacion/${id}/${fecha}`,{ headers:header });
+   }
+
    //GUARDAR USUARIO 
 
    saveGrabacion(grabacion:Grabacion){

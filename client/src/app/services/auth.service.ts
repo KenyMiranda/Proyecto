@@ -11,6 +11,15 @@ export class AuthService {
   constructor(private router: Router){}
   private tokenKey = 'token';
 
+  isLogin():boolean{
+    const token = localStorage.getItem('token');
+    if (token===undefined||token==null) {
+      return false;
+    } else {
+      return true;
+    }
+    return false;
+  }
   getToken(): string | null {
     const token = localStorage.getItem('token');
     if(token ===undefined||token === null){
