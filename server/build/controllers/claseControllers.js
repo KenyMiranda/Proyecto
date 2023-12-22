@@ -66,16 +66,28 @@ class ClaseController {
     deleteClase(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            const clase = yield database_1.default.query("Delete from clase where id_clase = ?", id);
-            res.json({ text: "Clase eliminada" });
+            try {
+                const clase = yield database_1.default.query("Delete from clase where id_clase = ?", id);
+                res.json({ text: "Clase eliminada" });
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     updateClase(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
             const datos = req.body;
-            yield database_1.default.query("UPDATE clase SET ? WHERE id_clase = ?", [datos, id]);
-            res.json({ message: "Clase updated" });
+            try {
+                yield database_1.default.query("UPDATE clase SET ? WHERE id_clase = ?", [datos, id]);
+                res.json({ message: "Clase updated" });
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
 }

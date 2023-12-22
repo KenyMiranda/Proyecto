@@ -21,6 +21,7 @@ class ClaseController {
     let grupo = req.body.id_grupo;
 
     
+    
     let alumnoArray = await db.query(
       "Select * from clase where id_alumno = ? AND id_grupo=? ",
       [alumnoId,grupo])
@@ -62,15 +63,27 @@ class ClaseController {
   public async deleteClase(req: Request, res: Response) {
     const id = req.params.id;
 
+    try {
     const clase = await db.query("Delete from clase where id_clase = ?", id);
     res.json({ text: "Clase eliminada" });
+    } catch (error) {
+      console.error("Error al ejecutar la consulta MySQL:", error);
+      res.status(500).send("Error interno del servidor");
+    }
+  
   }
 
   public async updateClase(req: Request, res: Response) {
     const id = req.params.id;
     const datos = req.body;
+    try {
     await db.query("UPDATE clase SET ? WHERE id_clase = ?", [datos, id]);
     res.json({ message: "Clase updated" });
+    } catch (error) {
+      console.error("Error al ejecutar la consulta MySQL:", error);
+      res.status(500).send("Error interno del servidor");
+    }
+
   }
 }
 

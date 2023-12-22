@@ -46,6 +46,10 @@ import { MaterialesComponent } from './components/materiales/materiales.componen
 import { ClasesListComponent } from './components/clases-list/clases-list.component';
 import { AlumnoGruposService } from './services/alumnoGrupos/alumno-grupos.service';
 import { GrabacionesService } from './services/grabaciones/grabaciones.service';
+import { ReportesComponent } from './components/reportes/reportes.component';
+import { ReportesService } from './services/reportes/reportes.service';
+import { ReportesAlumnoGrupoComponent } from './components/reportes/reportes-alumno-grupo/reportes-alumno-grupo.component';
+import { ReportesAlumnoMaestroComponent } from './components/reportes/reportes-alumno-maestro/reportes-alumno-maestro.component';
 
 
 
@@ -83,9 +87,12 @@ import { GrabacionesService } from './services/grabaciones/grabaciones.service';
     GrabacionesComponent,
     MaterialesComponent,
     ClasesListComponent,
+    ReportesComponent,
+    ReportesAlumnoGrupoComponent,
+    ReportesAlumnoMaestroComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule,ReactiveFormsModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,AlumnoGruposService,GrabacionesService,GrabacionesComponent,DatePipe],
+  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,AlumnoGruposService,GrabacionesService,GrabacionesComponent,ReportesService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

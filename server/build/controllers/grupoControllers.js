@@ -102,7 +102,7 @@ class GrupoController {
                         res.status(500).send("Error interno del servidor");
                     }
                 }
-                else if (calificacion[0]) {
+                if (calificacion[0]) {
                     try {
                         console.log("calif");
                         yield database_1.default.query("DELETE FROM calificaciones WHERE id_grupo = ?;", id);
@@ -112,7 +112,7 @@ class GrupoController {
                         res.status(500).send("Error interno del servidor");
                     }
                 }
-                else if (grupo[0]) {
+                if (grupo[0]) {
                     try {
                         console.log("grupo");
                         yield database_1.default.query("DELETE FROM clase WHERE id_grupo = ?;", id);
@@ -127,15 +127,17 @@ class GrupoController {
                 console.error("Error al ejecutar la consulta MySQL:", error);
                 res.status(500).send("Error interno del servidor");
             }
+            /*
             try {
-                const grupo = yield database_1.default.query("Delete from grupo where id_grupo = ?", id);
-                res.json("grupo borrado");
+              const grupo = await db.query("Delete from grupo where id_grupo = ?", id)
+              res.json("grupo borrado")
+            } catch (error) {
+              res.status(400).json({
+                msg: 'No se puede eliminar el grupo por que esta en uso'
+            })
             }
-            catch (error) {
-                res.status(400).json({
-                    msg: 'No se puede eliminar el grupo por que esta en uso'
-                });
-            }
+            */
+            res.json("asdsa");
         });
     }
     updateGrupo(req, res) {

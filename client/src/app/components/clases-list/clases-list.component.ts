@@ -17,11 +17,14 @@ export class ClasesListComponent implements OnInit {
   arrayMaestros : any = [];
   arrayAlumnos : any = [];
   id : number = 0;
+  idU:any = this.authService.getIdFromToken();
+  rol = this.authService.getRoleFromToken();
   click : boolean = false;
   agregarGrupo : boolean = false;
   idGrupo :any;
   isAdmin = this.authService.isAdmin()
   isMaestro = this.authService.isMaestro();
+  isAlumno = this.authService.isAlumno();
 
   grupo : Grupo ={
     nombre_grupo:""
@@ -45,6 +48,25 @@ logout(): void {
   }
 
   getClases(){
+    if (this.rol == '1') {
+      
+      this.alumnoGrupoService.getClases(this.idU).subscribe(
+        (res) => {
+          this.arrayClases = res;
+          console.log(this.arrayClases[0]);
+        },
+
+        (err) => console.error(err)
+      );
+    } else if (this.rol == '2') {
+      this.clasesHorarioService.getClaseHorario(this.idU).subscribe(
+        (res) => {
+          this.arrayClases = res;
+          console.log(this.arrayClases[0]);
+        },
+
+        (err) => console.error(err)
+      );} else {
     this.clasesHorarioService.getClasesHorarios().subscribe(
       (res) => {
 
@@ -56,6 +78,7 @@ logout(): void {
       
 
     );
+  }
   }
 
   copiarGrupo(id: number){

@@ -142,8 +142,8 @@ export class HorariosComponent implements OnInit {
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.tabla.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Horario');
-    const cell = ws["getCell"](2, 1);
-    cell.setStyle({ alignment: { horizontal: "center" } });
+   // const cell = ws["getCell"](2, 1);
+    //cell.setStyle({ alignment: { horizontal: "center" } });
     XLSX.writeFile(wb, 'horario.xlsx');
     
 

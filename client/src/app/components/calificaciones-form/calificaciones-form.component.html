@@ -23,12 +23,7 @@
             <li *ngIf="isAdmin"><a routerLink="/usuarios-list">Users</a></li>
             <li *ngIf="isAdmin"><a routerLink="/admins-list">Administradores</a></li>
             <li *ngIf="isAdmin" class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
-              <ul class="dropdown">
-                <li><a routerLink="/usuarios-list">Users</a></li>
-                <li><a routerLink="/admins-list">Administradores</a></li>
-                <li><a routerLink="/usuarios-list">Users</a></li>
-                <li><a routerLink="/admins-list">Administradores</a></li>
-              </ul>
+
             </li>
             
             <li *ngIf="isAdmin"><a routerLink="/maestros-list">Maestros</a></li>

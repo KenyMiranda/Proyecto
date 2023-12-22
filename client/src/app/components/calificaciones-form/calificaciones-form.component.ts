@@ -76,6 +76,8 @@ export class CalificacionesFormComponent implements AfterViewInit {
       });
     }
 
+    
+
     if (this.myElements) {
       // Acceder a cada input de manera individual
       this.myElements.forEach((element, index) => {
@@ -145,7 +147,7 @@ export class CalificacionesFormComponent implements AfterViewInit {
 
                   for (let i = 0; i < this.myElements.length;i++){
                     const element = this.myElements.toArray()[i]?.nativeElement.value;
-                    if (element==""||element==null||element>=100||element<0){
+                    if (element==""||element==null){
                       vacios = vacios+1;
                     }
                   }

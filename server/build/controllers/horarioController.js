@@ -18,15 +18,25 @@ const moment_1 = __importDefault(require("moment"));
 class HorarioController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const horario = yield database_1.default.query("SELECT * FROM horarios ORDER BY Hora_inicio ASC");
-            res.json(horario);
+            try {
+                const horario = yield database_1.default.query("SELECT * FROM horarios ORDER BY Hora_inicio ASC");
+                res.json(horario);
+            }
+            catch (error) {
+                res.status(400).send("Error al ejecutar la consulta MySQL:");
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const horario = yield database_1.default.query("select * from horarios WHERE id_horario=?;", [id]);
-            res.json(horario);
+            try {
+                const horario = yield database_1.default.query("select * from horarios WHERE id_horario=?;", [id]);
+                res.json(horario);
+            }
+            catch (error) {
+                res.status(400).send("Error al ejecutar la consulta MySQL:");
+            }
         });
     }
     createHorario(req, res) {
@@ -37,7 +47,7 @@ class HorarioController {
             const momentTiempo2 = (0, moment_1.default)(hora_final, "HH:mm:ss");
             //const dia = req.body.dia;
             const grupo = req.body.id_grupo;
-            const categoria = req.body.categoria;
+            const semana = req.body.semana;
             try {
                 let c_grupo = yield database_1.default.query("SELECT categoria FROM grupo WHERE id_grupo =? ", grupo);
                 let cat = JSON.parse(JSON.stringify(c_grupo[0]));
@@ -65,26 +75,48 @@ class HorarioController {
                     categ == "Monday-Thursday"
                 //num == 0
                 ) {
-                    yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
-                    res.json({ text: "Horario Created" });
+                    if (semana == null || semana == 0) {
+                        res.status(400).send("Favor de Introducir la semana:");
+                    }
+                    else {
+                        try {
+                            yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
+                            res.json({ text: "Horario Created" });
+                        }
+                        catch (error) {
+                            res.status(400).send("Error al ejecutar la consulta MySQL:");
+                        }
+                    }
                 }
                 else if (diferenciaHoras == 4 &&
                     diferenciaMinutos == 240 &&
                     categ == "Saturday"
                 //num == 0
                 ) {
-                    yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
-                    res.json({ text: "Horario Created" });
+                    if (semana == null || semana == 0) {
+                        res.status(400).send("Favor de Introducir la semana:");
+                    }
+                    else {
+                        try {
+                            yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
+                            res.json({ text: "Horario Created" });
+                        }
+                        catch (error) {
+                            res.status(400).send("Error al ejecutar la consulta MySQL:");
+                        }
+                    }
                 }
                 else {
-                    res.status(500).send("Error en la cantidad de horas o horario empalmado");
+                    res.status(400).json({
+                        msg: "Error en la cantidad de horas o horario empalmado",
+                    });
                 }
                 console.log(`La diferencia es: ${diferenciaHoras} horas y ${diferenciaMinutos} minutos`);
                 //console.log(num);
             }
             catch (error) {
                 console.log("asdas" + error);
-                res.status(500).send("Error al ejecutar la consulta MySQL:");
+                res.status(400).send("Error al ejecutar la consulta MySQL:");
             }
         });
     }
@@ -117,22 +149,32 @@ class HorarioController {
                 if (diferenciaHoras == 1 &&
                     diferenciaMinutos == 60 &&
                     dia == "Monday-Thursday") {
-                    yield database_1.default.query("UPDATE horarios SET ? WHERE id_horario = ?", [datos, id]);
+                    yield database_1.default.query("UPDATE horarios SET ? WHERE id_horario = ?", [
+                        datos,
+                        id,
+                    ]);
                     res.json({ text: "Horario Created" });
                 }
                 else if (diferenciaHoras == 4 &&
                     diferenciaMinutos == 240 &&
                     dia == "Saturday") {
-                    yield database_1.default.query("UPDATE horarios SET ? WHERE id_horario = ?", [datos, id]);
+                    yield database_1.default.query("UPDATE horarios SET ? WHERE id_horario = ?", [
+                        datos,
+                        id,
+                    ]);
                     res.json({ text: "Horario Created" });
                 }
                 else {
-                    res.status(500).send("Error en la cantidad de horas o horario empalmado");
+                    res.status(401).json({
+                        msg: 'Error en la cantidad de horas o horario empalmado"',
+                    });
                 }
                 console.log(`La diferencia es: ${diferenciaHoras} horas y ${diferenciaMinutos} minutos`);
             }
             catch (error) {
-                res.status(500).send("Error al ejecutar la consulta MySQL:");
+                res.status(500).json({
+                    msg: "Error al realizar estar accion checar el servidor",
+                });
             }
             /*
             try {

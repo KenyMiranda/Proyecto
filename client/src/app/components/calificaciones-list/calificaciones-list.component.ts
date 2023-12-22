@@ -10,9 +10,11 @@ import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
 import { CalificacionesService } from 'src/app/services/calificaciones/calificaciones.service';
 import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-horarios.service';
 import { AlumnoGruposService } from 'src/app/services/alumnoGrupos/alumno-grupos.service';
+
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-calificaciones-list',
@@ -20,45 +22,64 @@ import { Router } from '@angular/router';
   styleUrls: ['./calificaciones-list.component.css'],
 })
 export class CalificacionesListComponent implements AfterViewInit {
- 
-
+  @ViewChild('tabla', { static: false })
+  tabla!: ElementRef;
   arrayAlumnos: any = [];
   arrayCalificaciones: any = [];
-  arrayCalifAlumno:any = [];
+  arrayAllCalificaciones: any = [];
+  arrayCalifAlumno: any = [];
   arrayFechas: any = [];
   arrayCalif: any = [];
   arrayClases: any = [];
   calificacion: Calificacion = {
-    fecha_calif: "",
+    fecha_calif: '',
     calificacion: 0,
     id_alumno: 0,
   };
   click: boolean = false;
+
+  datos = [
+    { value: 1200, label: "Enero" },
+    { value: 1500, label: "Febrero" },
+    { value: 2000, label: "Marzo" },
+  ];
+  
+  etiquetas : any = ['Enero', 'Febrero', 'Marzo'];
+  
 
   filterPost = '';
   rol = this.authService.getRoleFromToken();
   id: any = this.authService.getIdFromToken();
   isAdmin = this.authService.isAdmin();
   isMaestro = this.authService.isMaestro();
+  promedio : number = 0.0;
+  acumulador : number = 0;
+  contador : number = 0;
 
-  isAlumno :boolean = false;
+  isAlumno: boolean = false;
 
   constructor(
     private alumnosService: AlumnosService,
     private calificacionesService: CalificacionesService,
     private clasesHorarioService: ClasesHorariosService,
-    private alumnosGrupoService: AlumnoGruposService,private authService: AuthService, private router: Router
+    private alumnosGrupoService: AlumnoGruposService,
+    private authService: AuthService,
+    private router: Router
   ) {}
   ngAfterViewInit() {
-    
     this.getClases();
+    this.getAllCalif();
+    this.alumnosService.getAlumnos().subscribe(
+      (res) => {
+        this.arrayAlumnos = res;
+        console.log(this.arrayAlumnos[0]);
+      },
+      (err) => console.error(err)
+    );
+
   }
 
-  
-
   onClickButton(id: number) {
-   
-
     Swal.fire({
       title: 'Assign grade ?',
       text: 'This grade will be assing to this student!',
@@ -95,15 +116,13 @@ export class CalificacionesListComponent implements AfterViewInit {
 
   nombreUsuario = this.authService.getNameFromToken();
 
-
-
-logout(): void {
+  logout(): void {
     this.authService.removeToken(); // Elimina el token al cerrar sesión
     this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
   getAlumnos(id: number) {
     this.click = true;
-    //[routerLink]="['/calificaciones',alumno.id_user]" 
+    //[routerLink]="['/calificaciones',alumno.id_user]"
     this.alumnosGrupoService.getAlumnos(id.toString()).subscribe(
       (res) => {
         this.arrayAlumnos = res;
@@ -111,53 +130,88 @@ logout(): void {
       },
       (err) => console.error(err)
     );
-    
-    this.getCalificaciones(id)
 
+    this.getCalificaciones(id);
+  }
+  exportarAExcel() {
+    
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.tabla.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Horario');
+   // const cell = ws["getCell"](2, 1);
+    //cell.setStyle({ alignment: { horizontal: "center" } });
+    XLSX.writeFile(wb, 'Calificaciones Globales.xlsx');
     
 
+    /*
+   // Obtenemos los datos de la tabla
+  const data = this.table.querySelectorAll("tr").map((row: { querySelectorAll: (arg0: string) => any; }) => {
+    const cells = row.querySelectorAll("td");
+    return cells.map((cell: { textContent: any; }) => cell.textContent);
+  });
 
-    
+  // Generamos el archivo Excel
+  const workbook = XLSX.utils.book_new();
+  const worksheet = workbook.addWorksheet("Horario");
+  worksheet.fromArray(data, {
+    header: true,
+  });
+
+  // Guardamos el archivo Excel
+  workbook.writeFile("horario.xlsx");
+  */
+  }
+
+  getAllCalif() {
+    this.calificacionesService.getAllCalificaciones().subscribe(
+      (res) => {
+        this.arrayAllCalificaciones = res;
+        for (let index = 0; index < this.arrayAllCalificaciones[0].length; index++) {
+          this.acumulador = this.arrayAllCalificaciones[0][index].calificacion+ this.acumulador;
+          this.contador+=1;
+          
+        }
+        this.promedio = this.acumulador/this.contador;
+        console.log(this.promedio);
+        console.log(this.arrayAllCalificaciones[0]);
+      },
+      (err) => console.error(err)
+    );
   }
 
   getClases() {
-
-    if(this.rol=="1"){
-      this.isAlumno=true;
+    if (this.rol == '1') {
+      this.isAlumno = true;
       this.alumnosGrupoService.getClases(this.id).subscribe(
         (res) => {
           this.arrayClases = res;
-         console.log(this.arrayClases[0]);
+          console.log(this.arrayClases[0]);
         },
-  
+
         (err) => console.error(err)
       );
-    }
-    else if(this.rol=="2"){
+    } else if (this.rol == '2') {
       this.clasesHorarioService.getClaseHorario(this.id).subscribe(
         (res) => {
           this.arrayClases = res;
-         console.log(this.arrayClases[0]);
+          console.log(this.arrayClases[0]);
         },
-  
+
         (err) => console.error(err)
       );
-    
     } else {
       this.clasesHorarioService.getClasesHorarios().subscribe(
         (res) => {
           this.arrayClases = res;
-         console.log(this.arrayClases[0]);
+          console.log(this.arrayClases[0]);
         },
-  
+
         (err) => console.error(err)
       );
     }
   }
 
-
-
-  getCalificaciones(id:number) {
+  getCalificaciones(id: number) {
     const objeto: any = {};
     this.calificacionesService.getCalificaciones(id.toString()).subscribe(
       (res) => {
@@ -165,7 +219,7 @@ logout(): void {
         for (let i = 0; i < this.arrayCalificaciones[0].length; i++) {
           objeto[i] = this.arrayCalificaciones[0][i];
           let fecha = objeto[i].fecha_calif;
-          
+
           if (this.arrayFechas.length === 0) {
             this.arrayFechas.push(objeto[i].fecha_calif);
           } else {
@@ -173,7 +227,6 @@ logout(): void {
             if (!(fecha == objeto[i].fecha_calif))
               this.arrayFechas.push(objeto[i].fecha_calif);
           }
-          
 
           //if (this.arrayFechas.length > 5) this.arrayFechas.splice(0, 1);
         }
@@ -191,5 +244,24 @@ logout(): void {
         m.id_alumno === id_alumno && m.fecha_calif === fecha
     );
     return maestro ? maestro.calificacion : '';
+  }
+
+  obtenerAlumno(id_alumno:string){
+   
+    const alumno = this.arrayAlumnos[0].find(
+      (m: { id_user: number }) => m.id_user.toString()=== id_alumno
+    );
+
+    return alumno ? `${alumno.first_nameU} ${alumno.last_nameU}` : '';
+  }
+
+  obtenerGrupo(id_grupo:string){
+    
+    const grupo = this.arrayClases[0].find(
+      (m: { id_grupo: number }) => m.id_grupo.toString()=== id_grupo
+    );
+   
+
+    return grupo ? `${grupo.nombre_grupo}` : '';
   }
 }

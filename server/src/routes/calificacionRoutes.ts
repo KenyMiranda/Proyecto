@@ -11,7 +11,9 @@ class CalificacionRoutes{
 
     config(): void {
         this.router.get("/:id", validateToken,calificacionControllers.list);
+        this.router.get("/", validateToken,calificacionControllers.listAll);
         this.router.get("/:idG/:id",validateToken, calificacionControllers.listOne);
+        this.router.get("/s/:id",validateToken, calificacionControllers.listOneFecha);
         this.router.delete("/:id",validateToken,calificacionControllers.deleteCalificacion);
         this.router.post("/",validateToken,calificacionControllers.addCalificacion)
         this.router.put("/:id",validateToken,calificacionControllers.updateCalificacion);

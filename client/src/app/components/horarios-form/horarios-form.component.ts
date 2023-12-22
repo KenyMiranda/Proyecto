@@ -148,8 +148,8 @@ export class HorariosFormComponent  implements OnInit {
               Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: "Something went wrong!",
-              footer: '<a href="#">Why do I have this issue?</a>'
+              text: ""+err.error.msg,
+             
             });
           }
           )
@@ -189,8 +189,8 @@ export class HorariosFormComponent  implements OnInit {
         (err) => {Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Something went wrong!",
-          footer: '<a href="#">Why do I have this issue?</a>'
+          text: ""+err.error.err,
+          
         });
       } 
       );

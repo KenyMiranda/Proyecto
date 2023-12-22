@@ -13,7 +13,9 @@ class CalificacionRoutes {
     }
     config() {
         this.router.get("/:id", validateToken_1.default, calificacionControllers_1.default.list);
+        this.router.get("/", validateToken_1.default, calificacionControllers_1.default.listAll);
         this.router.get("/:idG/:id", validateToken_1.default, calificacionControllers_1.default.listOne);
+        this.router.get("/s/:id", validateToken_1.default, calificacionControllers_1.default.listOneFecha);
         this.router.delete("/:id", validateToken_1.default, calificacionControllers_1.default.deleteCalificacion);
         this.router.post("/", validateToken_1.default, calificacionControllers_1.default.addCalificacion);
         this.router.put("/:id", validateToken_1.default, calificacionControllers_1.default.updateCalificacion);

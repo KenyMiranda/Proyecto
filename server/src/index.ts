@@ -14,7 +14,7 @@ import claseHorarioRoutes from "./routes/clasesHorariosRoutes";
 import alumnoGrupoRoutes from "./routes/alumnosGruposRoutes";
 import grabacionesRoutes from "./routes/grabacionesRoutes";
 import horarioMaestrosRoutes from "./routes/horarioMaestrosRoutes";
-import validateToken from "./routes/validateToken";
+import reporteRoutes from "./routes/reporteRoutes";
 
 class Server {
     public app: Application;
@@ -46,6 +46,7 @@ class Server {
         this.app.use('/alumnoGrupo',alumnoGrupoRoutes);
         this.app.use('/grabacion',grabacionesRoutes);
         this.app.use('/horarioMaestro',horarioMaestrosRoutes);
+        this.app.use('/reporte',reporteRoutes);
         
         
     }

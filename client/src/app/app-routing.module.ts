@@ -25,6 +25,9 @@ import { ClasesListComponent } from './components/clases-list/clases-list.compon
 import { adminGuardGuard } from './guards/admin-guard.guard';
 import { maestroGuardGuard } from './guards/maestro-guard.guard';
 import { alumnoGuardGuard } from './guards/alumno-guard.guard';
+import { ReportesComponent } from './components/reportes/reportes.component';
+import { ReportesAlumnoMaestroComponent } from './components/reportes/reportes-alumno-maestro/reportes-alumno-maestro.component';
+import { ReportesAlumnoGrupoComponent } from './components/reportes/reportes-alumno-grupo/reportes-alumno-grupo.component';
 const routes: Routes = [
   {
     path: '',
@@ -33,30 +36,31 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    
   },
   {
     path: 'alumnos',
     component: AlumnosComponent,
-    canActivate :[alumnoGuardGuard]
-    
-    
+    canActivate: [alumnoGuardGuard],
   },
-  { path: 'registro', component: RegisterComponent },
+  {
+    path: 'registro',
+    component: RegisterComponent,
+    canActivate: [adminGuardGuard],
+  },
   {
     path: 'update',
     component: UpdateFormComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
   {
     path: 'maestros',
     component: MaestrosComponent,
-    canActivate : [maestroGuardGuard]
+    canActivate: [maestroGuardGuard],
   },
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
 
   {
@@ -68,16 +72,15 @@ const routes: Routes = [
   {
     path: 'horarios-form',
     component: HorariosFormComponent,
-    canActivate : [adminGuardGuard]
-    
+    canActivate: [adminGuardGuard],
   },
 
   {
     path: 'clases-list',
     component: ClasesComponent,
-    canActivate : [adminGuardGuard]
-  },  
-  
+    canActivate: [adminGuardGuard],
+  },
+
   {
     path: 'clases',
     component: ClasesListComponent,
@@ -87,39 +90,35 @@ const routes: Routes = [
   {
     path: 'grupos',
     component: GruposComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
-  { path: 'grabaciones', 
-  component: GrabacionesComponent },
+  { path: 'grabaciones', component: GrabacionesComponent },
 
-  { path: 'grabaciones/:id/:id2', 
-    component: GrabacionesComponent },
+  { path: 'grabaciones/:id/:id2', component: GrabacionesComponent },
 
-
-  { path: 'materiales', 
-    component: MaterialesComponent },
+  { path: 'materiales', component: MaterialesComponent },
 
   {
     path: 'usuarios-list',
     component: UsersComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
 
   {
     path: 'admins-list',
     component: AdminListComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
 
   {
     path: 'maestros-list',
     component: MaestrosListComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
   {
     path: 'alumnos-list',
     component: AlumnosListComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
   {
     path: 'calificaciones-form/:id',
@@ -134,24 +133,23 @@ const routes: Routes = [
   {
     path: 'calificaciones/:idG/:id',
     component: CalificacionesComponent,
-    
   },
   {
     path: 'usuario/update/:id',
     component: RegisterComponent,
-    canActivate : [adminGuardGuard]
+    //canActivate: [adminGuardGuard],
   },
 
   {
     path: 'horarios/update/:id',
     component: HorariosFormComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
 
   {
     path: 'admin/update/:id',
     component: UpdateFormComponent,
-    canActivate : [adminGuardGuard]
+    canActivate: [adminGuardGuard],
   },
 
   {
@@ -163,12 +161,22 @@ const routes: Routes = [
     path: 'maestro/update/:id',
     component: UpdateFormComponent,
   },
+  {
+    path: 'reportes/alumnoGpo',
+    component: ReportesAlumnoGrupoComponent,
+    canActivate: [adminGuardGuard],
+  },
+  {
+    path: 'reportes/alumnoMto',
+    component: ReportesAlumnoMaestroComponent,
+    canActivate: [adminGuardGuard],
+  },
 
   {
     path: '**',
     //component: Error404Component,
-    redirectTo :'login',pathMatch:'full'
-    
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
 ];
 

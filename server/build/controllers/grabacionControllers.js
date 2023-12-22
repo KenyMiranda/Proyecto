@@ -17,36 +17,68 @@ const database_1 = __importDefault(require("../database"));
 class GrabacionController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const grabacion = yield database_1.default.query("SELECT * FROM grabaciones");
-            res.json(grabacion);
+            try {
+                const grabacion = yield database_1.default.query("SELECT * FROM grabaciones");
+                res.json(grabacion);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            const grabacion = yield database_1.default.query("SELECT * FROM grabaciones where id_clase =?", id);
-            res.json(grabacion);
+            try {
+                const grabacion = yield database_1.default.query("SELECT * FROM grabaciones where id_clase =?", id);
+                res.json(grabacion);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     listRecording(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
             const fecha = req.params.fecha;
-            const grabacion = yield database_1.default.query("SELECT *FROM grabaciones g JOIN clase c ON g.id_clase = c.id_clase WHERE c.id_grupo =? AND g.fecha =?;", [id, fecha]);
-            res.json(grabacion);
+            try {
+                const grabacion = yield database_1.default.query("SELECT *FROM grabaciones g JOIN clase c ON g.id_clase = c.id_clase WHERE c.id_grupo =? AND g.fecha =?;", [id, fecha]);
+                res.json(grabacion);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     deleteG(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            const grabacion = yield database_1.default.query("DELETE FROM grabaciones where id_grabaciones =?", id);
+            try {
+                const grabacion = yield database_1.default.query("DELETE FROM grabaciones where id_grabaciones =?", id);
+                res.json("Grabacion eliminada");
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     updateG(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
             let datos = req.body;
-            const grabacion = yield database_1.default.query("UPDATE FROM grabaciones SET =? where id_grabaciones =?", [datos, id]);
+            try {
+                const grabacion = yield database_1.default.query("UPDATE FROM grabaciones SET =? where id_grabaciones =?", [datos, id]);
+                res.json("Grabacion actualizada");
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     addGrabacion(req, res) {

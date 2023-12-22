@@ -19,6 +19,15 @@ export class CalificacionesService {
       return this.http.get(`${this.API_URL}/calificacion/${id}`,{ headers:header });
    }
 
+   getAllCalificaciones() {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+      return this.http.get(`${this.API_URL}/calificacion`,{ headers:header });
+   }
+
+
+
    //OBTENER UN USUARIO 
 
    getCalificacion(idG:string,id : string) {
@@ -26,6 +35,13 @@ export class CalificacionesService {
 
     const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
     return this.http.get(`${this.API_URL}/calificacion/${idG}/${id}`,{ headers:header });
+   }
+
+   getCalificacionFecha(id : string) {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/calificacion/${id}`,{ headers:header });
    }
 
    //GUARDAR USUARIO 

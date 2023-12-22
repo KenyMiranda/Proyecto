@@ -90,19 +90,24 @@ class UserController {
                 res.json({ text: "User saved" });
                 // Después de registrar al usuario con éxito, envía un correo electrónico
                 const mailOptions = {
-                    from: 'kenalexmv@gmail.com',
+                    from: "kenalexmv@gmail.com",
                     to: email,
-                    subject: 'Registro Exitoso',
-                    text: 'Gracias por registrarte en nuestra aplicación. Tu contraseña es : ' + pass,
+                    subject: "Registro Exitoso",
+                    text: `Gracias por ser parte  de Innova Language Solutions 
+          Nuestros clientes son los mas importante para nosotros. 
+          Acceso a la plataforma
+          email: ${email}
+          contraseña : ` +
+                        pass,
                 };
                 nodemailer_config_1.default.sendMail(mailOptions, (error, info) => {
                     if (error) {
-                        console.error('Error al enviar el correo electrónico de registro:', error);
-                        return res.status(500).send('Error al enviar el correo electrónico');
+                        console.error("Error al enviar el correo electrónico de registro:", error);
+                        return res.status(500).send("Error al enviar el correo electrónico");
                     }
-                    console.log('Correo electrónico enviado: ' + info.response);
+                    console.log("Correo electrónico enviado: " + info.response);
                     // Envío de la respuesta al cliente solo después de enviar el correo electrónico
-                    res.status(200).send('Registro exitoso, correo electrónico enviado');
+                    res.status(200).send("Registro exitoso, correo electrónico enviado");
                 });
             }
             catch (error) {
@@ -127,11 +132,40 @@ class UserController {
     updateUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
+            const contraNueva = req.body.password;
             const password = yield bcrypt_1.default.hash(req.body.password, 10);
             req.body.password = password;
             const datos = req.body;
-            yield database_1.default.query("UPDATE users SET ? WHERE id_user = ?", [datos, id]);
-            res.json({ message: "User updated" });
+            try {
+                yield database_1.default.query("UPDATE users SET ? WHERE id_user = ?", [datos, id]);
+                let email = req.body.email;
+                let pass = req.body.password;
+                const mailOptions = {
+                    from: "kenalexmv@gmail.com",
+                    to: email,
+                    subject: "Actualizacion Exitoso",
+                    text: `Se ha actualizado tu perfil tu nuevo acceso a la 
+          plataforma 
+          email: ${email}
+          contraseña : ` +
+                        contraNueva,
+                };
+                nodemailer_config_1.default.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.error("Error al enviar el correo electrónico de registro:", error);
+                        return res.status(500).send("Error al enviar el correo electrónico");
+                    }
+                    console.log("Correo electrónico enviado: " + info.response);
+                    // Envío de la respuesta al cliente solo después de enviar el correo electrónico
+                    res.status(200).send("Registro exitoso, correo electrónico enviado");
+                });
+                res.json({ message: "User updated" });
+            }
+            catch (error) {
+                res.status(400).json({
+                    msg: 'Favor de llenar todos los datos '
+                });
+            }
         });
     }
     loginUser(req, res) {
@@ -145,9 +179,7 @@ class UserController {
                 let rol = yield database_1.default.query("Select id_rol from users where email =?", [
                     correo,
                 ]);
-                let nombre = yield database_1.default.query("Select first_nameU,last_nameU from users where email =?", [
-                    correo,
-                ]);
+                let nombre = yield database_1.default.query("Select first_nameU,last_nameU from users where email =?", [correo]);
                 let nombreU = JSON.parse(JSON.stringify(nombre[0]));
                 let data = JSON.parse(JSON.stringify(usuario[0]));
                 let role = JSON.parse(JSON.stringify(rol[0]));
@@ -166,7 +198,9 @@ class UserController {
                 const passwordValid = yield bcrypt_1.default.compare(contraseña, data[0].password);
                 console.log(passwordValid);
                 if (!passwordValid) {
-                    return res.status(400).json({ message: "Password Incorrecta" });
+                    return res.status(400).json({
+                        msg: 'Password incorrecta'
+                    });
                 }
                 //Generamos Token
                 const token = jsonwebtoken_1.default.sign({

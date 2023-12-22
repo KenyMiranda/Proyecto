@@ -24,6 +24,8 @@
               <a style="margin-right: 40px">{{ nombreUsuario }}</a>
               <ul class="dropdown">
                 <li><a (click)="logout()">Cerrar Sesion</a></li>
+                <li><a [routerLink]="['/usuario/update',id]">Actualizar datos</a></li>
+                
               </ul>
             </li>
             <li *ngIf="isAdmin"><a routerLink="/usuarios-list">Users</a></li>
@@ -55,7 +57,7 @@
         </div>
       </nav>
     </header>
-    <p>grabaciones works!</p>
+    <h4 style="text-align: center">GRABACIONES</h4>
 
     <ul
       role="list"
@@ -76,7 +78,9 @@
           </h3>
           <dl class="mt-1 flex-grow flex flex-col justify-between">
             <dt class="sr-only">Title</dt>
+            <dd class="text-gray-500 text-sm">{{ clase.Idioma }} <br /></dd>
             <h4 class="mt-6 text-gray-900 text-sm font-medium">Category</h4>
+            
             <dd class="text-gray-500 text-sm">{{ clase.categoria }} <br /></dd>
             <h4 *ngIf="isAdmin" class="mt-6 text-gray-900 text-sm font-medium">
               Teachers
@@ -156,7 +160,7 @@
     </div>
   </div>
     <div *ngIf="agregarGrab">
-      <h6 style="margin-left: 30p">Topic</h6>
+      <h6 style="margin-left: 30px">Topic</h6>
       <input
         [(ngModel)]="grabacion.titulo"
         style="height: 35px; width: 150px; margin-left: 30p"
@@ -168,7 +172,7 @@
       <h6 style="margin-left: 30p">Url de Zoom</h6>
       <input
         [(ngModel)]="grabacion.URL"
-        style="height: 35px; width: 150px; margin-left: 30p"
+        style="height: 35px; width: 450px; margin-left: 30p"
         id="password"
         placeholder="New Group Name"
         class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"

@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
   generatedPassword: string = '';
   isLogin: boolean = this.authService.isLogin();
   nombreUsuario : any = this.authService.getNameFromToken();
+  isAdmin : boolean = this.authService.isAdmin();
 
   generatePassword() {
     const length = 12; // Longitud de la contraseña (ajusta según tus necesidades)
@@ -125,7 +126,7 @@ export class RegisterComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Something went wrong!',
+          text: `${err.error.msg}`,
           footer: '<a href="#">Why do I have this issue?</a>',
         });
       }

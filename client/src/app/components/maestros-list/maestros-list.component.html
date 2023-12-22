@@ -23,12 +23,7 @@
           <li><a routerLink="/usuarios-list">Users</a></li>
           <li><a routerLink="/admins-list">Administradores</a></li>
           <li class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
-            <ul class="dropdown">
-              <li><a routerLink="/usuarios-list">Users</a></li>
-              <li><a routerLink="/admins-list">Administradores</a></li>
-              <li><a routerLink="/usuarios-list">Users</a></li>
-              <li><a routerLink="/admins-list">Administradores</a></li>
-            </ul>
+
           </li>
           
           <li><a routerLink="/maestros-list">Maestros</a></li>
@@ -47,6 +42,7 @@
       </div>
     </nav>
   </header>
+  <h4 style="text-align: center">MAESTROS</h4>
   <input
   type="text" style="height: 35px; width: 800px; margin-left: 20%;"placeholder="Search" [(ngModel)]="filterPost"
   class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"

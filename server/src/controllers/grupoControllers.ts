@@ -79,7 +79,7 @@ class GrupoController {
       calificacion = JSON.parse(JSON.stringify(calificacion[0]));
       grabacion = JSON.parse(JSON.stringify(grabacion[0]));
       horario = JSON.parse(JSON.stringify(horario[0]));
-
+      
       
 
       if (grabacion[0]) {
@@ -96,10 +96,8 @@ class GrupoController {
           console.error("Error al ejecutar la consulta MySQL:", error);
           res.status(500).send("Error interno del servidor");
         }
-      } else if (calificacion[0]) {
-       
-       
-      
+      } if (calificacion[0]) {
+        
         try {
           console.log("calif")
           await db.query("DELETE FROM calificaciones WHERE id_grupo = ?;",id)
@@ -108,7 +106,7 @@ class GrupoController {
           console.error("Error al ejecutar la consulta MySQL:", error);
           res.status(500).send("Error interno del servidor");
         }
-      } else if (grupo[0]) {
+      }  if (grupo[0]) {
        
       
         try {
@@ -126,7 +124,7 @@ class GrupoController {
       res.status(500).send("Error interno del servidor");
     }
 
-    
+    /*
     try {
       const grupo = await db.query("Delete from grupo where id_grupo = ?", id)
       res.json("grupo borrado")
@@ -135,6 +133,8 @@ class GrupoController {
         msg: 'No se puede eliminar el grupo por que esta en uso'
     })
     }
+    */
+   res.json("asdsa")
     
   }
 

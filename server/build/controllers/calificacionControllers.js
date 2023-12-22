@@ -18,16 +18,53 @@ class CalificacionController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const calificacion = yield database_1.default.query("SELECT * FROM calificaciones WHERE id_grupo = ?", id);
-            res.json(calificacion);
+            try {
+                const calificacion = yield database_1.default.query("SELECT * FROM calificaciones WHERE id_grupo = ?", id);
+                res.json(calificacion);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
+        });
+    }
+    listAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const calificacion = yield database_1.default.query("SELECT * FROM calificaciones");
+                res.json(calificacion);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     listOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
             const idG = req.params.idG;
-            const calificacion = yield database_1.default.query("SELECT * FROM calificaciones WHERE id_alumno=? AND id_grupo=?", [id, idG]);
-            res.json(calificacion);
+            try {
+                const calificacion = yield database_1.default.query("SELECT * FROM calificaciones WHERE id_alumno=? AND id_grupo=?", [id, idG]);
+                res.json(calificacion);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
+        });
+    }
+    listOneFecha(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            try {
+                const calificacion = yield database_1.default.query("SELECT * FROM calificaciones WHERE id_calificacion=?", id);
+                res.json(calificacion);
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     addCalificacion(req, res) {
@@ -43,13 +80,15 @@ class CalificacionController {
                     num = parseInt(numero) + 1;
                 }
                 if (num > 0) {
-                    res.status(500).send("Calificacion ya agregada");
+                    res.status(401).json({
+                        msg: "Calificacion ya agregada , favor de actualizar calificacion",
+                    });
                     console.log(num);
                     console.log(req.body);
                 }
                 else {
                     if (calif < 0 || calif > 100 || calif === "" || fecha == "") {
-                        res.status(400).json({ error: "Error en las calificaciones o fecha" });
+                        res.status(400).json({ msg: "Error en las calificaciones o fecha" });
                         console.log(req.body);
                     }
                     else {
@@ -102,19 +141,33 @@ class CalificacionController {
     deleteCalificacion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query("DELETE FROM calificaciones WHERE id_calificacion=?", [id]);
-            res.json({ text: "Grade deleted" });
+            try {
+                yield database_1.default.query("DELETE FROM calificaciones WHERE id_calificacion=?", [
+                    id,
+                ]);
+                res.json({ text: "Grade deleted" });
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
     updateCalificacion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const datos = req.body;
-            yield database_1.default.query("UPDATE calificaciones SET ? WHERE id_calificacion = ?", [
-                datos,
-                id,
-            ]);
-            res.json({ message: "Grade updated" });
+            try {
+                yield database_1.default.query("UPDATE calificaciones SET ? WHERE id_calificacion = ?", [
+                    datos,
+                    id,
+                ]);
+                res.json({ message: "Grade updated" });
+            }
+            catch (error) {
+                console.error("Error al ejecutar la consulta MySQL:", error);
+                res.status(500).send("Error interno del servidor");
+            }
         });
     }
 }
