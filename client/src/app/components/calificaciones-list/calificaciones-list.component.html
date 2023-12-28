@@ -15,7 +15,7 @@
           ><i class="material-icons">menu</i></a
         >
         <ul class="right hide-on-med-and-down">
-          <li class="has-dropdown"><a style="margin-right: 40px;">{{nombreUsuario}}</a> <ul class="dropdown">
+          <li class="has-dropdown"><a style="margin-right: 20px;">{{nombreUsuario}}</a> <ul class="dropdown">
             <li><a (click)="logout()">Cerrar Sesion</a></li>
           </ul>
         </li>
@@ -37,6 +37,9 @@
           <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
           <li><a routerLink="/grabaciones">Grabaciones</a></li>
           <li><a routerLink="/materiales">Materiales</a></li>
+          <li *ngIf="isAdmin" class="has-dropdown"><a href="/reportes/alumnoMto">Reportes</a>
+           
+          </li>
         </ul>
       </div>
     </nav>

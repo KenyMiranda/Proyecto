@@ -42,6 +42,8 @@ export class ReportesAlumnoGrupoComponent implements AfterViewInit {
     this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
   generarGrafica2() {
+    
+
     const objeto: any = {};
     this.reporteService.getAlumno_Grupos().subscribe(
       (res) => {

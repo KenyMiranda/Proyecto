@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,7 +9,7 @@ import { ReportesService } from 'src/app/services/reportes/reportes.service';
   templateUrl: './reportes-alumno-maestro.component.html',
   styleUrls: ['./reportes-alumno-maestro.component.css']
 })
-export class ReportesAlumnoMaestroComponent {
+export class ReportesAlumnoMaestroComponent implements OnInit{
   arrayAlumnos: any = [];
   arrayClases: any = [];
   arrayMaestros: any = [];
@@ -36,14 +36,16 @@ export class ReportesAlumnoMaestroComponent {
     this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
 
-  ngAfterViewInit() {
-    const params = this.activatedRoute.snapshot.params;
+  ngOnInit() {
     
+      
       this.generarGrafica();
  
   }
+  
 
   generarGrafica() {
+    
     const objeto: any = {};
     const params = this.activatedRoute.snapshot.params;
       this.reporteService.getAlumno_Maestros().subscribe(
@@ -98,6 +100,7 @@ export class ReportesAlumnoMaestroComponent {
           },
         },
       });
+      
     
   }
 

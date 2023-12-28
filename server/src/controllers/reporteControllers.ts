@@ -11,26 +11,28 @@ class ReporteController {
     FROM (
         SELECT 
             g.id_maestro AS id_maestro,
-            COUNT(cl.id_alumno) AS total_alumnos
+            COUNT(DISTINCT cl.id_alumno) AS total_alumnos
         FROM 
             grupo g
         LEFT JOIN 
             clase cl ON g.id_grupo = cl.id_grupo
         GROUP BY 
             g.id_maestro
-    
+        
         UNION ALL  -- Esto unirá el conteo de alumnos para el id_maestro2
-    
+        
         SELECT 
             g.id_maestro2 AS id_maestro,
-            COUNT(cl.id_alumno) AS total_alumnos
+            COUNT(DISTINCT cl.id_alumno) AS total_alumnos
         FROM 
             grupo g
         LEFT JOIN 
             clase cl ON g.id_grupo = cl.id_grupo
+        WHERE 
+            g.id_maestro != g.id_maestro2
         GROUP BY 
             g.id_maestro2
-    ) AS subquery
+    ) AS subconsulta
     JOIN users u ON id_maestro = u.id_user
     GROUP BY 
         id_maestro;`
@@ -46,7 +48,7 @@ class ReporteController {
     try {
       const list = await db.query(
         `SELECT g.nombre_grupo,g.Idioma,COUNT(id_alumno) AS total_alumnos from clase c 
-        JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY c.id_grupo;
+         JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY g.nombre_grupo,g.Idioma;
         `
       );
       res.json(list);

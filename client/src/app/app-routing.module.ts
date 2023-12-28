@@ -25,7 +25,6 @@ import { ClasesListComponent } from './components/clases-list/clases-list.compon
 import { adminGuardGuard } from './guards/admin-guard.guard';
 import { maestroGuardGuard } from './guards/maestro-guard.guard';
 import { alumnoGuardGuard } from './guards/alumno-guard.guard';
-import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReportesAlumnoMaestroComponent } from './components/reportes/reportes-alumno-maestro/reportes-alumno-maestro.component';
 import { ReportesAlumnoGrupoComponent } from './components/reportes/reportes-alumno-grupo/reportes-alumno-grupo.component';
 const routes: Routes = [

@@ -189,9 +189,9 @@ export class CalificacionesComponent implements OnInit {
           //this.calificacion=objeto[0];
           //console.log(this.calificacion.id_alumno);
           const ctx = document.getElementById('myChart') as HTMLCanvasElement;
-
+          this.fechas.push('asdas')
           const myChart = new Chart(ctx, {
-            type: 'pie',
+            type: 'line',
             data: {
               labels: this.fechas,
               datasets: [

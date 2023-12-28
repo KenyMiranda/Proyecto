@@ -80,8 +80,8 @@ export class GrabacionesComponent {
 
   guardarGrabaciones() {
     Swal.fire({
-      title: 'Add this group?',
-      text: 'this group will be added!',
+      title: 'Save this recording?',
+      text: 'this recording will be added!',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -97,7 +97,7 @@ export class GrabacionesComponent {
             }, 2500);
             Swal.fire({
               title: 'Done!',
-              text: 'New group has been added.',
+              text: 'New recording has been saved.',
               icon: 'success',
             });
           },
@@ -216,9 +216,57 @@ export class GrabacionesComponent {
     // Si se encuentra la clase, encuentra el maestro correspondiente al id_maestro
     
       const grupo = this.arrayClases[0].find((m: {id_clase:number}) => m.id_clase === idClase);
-      return grupo ? `${grupo.nombre_grupo}` : 'Grupo no encontrado';
+      return grupo ? `${grupo.nombre_grupo} ` : 'Grupo no encontrado';
     
 
     
+  }
+
+  obtenerIdNombreGrupo(idClase: number): string {
+    // Encuentra la clase correspondiente al id_grupo
+    //const clase = this.arrayClases[0].find((c: {id_grupo:number})=> c.id_grupo === idGrupo);
+
+    // Si se encuentra la clase, encuentra el maestro correspondiente al id_maestro
+    
+      const grupo = this.arrayClases[0].find((m: {id_clase:number}) => m.id_clase === idClase);
+      return grupo ? `ID: ${grupo.id_grupo}---Name--${grupo.nombre_grupo} ` : 'Ninguna clase seleccionada';
+    
+
+    
+  }
+
+  eliminarGrabacion(id_grabacion: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.grabacionesService.deleteGrabacion(id_grabacion).subscribe(
+          (res) => {
+            console.log(res);
+            location.reload();
+          },
+          (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+            
+            });
+          }
+        );
+        Swal.fire({
+          title: 'Deleted!',
+
+          text: 'The recording has been deleted.',
+          icon: 'success',
+        });
+      }
+    });
   }
 }

@@ -165,7 +165,7 @@
         [(ngModel)]="grabacion.titulo"
         style="height: 35px; width: 150px; margin-left: 30p"
         id="password"
-        placeholder="New Group Name"
+        placeholder="Recording Title"
         class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
       />
 
@@ -174,7 +174,7 @@
         [(ngModel)]="grabacion.URL"
         style="height: 35px; width: 450px; margin-left: 30p"
         id="password"
-        placeholder="New Group Name"
+        placeholder="Recording URL"
         class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
       />
 
@@ -305,6 +305,13 @@
           </div>
         </div>
       </div>
+      <h5 style="margin-left:30px">Clase Seleccionada</h5>
+    <div class="field" style="margin-left:30px">
+      <div class="control">
+        
+        {{obtenerIdNombreGrupo(grabacion.id_clase)}}
+      </div>
+    </div>
    
       <br />
       <button
@@ -364,6 +371,21 @@
                 class="mt-4 text-gray-600"
                 >Haga click para ver la clase</a
               >
+              <br>
+             
+              <br>
+              <br>
+
+           
+              <button
+              data-ripple-light="true"
+              (click)="eliminarGrabacion(grabaciones.id_grabaciones)"
+              data-popover-target="popover"
+              class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              
+              >
+              DELETE
+              </button>
             </div>
           </div>
         </div>

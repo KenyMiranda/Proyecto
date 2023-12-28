@@ -46,7 +46,6 @@ import { MaterialesComponent } from './components/materiales/materiales.componen
 import { ClasesListComponent } from './components/clases-list/clases-list.component';
 import { AlumnoGruposService } from './services/alumnoGrupos/alumno-grupos.service';
 import { GrabacionesService } from './services/grabaciones/grabaciones.service';
-import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReportesService } from './services/reportes/reportes.service';
 import { ReportesAlumnoGrupoComponent } from './components/reportes/reportes-alumno-grupo/reportes-alumno-grupo.component';
 import { ReportesAlumnoMaestroComponent } from './components/reportes/reportes-alumno-maestro/reportes-alumno-maestro.component';
@@ -87,7 +86,7 @@ import { ReportesAlumnoMaestroComponent } from './components/reportes/reportes-a
     GrabacionesComponent,
     MaterialesComponent,
     ClasesListComponent,
-    ReportesComponent,
+    
     ReportesAlumnoGrupoComponent,
     ReportesAlumnoMaestroComponent,
   ],

@@ -66,6 +66,9 @@
                   Nombre Grupo
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Idioma
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                   Categoria
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -86,6 +89,9 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 {{ grupo.nombre_grupo }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {{ grupo.Idioma }}
               </td>
               <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                 {{ grupo.categoria }}
@@ -134,7 +140,7 @@
     </select>
   </div>
 
-  <div class="field">
+  <div *ngIf="agregarGrupo" class="field">
     <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Language</label>
     <div class="control">
       <div class="select">
@@ -209,6 +215,7 @@
       }} {{obtenerNombreMaestro(clase.id_grupo)}} {{obtenerNombreMaestro2(clase.id_grupo)}}
     </div>
   </div>
+  
 
   <h5>Alumnos</h5>
   <input [(ngModel)]="filterPost" type="text" style="height: 35px; width: 800px; margin-left: 20%" name="search"
