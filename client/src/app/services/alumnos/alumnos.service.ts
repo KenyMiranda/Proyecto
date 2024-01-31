@@ -16,7 +16,7 @@ export class AlumnosService {
     const token = localStorage.getItem('token');
 
     const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
-    console.log('Headers:', header);
+    
 
     
       return this.http.get(`${this.API_URL}/alumno`,{ headers:header });

@@ -83,9 +83,25 @@ class GrabacionController {
     }
     addGrabacion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            let fecha = req.body.fecha;
+            let grupo = req.body.id_clase;
+            console.log(grupo);
             try {
-                const grupo = yield database_1.default.query("INSERT INTO grabaciones SET ?", [req.body]);
-                res.json({ text: "Grabacion" });
+                const fechaG = yield database_1.default.query("SELECT DISTINCT g.fecha_inicio, g.fecha_final from clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE c.id_clase =?;", grupo);
+                let fechaG2 = JSON.parse(JSON.stringify(fechaG[0]));
+                const fecha_inicio = fechaG2[0].fecha_inicio;
+                const fecha_final = fechaG2[0].fecha_final;
+                if (fecha < fecha_inicio.substring(10, 0) || fecha > fecha_final.substring(10, 0)) {
+                    res.status(400).json({
+                        msg: "Fecha fuera del rango de clases",
+                    });
+                }
+                else {
+                    const grabacion = yield database_1.default.query("INSERT INTO grabaciones SET ?", [
+                        req.body,
+                    ]);
+                    res.json({ text: "Grabacion" });
+                }
             }
             catch (error) {
                 console.error("Error al ejecutar la consulta MySQL:", error);

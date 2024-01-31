@@ -10,7 +10,7 @@ import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
 import { CalificacionesService } from 'src/app/services/calificaciones/calificaciones.service';
 import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-horarios.service';
 import { AlumnoGruposService } from 'src/app/services/alumnoGrupos/alumno-grupos.service';
-
+import { CalificacionesComponent } from '../calificaciones/calificaciones.component';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -38,13 +38,9 @@ export class CalificacionesListComponent implements AfterViewInit {
   };
   click: boolean = false;
 
-  datos = [
-    { value: 1200, label: "Enero" },
-    { value: 1500, label: "Febrero" },
-    { value: 2000, label: "Marzo" },
-  ];
   
-  etiquetas : any = ['Enero', 'Febrero', 'Marzo'];
+  
+  
   
 
   filterPost = '';
@@ -64,7 +60,8 @@ export class CalificacionesListComponent implements AfterViewInit {
     private clasesHorarioService: ClasesHorariosService,
     private alumnosGrupoService: AlumnoGruposService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private calif: CalificacionesComponent
   ) {}
   ngAfterViewInit() {
     this.getClases();
@@ -76,6 +73,7 @@ export class CalificacionesListComponent implements AfterViewInit {
       },
       (err) => console.error(err)
     );
+    console.log(this.calif.a2);
 
   }
 

@@ -44,12 +44,14 @@
 
   <div class="chart-container" style="width:1000px;height: 1100px;">
     <canvas id="myChart"></canvas>
-
+    <button (click)="exportarAPDF()">Exportar pdf</button>
     <div class="flex flex-col">
       <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div class="overflow-hidden">
             <h5>Calificaciones   {{obtenerAlumno(nombreAlumno)}}</h5>
+          
+            
     
             <table class="min-w-full">
               <thead class="bg-white border-b">
@@ -121,7 +123,7 @@
           </div>
         </div>
         <h6 *ngIf="isEdit" >Ingresar Nueva Calificacion</h6>
-        <div style="margin-left: 30px; margin-top: 20px;">
+        <div *ngIf="isEdit" style="margin-left: 30px; margin-top: 20px;">
           <label
             for="email"
             class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
@@ -150,8 +152,11 @@
       </button>
       </div>
     </div>
+
+    <h5 style="text-align:center">Promedio del Curso: <br>{{promedio.toString().substring(0,6)}}</h5>
+    
   </div>
-  <button (click)="exportarAPDF()">Exportar pdf</button>
+  
 
 
 </body>

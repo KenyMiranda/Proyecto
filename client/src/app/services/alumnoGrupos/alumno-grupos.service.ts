@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Clase } from 'src/app/models/clases';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,15 @@ export class AlumnoGruposService {
     });
   }
 
+  getAlumnosBaja() {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.get(`${this.API_URL}/alumnoGrupo`, {
+      headers: header,
+    });
+  }
+
   getClases(id: string) {
     const token = localStorage.getItem('token');
 
@@ -27,12 +37,23 @@ export class AlumnoGruposService {
       headers: header,
     });
   }
-  deleteAlumnoClase(id: string,idG:string) {
+
+  deleteAlumnoClase(id: string,idG:string,fecha:string|undefined) {
     const token = localStorage.getItem('token');
 
     const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
-    return this.http.delete(`${this.API_URL}/alumnoGrupo/${id}/${idG}`, {
+    return this.http.put(`${this.API_URL}/alumnoGrupo/${id}/${idG}/${fecha}`, {
       headers: header,
     });
   }
+
+  reinscribirAlumnoClase(fecha:string|undefined,idAlumno:string,idGrupo:string) {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+    return this.http.put(`${this.API_URL}/alumnoGrupo/s/${fecha}/${idAlumno}/${idGrupo}`, {
+      headers: header,
+    });
+  }
+
 }

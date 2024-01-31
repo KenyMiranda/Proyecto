@@ -47,7 +47,7 @@ class HorarioController {
             const momentTiempo2 = (0, moment_1.default)(hora_final, "HH:mm:ss");
             //const dia = req.body.dia;
             const grupo = req.body.id_grupo;
-            const semana = req.body.semana;
+            let semana = req.body.semana;
             try {
                 let c_grupo = yield database_1.default.query("SELECT categoria FROM grupo WHERE id_grupo =? ", grupo);
                 let cat = JSON.parse(JSON.stringify(c_grupo[0]));
@@ -75,7 +75,9 @@ class HorarioController {
                     categ == "Monday-Thursday"
                 //num == 0
                 ) {
-                    if (semana == null || semana == 0) {
+                    req.body.Horas_Trab = 4;
+                    req.body.semana = 1;
+                    if (req.body.semana == null || req.body.semana == 0) {
                         res.status(400).send("Favor de Introducir la semana:");
                     }
                     else {
@@ -85,6 +87,27 @@ class HorarioController {
                         }
                         catch (error) {
                             res.status(400).send("Error al ejecutar la consulta MySQL:");
+                        }
+                        req.body.semana = 2;
+                        try {
+                            yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
+                        }
+                        catch (error) {
+                            //res.status(400).send("Error al ejecutar la consulta MySQL:");
+                        }
+                        req.body.semana = 3;
+                        try {
+                            yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
+                        }
+                        catch (error) {
+                            //res.status(400).send("Error al ejecutar la consulta MySQL:");
+                        }
+                        req.body.semana = 4;
+                        try {
+                            yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
+                        }
+                        catch (error) {
+                            //res.status(400).send("Error al ejecutar la consulta MySQL:");
                         }
                     }
                 }
@@ -93,7 +116,10 @@ class HorarioController {
                     categ == "Saturday"
                 //num == 0
                 ) {
-                    if (semana == null || semana == 0) {
+                    req.body.semana = 1;
+                    req.body.Horas_Trab = 4;
+                    if (req.body.semana == null || req.body.semana == 0) {
+                        console.log("asdas");
                         res.status(400).send("Favor de Introducir la semana:");
                     }
                     else {
@@ -103,6 +129,24 @@ class HorarioController {
                         }
                         catch (error) {
                             res.status(400).send("Error al ejecutar la consulta MySQL:");
+                        }
+                        req.body.semana = 2;
+                        try {
+                            yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
+                        }
+                        catch (error) {
+                        }
+                        req.body.semana = 3;
+                        try {
+                            yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
+                        }
+                        catch (error) {
+                        }
+                        req.body.semana = 4;
+                        try {
+                            yield database_1.default.query("INSERT INTO horarios SET ?", [req.body]);
+                        }
+                        catch (error) {
                         }
                     }
                 }

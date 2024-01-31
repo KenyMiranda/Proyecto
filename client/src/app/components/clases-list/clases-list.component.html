@@ -59,7 +59,9 @@
         <h3 class="mt-6 text-gray-900 text-sm font-medium">{{clase.nombre_grupo}}</h3>
         <dl class="mt-1 flex-grow flex flex-col justify-between">
           <dt class="sr-only">Title</dt>
+          
           <dd class="text-gray-500 text-sm">{{clase.Idioma}} <br></dd>
+          <dd class="text-gray-500 text-sm">{{clase.fecha_inicio.substring(0,10)}}--{{clase.fecha_final.substring(0,10)}}</dd> 
           <h4 class="mt-6 text-gray-900 text-sm font-medium">Category</h4>
           <dd class="text-gray-500 text-sm">{{clase.categoria}} <br></dd>
           <h4 class="mt-6 text-gray-900 text-sm font-medium">Teachers</h4>
@@ -108,12 +110,65 @@
   </ul>
   <h6 *ngIf="agregarGrupo">Ingresar Nombre Nuevo del Grupo</h6>
   <input *ngIf="agregarGrupo" type="text" name="last_name" [(ngModel)]="grupo.nombre_grupo"
-    style="height: 35px; width: 150px" id="password" placeholder="New Group Name"
+    style="height: 35px; width: 150px;margin-left: 30px;" id="password" placeholder="New Group Name"
     class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
   <br>
-  <button *ngIf="agregarGrupo" (click)="agregarGrupoNuevo()" data-ripple-light="true" data-popover-target="popover"
+  <div *ngIf="agregarGrupo"  style="margin-left: 30px;">
+    <label
+      for="email"
+      class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+      >Fecha Inicio </label
+    >
+    <input
+      type="date"
+      name="Hora_inicio"
+      id="email"
+      [(ngModel)]="grupo.fecha_inicio"
+      style="width: 150px"
+      placeholder="example@example.com"
+      value=""
+      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+    />
+  </div>
+
+  <div *ngIf="agregarGrupo"  style="margin-left: 30px; margin-top: 20px;">
+    <label
+      for="email"
+      class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+      >Fecha de Revision</label
+    >
+    <input
+      type="date"
+      name="Hora_inicio"
+      id="email"
+      [(ngModel)]="grupo.fecha_revision"
+      style="width: 150px"
+      placeholder="example@example.com"
+      value=""
+      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+    />
+  </div>
+
+  <div *ngIf="agregarGrupo"  style="margin-left: 30px; margin-top: 20px;">
+    <label
+      for="email"
+      class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+      >Fecha de Examen</label
+    >
+    <input
+      type="date"
+      name="Hora_inicio"
+      id="email"
+      [(ngModel)]="grupo.fecha_final"
+      style="width: 150px"
+      placeholder="example@example.com"
+      value=""
+      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+    />
+  </div>
+  <button *ngIf="agregarGrupo" style="margin-bottom:30px" (click)="agregarGrupoNuevo()" data-ripple-light="true" data-popover-target="popover"
   class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-  AGREGAR GRUPO
+  COPIAR GRUPO
 </button>
 <br>
 
@@ -168,6 +223,76 @@
 
             </tr>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h6>Alumnos de Baja  </h6>
+  <div *ngIf="isAdmin"  class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full" #tabla>
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  First Name
+                </th>
+
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Last Name
+                </th>
+
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Second Last Name
+                </th>
+               
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Grupo
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Fecha de Baja
+                </th>
+                
+  
+  
+              </tr>
+            </thead>
+            <tr class="bg-gray-100 border-b" *ngFor="let alumno of arrayAlumnos_Baja[0]">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+               {{alumno.first_nameU}}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                {{alumno.last_nameU}}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                {{alumno.last_nameU2}}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                {{alumno.nombre_grupo}}
+                
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                {{alumno.fecha_baja.substring(0,10)}}
+                
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                
+                <button  data-ripple-light="true" data-popover-target="popover"
+                (click)="reinscribir(alumno.id_user,alumno.id_grupo)"
+                class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                REINSCRIBIR
+              </button>
+              </td>
+
+  
+  
+  
+  
+            </tr>
+          </table>
+          
         </div>
       </div>
     </div>

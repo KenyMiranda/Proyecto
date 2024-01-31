@@ -25,8 +25,10 @@ import { ClasesListComponent } from './components/clases-list/clases-list.compon
 import { adminGuardGuard } from './guards/admin-guard.guard';
 import { maestroGuardGuard } from './guards/maestro-guard.guard';
 import { alumnoGuardGuard } from './guards/alumno-guard.guard';
+import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReportesAlumnoMaestroComponent } from './components/reportes/reportes-alumno-maestro/reportes-alumno-maestro.component';
 import { ReportesAlumnoGrupoComponent } from './components/reportes/reportes-alumno-grupo/reportes-alumno-grupo.component';
+import { ReportesHorasMaestrosComponent } from './components/reportes/reportes-horas-maestros/reportes-horas-maestros.component';
 const routes: Routes = [
   {
     path: '',
@@ -161,6 +163,12 @@ const routes: Routes = [
     component: UpdateFormComponent,
   },
   {
+    path:'reportes',
+    component: ReportesComponent,
+
+  },
+
+  {
     path: 'reportes/alumnoGpo',
     component: ReportesAlumnoGrupoComponent,
     canActivate: [adminGuardGuard],
@@ -168,6 +176,11 @@ const routes: Routes = [
   {
     path: 'reportes/alumnoMto',
     component: ReportesAlumnoMaestroComponent,
+    canActivate: [adminGuardGuard],
+  },
+  {
+    path: 'reportes/horasMto',
+    component: ReportesHorasMaestrosComponent,
     canActivate: [adminGuardGuard],
   },
 

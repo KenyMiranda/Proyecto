@@ -68,7 +68,7 @@ export class LoginComponent {
         Swal.fire({
           icon: 'error',
           title: 'Oops... error inicio de sesion',
-          text: 'Email o Password Incorrectos',
+          text: ''+error.err.msg,
         });
         // Puedes mostrar un mensaje de error al usuario o realizar otras acciones necesarias
       },

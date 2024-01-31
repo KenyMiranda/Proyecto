@@ -106,7 +106,7 @@ export class GrabacionesComponent {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'Something went wrong! {err.message}',
+              text: ''+err.error.msg,
               footer: '<a href="#">Why do I have this issue?</a>',
             });
           }

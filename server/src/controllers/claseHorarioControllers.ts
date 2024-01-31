@@ -4,7 +4,7 @@ class ClaseHorarioController {
   public async list(req: Request, res: Response): Promise<void> {
     try {
       const clase = await db.query(
-        "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;"
+        "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE c.fecha_baja IS NULL GROUP BY g.id_grupo;"
       );
       res.json(clase);
     } catch (error) {
@@ -17,11 +17,14 @@ class ClaseHorarioController {
     const { id } = req.params;
     //const {idC} = req.params;
     let nombre_grupo = req.body.nombre_grupo;
+    let fecha_inicio = req.body.fecha_inicio;
+    let fecha_revision = req.body.fecha_revision;
+    let fecha_final = req.body.fecha_final;
     try {
       await db.query("START TRANSACTION;");
       await db.query(
-        "INSERT INTO grupo (nombre_grupo, Idioma, categoria, id_maestro, id_maestro2) SELECT ?, Idioma, categoria, id_maestro, id_maestro2 FROM grupo WHERE id_grupo = ?;",
-        [nombre_grupo, id]
+        "INSERT INTO grupo (nombre_grupo,Idioma, categoria, id_maestro, id_maestro2,fecha_inicio,fecha_revision,fecha_final) SELECT ?, Idioma, categoria, id_maestro, id_maestro2,?,?,? FROM grupo WHERE id_grupo = ?;",
+        [nombre_grupo,fecha_inicio,fecha_revision,fecha_final, id]
       );
       const result = await db.query(
         "SELECT LAST_INSERT_ID() as nuevo_id_grupo;"

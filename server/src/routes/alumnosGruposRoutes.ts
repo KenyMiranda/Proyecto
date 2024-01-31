@@ -11,8 +11,10 @@ class AlumnoGrupoRoutes{
 
     config(): void {
         this.router.get("/:id",validateToken, alumnoGrupoController.list);
+        this.router.get("/",validateToken, alumnoGrupoController.listBaja);
         this.router.get("/s/:id",validateToken, alumnoGrupoController.listOne);
-        this.router.delete("/:id/:idG",validateToken, alumnoGrupoController.delete);
+        this.router.put("/:id/:idG/:fecha",alumnoGrupoController.delete);
+        this.router.put("/s/:fecha/:id_Alumno/:id_Grupo",alumnoGrupoController.reinscribir);
 
         
         

@@ -14,6 +14,7 @@ class ReporteRoutes {
     config() {
         this.router.get("/alumnoMaestro/", validateToken_1.default, reporteControllers_1.default.listAlumnos_Maestro);
         this.router.get("/alumnoGrupo/", validateToken_1.default, reporteControllers_1.default.listAlumnos_Grupo);
+        this.router.get("/horaMaestro/", validateToken_1.default, reporteControllers_1.default.listHoras_Maestro);
     }
 }
 const reporteRoutes = new ReporteRoutes();

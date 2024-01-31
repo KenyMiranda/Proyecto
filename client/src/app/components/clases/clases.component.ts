@@ -33,17 +33,29 @@ export class ClasesComponent implements OnInit {
     Idioma:"",
     id_maestro:0,
     id_maestro2:0,
-   
+    fecha_inicio:'',
+    fecha_revision:'',
+    fecha_final:''
 
   }
   clase : Clase = {
     id_grupo : 0,
-    id_alumno : 0
+    id_alumno : 0,
+    fecha_inscripcion : ''
     
     
   }
   constructor(private claseService: ClasesService ,private alumnosService: AlumnosService ,private authService: AuthService, private maestrosService: MaestrosService,private gruposService:GruposService,private router:Router){}
   ngOnInit(): void {
+    const fechaOriginal: Date = new Date();
+    if (fechaOriginal !== undefined) {
+        const año: number = fechaOriginal.getFullYear();
+        const mes: string = String(fechaOriginal.getMonth() + 1).padStart(2, '0');
+        const día: string = String(fechaOriginal.getDate()).padStart(2, '0');
+        const fechaFormateada: string = `${año}-${mes}-${día}`;
+        console.log(fechaFormateada);
+        this.clase.fecha_inscripcion = fechaFormateada;
+    }
     
     this.maestrosService.getMaestros().subscribe(
       (res) => {

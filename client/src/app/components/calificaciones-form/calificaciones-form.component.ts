@@ -87,7 +87,7 @@ export class CalificacionesFormComponent implements AfterViewInit {
       });
     }
 
-    console.log(this.myElements);
+  
   }
   /*
   getAlumnos(){
@@ -174,7 +174,7 @@ export class CalificacionesFormComponent implements AfterViewInit {
                           Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: ''+err.error.error,
+                            text: ''+err.error.msg,
                           });
                         }
                       );

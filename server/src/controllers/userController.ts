@@ -232,7 +232,9 @@ class UserController {
       res.json(token);
     } catch (error) {
       console.error("Error al ejecutar la consulta MySQL:", error);
-      res.status(500).send("Error interno del servidor");
+      return  res.status(500).json({
+        msg:'Error Interno del Servidor'
+    })
     }
   }
 }

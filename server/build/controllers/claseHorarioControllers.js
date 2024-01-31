@@ -18,7 +18,7 @@ class ClaseHorarioController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;");
+                const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE c.fecha_baja IS NULL GROUP BY g.id_grupo;");
                 res.json(clase);
             }
             catch (error) {
@@ -32,9 +32,12 @@ class ClaseHorarioController {
             const { id } = req.params;
             //const {idC} = req.params;
             let nombre_grupo = req.body.nombre_grupo;
+            let fecha_inicio = req.body.fecha_inicio;
+            let fecha_revision = req.body.fecha_revision;
+            let fecha_final = req.body.fecha_final;
             try {
                 yield database_1.default.query("START TRANSACTION;");
-                yield database_1.default.query("INSERT INTO grupo (nombre_grupo, Idioma, categoria, id_maestro, id_maestro2) SELECT ?, Idioma, categoria, id_maestro, id_maestro2 FROM grupo WHERE id_grupo = ?;", [nombre_grupo, id]);
+                yield database_1.default.query("INSERT INTO grupo (nombre_grupo,Idioma, categoria, id_maestro, id_maestro2,fecha_inicio,fecha_revision,fecha_final) SELECT ?, Idioma, categoria, id_maestro, id_maestro2,?,?,? FROM grupo WHERE id_grupo = ?;", [nombre_grupo, fecha_inicio, fecha_revision, fecha_final, id]);
                 const result = yield database_1.default.query("SELECT LAST_INSERT_ID() as nuevo_id_grupo;");
                 const nuevo_id_grupo = JSON.parse(JSON.stringify(result[0]));
                 console.log(nuevo_id_grupo[0].nuevo_id_grupo);

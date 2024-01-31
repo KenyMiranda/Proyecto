@@ -12,6 +12,7 @@ class ReporteRoutes{
     config(): void {
         this.router.get("/alumnoMaestro/",validateToken, reporteController.listAlumnos_Maestro);
         this.router.get("/alumnoGrupo/",validateToken, reporteController.listAlumnos_Grupo);
+        this.router.get("/horaMaestro/",validateToken, reporteController.listHoras_Maestro);
     }
 }
 

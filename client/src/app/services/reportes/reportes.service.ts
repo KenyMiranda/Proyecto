@@ -27,4 +27,13 @@ export class ReportesService {
     return this.http.get(`${this.API_URL}/reporte/alumnoGrupo`, { headers: header });
     
   }
+
+  getHoras_Maestro() {
+    const token = localStorage.getItem('token');
+
+    const header = new HttpHeaders().set('authorization', `Bearer ${token}`);
+
+    return this.http.get(`${this.API_URL}/reporte/horaMaestro`, { headers: header });
+    
+  }
 }

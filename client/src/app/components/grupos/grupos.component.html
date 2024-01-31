@@ -61,7 +61,7 @@
               <img class="w-32 h-32 flex-shrink-0 mx-auto rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
               <h3 class="mt-6 text-gray-900 text-sm font-medium">{{grupos.nombre_grupo}}</h3>
               <dl class="mt-1 flex-grow flex flex-col justify-between">
-                          
+                <dd class="text-gray-500 text-sm">{{grupos.fecha_inicio.substring(0,10)}}--{{grupos.fecha_final.substring(0,10)}}</dd>          
                 <h4 class="mt-6 text-gray-900 text-sm font-medium">Category</h4>
                 <dd class="text-gray-500 text-sm">{{grupos.categoria}}</dd>
                 <dt class="sr-only">Role</dt>
@@ -133,6 +133,43 @@
               </select>
             </div>
           </div>
+        </div>
+
+     <div  style=" margin-top: 20px;">
+          <label
+            for="email"
+            class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+            >Fecha</label
+          >
+          <input
+          
+            type="date"
+            name="Hora_inicio"
+            id="email"
+            [(ngModel)]="grupo.fecha_inicio"
+            style="width: 150px"
+            placeholder="example@example.com"
+            value=""
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+          />
+        </div>
+
+        <div style=" margin-top: 20px;">
+          <label
+            for="email"
+            class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+            >Fecha Final</label
+          >
+          <input
+            type="date"
+            name="Hora_inicio"
+            id="email"
+            [(ngModel)]="grupo.fecha_final"
+            style="width: 150px"
+            placeholder="example@example.com"
+            
+            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+          />
         </div>
       
       

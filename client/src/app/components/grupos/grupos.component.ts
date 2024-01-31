@@ -22,6 +22,8 @@ export class GruposComponent implements OnInit {
     nombre_grupo : "",
     categoria:"",
     Idioma:"",
+    fecha_inicio:'',
+    fecha_final:'',
     id_maestro:0,
     id_maestro2:0,
    
@@ -71,8 +73,14 @@ logout(): void {
         this.arrayGrupos=res;
         for (let i = 0; i < this.arrayGrupos[0].length; i++) {
           objeto[i] = this.arrayGrupos[0][i];
+          this.grupo.fecha_inicio=objeto[i].fecha_inicio.substring(10,0)
+          this.grupo.fecha_final=objeto[i].fecha_final.substring(10,0)
+          
         }
         console.log(objeto);
+        console.log(this.grupo.fecha_inicio);
+       
+        
         this.grupo = objeto[0];
         console.log(id);
       });

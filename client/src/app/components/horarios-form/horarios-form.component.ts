@@ -44,6 +44,8 @@ export class HorariosFormComponent  implements OnInit {
     nombre_grupo:"",
     categoria:"",
     Idioma:"",
+    fecha_inicio:'',
+    fecha_final:'',
     id_maestro:0,
     id_maestro2:0
     

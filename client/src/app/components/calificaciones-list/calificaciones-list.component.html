@@ -140,9 +140,9 @@
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
               {{alumno.last_nameU2}}
             </td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"*ngFor="let fecha of arrayFechas">
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
               
-              <p >{{obtenerCalificacion(alumno.id_user,fecha)}}</p>
+             
              
             </td>
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -197,19 +197,18 @@
           
                       </tr>
                     </thead>
-                    <tr class="bg-gray-100 border-b" *ngFor="let calif of arrayAllCalificaciones[0]">
+                    <tr class="bg-gray-100 border-b" >
                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {{obtenerAlumno(calif.id_alumno.toString())}}
+                        
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {{calif.calificacion}}
+                       
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                       {{obtenerGrupo(calif.id_grupo.toString())}}
+                       
                       </td>
                       <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         
-                        {{calif.fecha_calif.substring(0,10)}}
                       </td>
   
           
@@ -218,7 +217,7 @@
           
                     </tr>
                   </table>
-                  <h6 >PROMEDIO GLOBAL: </h6>{{promedio}}
+                  
                 </div>
               </div>
             </div>
