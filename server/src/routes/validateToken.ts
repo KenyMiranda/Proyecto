@@ -1,3 +1,4 @@
+//CODIGO PARA VERIFICAR SI EL TOKEN ES VALIDO
 import {Request,Response,NextFunction} from "express";
 import jwt from 'jsonwebtoken'
 const validateToken = (req:Request, res:Response, next:NextFunction) => {

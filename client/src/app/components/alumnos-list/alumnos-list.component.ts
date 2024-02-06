@@ -12,6 +12,9 @@ import Swal from 'sweetalert2';
 export class AlumnosListComponent implements OnInit {
   arrayAlumnos: any = []; 
   filterPost = ""
+  isAdmin = this.authService.isAdmin();
+  isMaestro=this.authService.isMaestro();
+  id=this.authService.getIdFromToken();
   nombreUsuario = this.authService.getNameFromToken();
   constructor(private alumnosService: AlumnosService , private router: Router,private authService: AuthService){
     

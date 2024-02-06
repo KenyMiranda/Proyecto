@@ -26,6 +26,8 @@ export class CalificacionesComponent implements OnInit {
   nombreUsuario = this.authService.getNameFromToken();
   rol = this.authService.getRoleFromToken();
   isAdmin = this.authService.isAdmin();
+  isMaestro = this.authService.isMaestro();
+  id=this.authService.getIdFromToken();
   isAlumno: boolean = false;
   nombreAlumno: any;
   promedio: number = 0.0;

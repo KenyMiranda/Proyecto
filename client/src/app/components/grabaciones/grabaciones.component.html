@@ -15,13 +15,13 @@
               alt="logo"
               style="width: px; height: 62px; margin-left: 5px"
           /></a>
-
+  
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >
           <ul class="right hide-on-med-and-down">
             <li class="has-dropdown">
-              <a style="margin-right: 40px">{{ nombreUsuario }}</a>
+              <a style="margin-right: 25px">{{ nombreUsuario }}</a>
               <ul class="dropdown">
                 <li><a (click)="logout()">Cerrar Sesion</a></li>
                 <li><a [routerLink]="['/usuario/update',id]">Actualizar datos</a></li>
@@ -32,14 +32,8 @@
             <li *ngIf="isAdmin"><a routerLink="/admins-list">Administradores</a></li>
             <li *ngIf="isAdmin" class="has-dropdown">
               <a routerLink="/alumnos-list">Alumnos</a>
-              <ul class="dropdown">
-                <li ><a routerLink="/usuarios-list">Users</a></li>
-                <li><a routerLink="/admins-list">Administradores</a></li>
-                <li><a routerLink="/usuarios-list">Users</a></li>
-                <li><a routerLink="/admins-list">Administradores</a></li>
-              </ul>
-            </li>
-
+           
+  
             <li *ngIf="isAdmin"><a routerLink="/maestros-list">Maestros</a></li>
             <li *ngIf="isAdmin"><a routerLink="/grupos">Grupos</a></li>
             <li><a routerLink="/clases">Clases</a></li>
@@ -52,7 +46,8 @@
             </li>
             <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
             <li><a routerLink="/grabaciones">Grabaciones</a></li>
-            <li><a routerLink="">Materiales</a></li>
+            <li><a routerLink="/materiales">Materiales</a></li>
+            <li><a routerLink="/reportes">Reportes</a></li>
           </ul>
         </div>
       </nav>

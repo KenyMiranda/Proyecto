@@ -271,6 +271,8 @@ export class ClasesListComponent implements OnInit {
       : 'Maestro no encontrado';
   }
 
+  
+
   obtenerNombreMaestro2(idMaestro: number): string {
     // Encuentra la clase correspondiente al id_grupo
     //const clase = this.arrayClases[0].find((c: {id_grupo:number})=> c.id_grupo === idGrupo);

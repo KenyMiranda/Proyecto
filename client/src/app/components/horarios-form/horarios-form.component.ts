@@ -52,6 +52,9 @@ export class HorariosFormComponent  implements OnInit {
     
   }
   nombreUsuario = this.authService.getNameFromToken();
+  isAdmin = this.authService.isAdmin();
+  isMaestro = this.authService.isMaestro();
+  id = this.authService.getIdFromToken();
   
   constructor(private maestrosService: MaestrosService ,private authService: AuthService,private horariosService : HorariosService , private router: Router,private clasesHorarioService: ClasesHorariosService,private grupos : GruposService,private activatedRoute: ActivatedRoute){
     

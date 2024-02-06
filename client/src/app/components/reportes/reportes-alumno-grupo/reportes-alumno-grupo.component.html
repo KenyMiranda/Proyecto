@@ -21,7 +21,7 @@
             >
             <ul class="right hide-on-med-and-down">
               <li class="has-dropdown">
-                <a style="margin-right: 40px">{{ nombreUsuario }}</a>
+                <a style="margin-right: 25px">{{ nombreUsuario }}</a>
                 <ul class="dropdown">
                   <li><a (click)="logout()">Cerrar Sesion</a></li>
                   <li><a [routerLink]="['/usuario/update',id]">Actualizar datos</a></li>
@@ -52,7 +52,8 @@
               </li>
               <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
               <li><a routerLink="/grabaciones">Grabaciones</a></li>
-              <li><a routerLink="">Materiales</a></li>
+              <li><a routerLink="/materiales">Materiales</a></li>
+              <li><a routerLink="/reportes">Reportes</a></li>
             </ul>
           </div>
         </nav>

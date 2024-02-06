@@ -28,6 +28,10 @@ export class CalificacionesFormComponent implements AfterViewInit {
   arrayAlumnos: any = [];
   fechas: Date[] = [];
   diasAgregados = 6;
+  nombreUsuario = this.authService.getNameFromToken();
+  isAdmin = this.authService.isAdmin();
+  isMaestro=this.authService.isMaestro();
+  id=this.authService.getIdFromToken();
 
   calificacion: Calificacion = {
     fecha_calif: '',
@@ -76,8 +80,6 @@ export class CalificacionesFormComponent implements AfterViewInit {
       });
     }
 
-    
-
     if (this.myElements) {
       // Acceder a cada input de manera individual
       this.myElements.forEach((element, index) => {
@@ -86,8 +88,6 @@ export class CalificacionesFormComponent implements AfterViewInit {
         );
       });
     }
-
-  
   }
   /*
   getAlumnos(){
@@ -101,9 +101,6 @@ export class CalificacionesFormComponent implements AfterViewInit {
     );
   }
   */
-
-  nombreUsuario = this.authService.getNameFromToken();
-  isAdmin = this.authService.isAdmin();
 
   logout(): void {
     this.authService.removeToken(); // Elimina el token al cerrar sesión
@@ -144,20 +141,20 @@ export class CalificacionesFormComponent implements AfterViewInit {
                 this.calificacion.id_alumno = this.arrayAlumnos[0][i].id_user;
 
                 if (this.myElements && this.myElements.first) {
-
-                  for (let i = 0; i < this.myElements.length;i++){
-                    const element = this.myElements.toArray()[i]?.nativeElement.value;
-                    if (element==""||element==null){
-                      vacios = vacios+1;
+                  for (let i = 0; i < this.myElements.length; i++) {
+                    const element =
+                      this.myElements.toArray()[i]?.nativeElement.value;
+                    if (element == '' || element == null) {
+                      vacios = vacios + 1;
                     }
                   }
-                  if(vacios==0){
-                    const inputValue = this.myElements.toArray()[i]?.nativeElement.value;
-
+                  if (vacios == 0) {
+                    const inputValue =
+                      this.myElements.toArray()[i]?.nativeElement.value;
 
                     this.calificacion.calificacion = inputValue;
                     console.log('Valor del input:', inputValue);
-  
+
                     this.calificacionService
                       .saveCalificacion(this.calificacion)
                       .subscribe(
@@ -174,7 +171,7 @@ export class CalificacionesFormComponent implements AfterViewInit {
                           Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: ''+err.error.msg,
+                            text: '' + err.error.msg,
                           });
                         }
                       );
@@ -185,8 +182,6 @@ export class CalificacionesFormComponent implements AfterViewInit {
                       text: 'Falta calificaciones por asignar o error en el formato',
                     });
                   }
-
-                
 
                   // Haz lo que necesites con el valor obtenido
                 }

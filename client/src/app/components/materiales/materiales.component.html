@@ -22,7 +22,7 @@
           >
           <ul class="right hide-on-med-and-down">
             <li class="has-dropdown">
-              <a style="margin-right: 40px">{{ nombreUsuario }}</a>
+              <a style="margin-right: 20px">{{ nombreUsuario }}</a>
               <ul class="dropdown">
                 <li><a (click)="logout()">Cerrar Sesion</a></li>
               </ul>
@@ -38,7 +38,7 @@
             <li *ngIf="isAdmin"><a routerLink="/maestros-list">Maestros</a></li>
             <li *ngIf="isAdmin"><a routerLink="/grupos">Grupos</a></li>
             <li><a routerLink="/clases">Clases</a></li>
-            <li *ngIf="!isAlumno" class="has-dropdown">
+            <li *ngIf="isAdmin || isMaestro" class="has-dropdown">
               <a>Horarios</a>
               <ul class="dropdown">
                 <li *ngIf="isAdmin">
@@ -49,14 +49,19 @@
             </li>
             <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
             <li><a routerLink="/grabaciones">Grabaciones</a></li>
-            <li><a routerLink="">Materiales</a></li>
+            <li><a routerLink="/materiales">Materiales</a></li>
+            <li *ngIf="isAdmin" class="has-dropdown">
+              <a href="/reportes">Reportes</a>
+            </li>
           </ul>
         </div>
       </nav>
     </header>
     <h4 style="text-align: center">MATERIALES</h4>
 
-    <!-- This example requires Tailwind CSS v2.0+ -->
+
+
+    <!-- This example requires Tailwind CSS v2.0+ 
     <ul
       role="list"
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
@@ -106,7 +111,7 @@
               <a
                 class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
               >
-                <!-- Heroicon name: solid/mail -->
+               
 
                 <span class="ml-3">Añadir Material</span>
               </a>
@@ -119,7 +124,7 @@
                 
                 class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
               >
-                <!-- Heroicon name: solid/mail -->
+               
 
                 <span class="ml-3">Lista de Materiales</span>
               </a>
@@ -128,28 +133,77 @@
         </div>
       </li>
 
-      <!-- More people... -->
+      
     </ul>
+    -->
 
+    <div *ngFor="let file of arrayFiles">
+      <div class="bg-gray-100 lg:py-12">
+        <div
+          class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
+        >
+          <div class="lg:w-1/2">
+            <div
+              class="h-64 bg-cover lg:rounded-lg lg:h-full"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
+              "
+            ></div>
+          </div>
+          <div class="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+            <h2 class="text-3xl text-gray-800 font-bold">
+              <span class="text-indigo-600"
+                ></span
+              >
+            </h2>
+            <h2 class="text-3xl text-gray-800 font-bold">
+              <span class="text-indigo-600"
+                >{{ file }}</span
+              >
+            </h2>
+          
+         
+            <a class="mt-4 text-gray-600" [href]="getFileUrl(file)" target="_blank">Haz click para ver el archivo</a>
+            <br>
+           
+            <br>
+            <br>
+
+         
+            <button
+            data-ripple-light="true"
+           
+            data-popover-target="popover"
+            class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            
+            >
+            DELETE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <br />
 
     <br />
 
     <h6 *ngIf="click">Lista de Materiales</h6>
 
-    <div class="file-upload">
+    <div class="file-upload" style="margin-left: 30px;">
       <input #singleInput type="file" name="file"  (change)="selectFile($event)"/>
-      <label for="file">Selecciona un archivo</label>
+      
 
       <p id="file-name"></p>
     </div>
     <br>
-    <button type="submit" (click)="onSubmitFile()">Upload</button>
+    
+     <button data-ripple-light="true" data-popover-target="popover"
+     style="margin-left: 30px;"
+     (click)="onSubmitFile()"
+     class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+     Upload
+   </button>
 
-    <ul>
-      <li *ngFor="let file of arrayFiles">
-        <a [href]="getFileUrl(file)" target="_blank">{{ file }}</a>
-      </li>
-    </ul>
+ 
   </body>
 </html>

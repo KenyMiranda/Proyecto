@@ -48,14 +48,16 @@ export class HorariosComponent implements OnInit {
   id: any = this.authService.getIdFromToken();
   rol: any = this.authService.getRoleFromToken();
   public dia: boolean = true;
-  isAdmin: boolean = false;
+  isAdmin = this.authService.isAdmin();
+  isMaestro = this.authService.isMaestro();
+  
   nombreUsuario = this.authService.getNameFromToken();
   ngOnInit() {
     this.obtenerHorarios();
     this.obtenerClases();
     this.obtenerMaestros();
     this.obtenerGrupos();
-    this.isAdmin = this.authService.isAdmin();
+   
   }
 
   logout(): void {

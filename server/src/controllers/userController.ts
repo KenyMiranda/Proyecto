@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import db from "../database";
-import alumnoController from "./alumnoControllers";
 import bycrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import transporter from "../nodemailer-config";
 class UserController {
+  //SENTENCIA PARA LISTAR TODOS LOS USUARIOS
   public async list(req: Request, res: Response) {
     try {
       const user = await db.query("SELECT * FROM users");
@@ -14,7 +14,7 @@ class UserController {
       res.status(500).send("Error interno del servidor");
     }
   }
-
+  //SENTENCIA PARA OBTENER UN USUARIO
   public async getOne(req: Request, res: Response) {
     const { id } = req.params;
 
@@ -27,15 +27,16 @@ class UserController {
     }
   }
 
+  //SENTENCIA PARA CREAR UN USUARIO
   public async createUser(req: Request, res: Response) {
     const pass = req.body.password;
-    const password = await bycrypt.hash(req.body.password, 10);
+    const password = await bycrypt.hash(req.body.password, 10);//ENCRIPTA LA CONTRASEÑA INGRESADA
     req.body.password = password;
     const id = req.body.id;
     const email = req.body.email;
 
     try {
-      await db.query("INSERT INTO users SET ?", [req.body]);
+      await db.query("INSERT INTO users SET ?", [req.body]); //SENTENCIA PARA INGRESAR NUEVO USUARIO
       let rol = req.body.id_rol;
       console.log(req.body);
       /*
@@ -75,7 +76,7 @@ class UserController {
       res.json({ text: "User saved" });
       // Después de registrar al usuario con éxito, envía un correo electrónico
       const mailOptions = {
-        from: "kenalexmv@gmail.com",
+        from: "kenalexmv@gmail.com",//INGRESAR SU CORREO PARA LA NOTIFICACION DE REGISTRO
         to: email,
         subject: "Registro Exitoso",
         text:
@@ -94,7 +95,7 @@ class UserController {
             "Error al enviar el correo electrónico de registro:",
             error
           );
-          return res.status(500).send("Error al enviar el correo electrónico");
+          return res.status(400).send("Error al enviar el correo electrónico");
         }
         console.log("Correo electrónico enviado: " + info.response);
 
@@ -106,7 +107,7 @@ class UserController {
       res.status(500).send("Error interno del servidor");
     }
   }
-
+  //SENTENCIA PARA ELIMINAR USUARIO
   public async deleteUser(req: Request, res: Response) {
     const { id } = req.params;
     try {
@@ -117,7 +118,7 @@ class UserController {
       res.status(500).send("Error interno del servidor");
     }
   }
-
+//SENTENCIA PARA ACTUALIZAR USUARIO
   public async updateUser(req: Request, res: Response) {
     const { id } = req.params;
     const contraNueva = req.body.password;
@@ -166,7 +167,7 @@ class UserController {
     }
     
   }
-
+  //SENTENCIA PARA INICIAR SESION 
   public async loginUser(req: Request, res: Response) {
     //validar contraseña
     let id = req.body.id;
@@ -226,7 +227,7 @@ class UserController {
           id: JSON.parse(JSON.stringify(data[0].id_user)),
         },
         process.env.SECRET_KEY || "pGZLwuX!rt9",
-        { expiresIn: 3600 }
+        //{ expiresIn: 3600 } 
       );
       console.log(token);
       res.json(token);

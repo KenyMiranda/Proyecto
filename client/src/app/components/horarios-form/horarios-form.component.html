@@ -10,34 +10,45 @@
     <header>
       <nav>
         <div class="nav-wrapper" style="background-color: #0066ff">
-          <a routerLink="/" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo" style="width: px; height:62px; margin-left: 5px;"/></a>
+          <a routerLink="/" class="brand-logo"
+            ><img
+              src="https://i.imgur.com/1NA0X3h.jpg"
+              alt="logo"
+              style="width: px; height: 62px; margin-left: 5px"
+          /></a>
   
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >
           <ul class="right hide-on-med-and-down">
-            <li class="has-dropdown"><a style="margin-right: 40px;">{{nombreUsuario}}</a> <ul class="dropdown">
-              <li><a (click)="logout()">Cerrar Sesion</a></li>
-            </ul>
-          </li>
-            <li><a routerLink="/usuarios-list">Users</a></li>
-            <li><a routerLink="/admins-list">Administradores</a></li>
-            <li class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
-
-            </li>
-            
-            <li><a routerLink="/maestros-list">Maestros</a></li>
-            <li><a routerLink="/grupos">Grupos</a></li>
-            <li><a routerLink="/clases">Clases</a></li>
-            <li class="has-dropdown"><a>Horarios</a>
+            <li class="has-dropdown">
+              <a style="margin-right: 25px">{{ nombreUsuario }}</a>
               <ul class="dropdown">
-                <li><a routerLink="/horarios-form">Agregar Horario</a></li>
+                <li><a (click)="logout()">Cerrar Sesion</a></li>
+                <li><a [routerLink]="['/usuario/update',id]">Actualizar datos</a></li>
+                
+              </ul>
+            </li>
+            <li *ngIf="isAdmin"><a routerLink="/usuarios-list">Users</a></li>
+            <li *ngIf="isAdmin"><a routerLink="/admins-list">Administradores</a></li>
+            <li *ngIf="isAdmin" class="has-dropdown">
+              <a routerLink="/alumnos-list">Alumnos</a>
+           
+  
+            <li *ngIf="isAdmin"><a routerLink="/maestros-list">Maestros</a></li>
+            <li *ngIf="isAdmin"><a routerLink="/grupos">Grupos</a></li>
+            <li><a routerLink="/clases">Clases</a></li>
+            <li *ngIf="isAdmin||isMaestro" class="has-dropdown">
+              <a>Horarios</a>
+              <ul class="dropdown">
+                <li *ngIf="isAdmin"><a routerLink="/horarios-form">Agregar Horario</a></li>
                 <li><a routerLink="/horarios">Ver Horarios</a></li>
               </ul>
             </li>
             <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
             <li><a routerLink="/grabaciones">Grabaciones</a></li>
-            <li><a routerLink="">Materiales</a></li>
+            <li><a routerLink="/materiales">Materiales</a></li>
+            <li><a routerLink="/reportes">Reportes</a></li>
           </ul>
         </div>
       </nav>
@@ -57,9 +68,6 @@
       <div class="overflow-hidden">
         <h5>Clases</h5>
 
-        <input  type="text" style="height: 35px; width: 800px; margin-left: 20%" name="search"
-          placeholder="Search"
-          class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
         <table class="min-w-full">
           <thead class="bg-white border-b">
             <tr>

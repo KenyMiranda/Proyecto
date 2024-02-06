@@ -18,6 +18,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const nodemailer_config_1 = __importDefault(require("../nodemailer-config"));
 class UserController {
+    //SENTENCIA PARA LISTAR TODOS LOS USUARIOS
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -30,6 +31,7 @@ class UserController {
             }
         });
     }
+    //SENTENCIA PARA OBTENER UN USUARIO
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -43,15 +45,16 @@ class UserController {
             }
         });
     }
+    //SENTENCIA PARA CREAR UN USUARIO
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const pass = req.body.password;
-            const password = yield bcrypt_1.default.hash(req.body.password, 10);
+            const password = yield bcrypt_1.default.hash(req.body.password, 10); //ENCRIPTA LA CONTRASEÑA INGRESADA
             req.body.password = password;
             const id = req.body.id;
             const email = req.body.email;
             try {
-                yield database_1.default.query("INSERT INTO users SET ?", [req.body]);
+                yield database_1.default.query("INSERT INTO users SET ?", [req.body]); //SENTENCIA PARA INGRESAR NUEVO USUARIO
                 let rol = req.body.id_rol;
                 console.log(req.body);
                 /*
@@ -103,7 +106,7 @@ class UserController {
                 nodemailer_config_1.default.sendMail(mailOptions, (error, info) => {
                     if (error) {
                         console.error("Error al enviar el correo electrónico de registro:", error);
-                        return res.status(500).send("Error al enviar el correo electrónico");
+                        return res.status(400).send("Error al enviar el correo electrónico");
                     }
                     console.log("Correo electrónico enviado: " + info.response);
                     // Envío de la respuesta al cliente solo después de enviar el correo electrónico
@@ -116,6 +119,7 @@ class UserController {
             }
         });
     }
+    //SENTENCIA PARA ELIMINAR USUARIO
     deleteUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -129,6 +133,7 @@ class UserController {
             }
         });
     }
+    //SENTENCIA PARA ACTUALIZAR USUARIO
     updateUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -168,6 +173,7 @@ class UserController {
             }
         });
     }
+    //SENTENCIA PARA INICIAR SESION 
     loginUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             //validar contraseña
@@ -208,7 +214,7 @@ class UserController {
                     nombre: JSON.parse(JSON.stringify(nombreU[0].first_nameU + "  " + nombreU[0].last_nameU)),
                     rol: JSON.parse(JSON.stringify(role[0].id_rol)),
                     id: JSON.parse(JSON.stringify(data[0].id_user)),
-                }, process.env.SECRET_KEY || "pGZLwuX!rt9", { expiresIn: 3600 });
+                }, process.env.SECRET_KEY || "pGZLwuX!rt9");
                 console.log(token);
                 res.json(token);
             }

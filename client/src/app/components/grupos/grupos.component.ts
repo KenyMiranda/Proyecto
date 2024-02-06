@@ -17,6 +17,9 @@ export class GruposComponent implements OnInit {
   arrayMaestros:any = [];
   edit:boolean = false;
   idG : any ;
+  isAdmin=this.authService.isAdmin();
+  isMaestro=this.authService.isMaestro();
+  id=this.authService.getIdFromToken();
 
   grupo : Grupo ={
     nombre_grupo : "",

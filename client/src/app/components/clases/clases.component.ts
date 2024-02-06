@@ -24,7 +24,9 @@ export class ClasesComponent implements OnInit {
   seleccion2 : boolean = false;
   agregarGrupo : boolean = false;
   numeroMaes : number = 0 ;
-  
+  isAdmin = this.authService.isAdmin()
+  isMaestro = this.authService.isMaestro();
+  id= this.authService.getIdFromToken();
 
   filterPost = ""
   grupo : Grupo ={
