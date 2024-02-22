@@ -7,6 +7,7 @@ exports.materialController = void 0;
 const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+const jszip_1 = __importDefault(require("jszip"));
 class MaterialController {
     constructor() {
         this.storage = multer_1.default.diskStorage({
@@ -17,21 +18,24 @@ class MaterialController {
                 cb(null, file.originalname);
             },
         });
-        this.upload = (0, multer_1.default)({ storage: this.storage }).single("file");
+        this.upload = (0, multer_1.default)({ storage: this.storage }).array("files", 10); // 10 es el número máximo de archivos permitidos
         this.handleFileUpload = (req, res) => {
             this.upload(req, res, (err) => {
                 if (err) {
                     console.log(err);
-                    res.status(400).json({ msg: "Error en la carga de archivo" });
+                    return res.status(400).json({ msg: "Error en la carga de archivos" });
                 }
-                if (!req.file) {
-                    console.log("No se ha subido ningún archivo.");
-                    res.status(400).json({ msg: "No se ha subido ningun archivo" });
+                if (!req.files || req.files.length === 0) {
+                    console.log("No se han subido archivos.");
+                    return res.status(400).json({ msg: "No se han subido archivos" });
                 }
-                console.log("Archivo subido con éxito:", req.file.path);
-                res.status(200).json({
-                    path: req.file.filename,
-                });
+                const files = req.files;
+                const paths = [];
+                for (let i = 0; i < files.length; i++) {
+                    console.log("Archivo subido con éxito:", files[i].path);
+                    paths.push(files[i].filename);
+                }
+                res.status(200).json({ paths: paths });
             });
         };
         this.uploadsDirectory = path_1.default.join(__dirname, '../../uploads');
@@ -64,6 +68,34 @@ class MaterialController {
                         .json({ message: "Error al intentar borrar el archivo." });
                 }
                 res.status(200).json({ message: "Archivo eliminado correctamente." });
+            });
+        };
+        this.downloadAllFiles = (req, res) => {
+            const zip = new jszip_1.default();
+            fs_1.default.readdir(this.uploadsDirectory, (err, files) => {
+                if (err) {
+                    console.error(err);
+                    return res
+                        .status(500)
+                        .json({ error: "Error al leer el directorio de archivos." });
+                }
+                files.forEach((file) => {
+                    const filePath = path_1.default.join(this.uploadsDirectory, file);
+                    if (fs_1.default.existsSync(filePath)) {
+                        zip.file(file, fs_1.default.readFileSync(filePath));
+                    }
+                });
+                zip
+                    .generateAsync({ type: "nodebuffer" })
+                    .then((content) => {
+                    res.set("Content-Type", "application/zip");
+                    res.set("Content-Disposition", 'attachment; filename="todos_los_archivos.zip"');
+                    res.send(content);
+                })
+                    .catch((error) => {
+                    console.error("Error al generar el archivo ZIP:", error);
+                    res.status(500).json({ error: "Error al generar el archivo ZIP." });
+                });
             });
         };
     }

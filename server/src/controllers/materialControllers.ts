@@ -2,6 +2,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import { Request, Response } from "express";
+import JSZip from "jszip";
 
 class MaterialController {
   storage = multer.diskStorage({
@@ -13,24 +14,29 @@ class MaterialController {
     },
   });
 
-  upload = multer({ storage: this.storage }).single("file");
+  upload = multer({ storage: this.storage }).array("files", 10); // 10 es el número máximo de archivos permitidos
 
   handleFileUpload = (req: Request, res: Response) => {
     this.upload(req, res, (err: any) => {
       if (err) {
         console.log(err);
-        res.status(400).json({ msg: "Error en la carga de archivo" });
+        return res.status(400).json({ msg: "Error en la carga de archivos" });
       }
-
-      if (!req.file) {
-        console.log("No se ha subido ningún archivo.");
-        res.status(400).json({ msg: "No se ha subido ningun archivo" });
+  
+      if (!req.files || (req.files as Express.Multer.File[]).length === 0) {
+        console.log("No se han subido archivos.");
+        return res.status(400).json({ msg: "No se han subido archivos" });
       }
-
-      console.log("Archivo subido con éxito:", req.file.path);
-      res.status(200).json({
-        path: req.file.filename,
-      });
+  
+      const files = req.files as Express.Multer.File[];
+      const paths: string[] = [];
+  
+      for (let i = 0; i < files.length; i++) {
+        console.log("Archivo subido con éxito:", files[i].path);
+        paths.push(files[i].filename);
+      }
+  
+      res.status(200).json({ paths: paths });
     });
   };
 
@@ -67,6 +73,41 @@ class MaterialController {
           .json({ message: "Error al intentar borrar el archivo." });
       }
       res.status(200).json({ message: "Archivo eliminado correctamente." });
+    });
+  };
+
+  downloadAllFiles = (req: Request, res: Response) => {
+    const zip = new JSZip();
+
+    fs.readdir(this.uploadsDirectory, (err, files) => {
+      if (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .json({ error: "Error al leer el directorio de archivos." });
+      }
+
+      files.forEach((file) => {
+        const filePath = path.join(this.uploadsDirectory, file);
+        if (fs.existsSync(filePath)) {
+          zip.file(file, fs.readFileSync(filePath));
+        }
+      });
+
+      zip
+        .generateAsync({ type: "nodebuffer" })
+        .then((content) => {
+          res.set("Content-Type", "application/zip");
+          res.set(
+            "Content-Disposition",
+            'attachment; filename="todos_los_archivos.zip"'
+          );
+          res.send(content);
+        })
+        .catch((error) => {
+          console.error("Error al generar el archivo ZIP:", error);
+          res.status(500).json({ error: "Error al generar el archivo ZIP." });
+        });
     });
   };
 }

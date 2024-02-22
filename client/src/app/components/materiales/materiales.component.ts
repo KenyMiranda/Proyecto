@@ -7,6 +7,7 @@ import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-ho
 import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 import { MaterialesServicesService } from 'src/app/services/materiales/materiales-services.service';
 import Swal from 'sweetalert2';
+import JSZip from 'jszip';
 
 @Component({
   selector: 'app-materiales',
@@ -88,22 +89,29 @@ export class MaterialesComponent {
     }
   }
 
-  selectFile(event: any) {
+  selectFiles(event: any) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      console.log(file);
-      this.files = file;
+      this.files = event.target.files;
+      console.log(this.files);
     }
   }
-
-  onSubmitFile() {
-    const formdata = new FormData();
-    formdata.append('file', this.files);
-    this.materialService.postFile(formdata).subscribe(
+  
+  onSubmitFiles() {
+    if (this.files.length === 0) {
+      return;
+    }
+  
+    const formData = new FormData();
+  
+    for (let i = 0; i < this.files.length; i++) {
+      formData.append('files', this.files[i]);
+    }
+  
+    this.materialService.postFiles(formData).subscribe(
       (res: any) => {
-        console.log(res.path);
-        this.singleInput.nativeElement.value = '';
-        this.arrayFiles.push(res.path);
+        console.log(res.paths);
+        this.singleInput.nativeElement.value = "";
+        this.arrayFiles = this.arrayFiles.concat(res.paths); // Concatenar las nuevas rutas con las existentes
       },
       (err) => {
         console.log(err);
@@ -189,6 +197,25 @@ export class MaterialesComponent {
           },
         });
       }
+    });
+  }
+
+  async downloadAllFiles() {
+    const zip = new JSZip();
+    const folder = zip.folder('archivos');
+    for (const file of this.arrayFiles) {
+      const response = await fetch(this.getFileUrl(file));
+      const blob = await response.blob();
+      folder?.file(file, blob);
+    }
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      const url = window.URL.createObjectURL(content);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'todos_los_archivos.zip';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
     });
   }
 }
