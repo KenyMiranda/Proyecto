@@ -91,7 +91,5 @@ class ReporteController {
   }
 }
 
-
-
 export const reporteController = new ReporteController();
 export default reporteController;

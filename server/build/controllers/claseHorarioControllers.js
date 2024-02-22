@@ -18,7 +18,7 @@ class ClaseHorarioController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE c.fecha_baja IS NULL GROUP BY g.id_grupo;");
+                const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE c.fecha_baja IS NULL GROUP BY g.id_grupo, c.id_clase");
                 res.json(clase);
             }
             catch (error) {
@@ -56,7 +56,7 @@ class ClaseHorarioController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE g.id_maestro =? OR g.id_maestro2=? GROUP BY g.id_grupo;", [id, id]);
+                const clase = yield database_1.default.query("SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE g.id_maestro =? OR g.id_maestro2=? GROUP BY g.id_grupo, Innova_English_School.c.id_clase;", [id, id]);
                 res.json(clase);
             }
             catch (error) {

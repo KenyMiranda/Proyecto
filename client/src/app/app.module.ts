@@ -53,11 +53,7 @@ import { ReportesAlumnoFechaComponent } from './components/reportes/reportes-alu
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReportesHorasMaestrosComponent } from './components/reportes/reportes-horas-maestros/reportes-horas-maestros.component';
 import { MaterialesServicesService } from './services/materiales/materiales-services.service';
-
-
-
-
-
+import { MenuComponent } from './components/menu/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -91,16 +87,41 @@ import { MaterialesServicesService } from './services/materiales/materiales-serv
     GrabacionesComponent,
     MaterialesComponent,
     ClasesListComponent,
-    
+
     ReportesAlumnoGrupoComponent,
     ReportesAlumnoMaestroComponent,
     ReportesAlumnoFechaComponent,
     ReportesHorasMaestrosComponent,
     ReportesComponent,
-   
+    MenuComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule,FormsModule,NgChartsModule,CommonModule,ReactiveFormsModule],
-  providers: [UsersService,AlumnosService,AdminService,MaestrosService,HorariosService,CalificacionesService,ClasesService,ClasesHorariosService,GruposService,AlumnoGruposService,GrabacionesService,GrabacionesComponent,CalificacionesComponent,ReportesService,MaterialesServicesService,DatePipe],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    NgChartsModule,
+    CommonModule,
+    ReactiveFormsModule,
+  ],
+  providers: [
+    UsersService,
+    AlumnosService,
+    AdminService,
+    MaestrosService,
+    HorariosService,
+    CalificacionesService,
+    ClasesService,
+    ClasesHorariosService,
+    GruposService,
+    AlumnoGruposService,
+    GrabacionesService,
+    GrabacionesComponent,
+    CalificacionesComponent,
+    ReportesService,
+    MaterialesServicesService,
+    DatePipe,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

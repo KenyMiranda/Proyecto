@@ -55,8 +55,8 @@ class Server {
         this.app.use("/reporte", reporteRoutes_1.default);
         this.app.use("/file", materialRoutes_1.default);
         //Direcciones para la subida de archivos
-        const uploadsDirectory = path_1.default.join(__dirname, './../uploads');
-        this.app.use('/uploads', express_1.default.static(uploadsDirectory));
+        const uploadsDirectory = path_1.default.join(__dirname, "./../uploads");
+        this.app.use("/uploads", express_1.default.static(uploadsDirectory));
     }
     start() {
         this.app.listen(this.app.get("port"), () => {

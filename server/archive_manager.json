@@ -1,0 +1,16 @@
+{
+    "archivos": [
+      {
+        "nombre": "archivo1.pdf",
+        "etiquetas": ["documento", "informe", "proyecto"]
+      },
+      {
+        "nombre": "archivo2.jpg",
+        "etiquetas": ["imagen", "vacaciones", "familia"]
+      },
+      {
+        "nombre": "archivo3.docx",
+        "etiquetas": ["documento", "trabajo", "informe"]
+      }
+    ]
+  }
