@@ -49,6 +49,23 @@ class MaterialController {
                 }
             });
         };
+        this.deleteFile = (req, res) => {
+            const filename = req.params.filename;
+            const filePath = path_1.default.join(this.uploadsDirectory, filename);
+            // Verificar si el archivo existe
+            if (!fs_1.default.existsSync(filePath)) {
+                return res.status(404).json({ message: "El archivo no existe." });
+            }
+            fs_1.default.unlink(filePath, (err) => {
+                if (err) {
+                    console.error(err);
+                    return res
+                        .status(500)
+                        .json({ message: "Error al intentar borrar el archivo." });
+                }
+                res.status(200).json({ message: "Archivo eliminado correctamente." });
+            });
+        };
     }
 }
 exports.materialController = new MaterialController();
