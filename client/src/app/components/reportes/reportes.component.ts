@@ -10,15 +10,18 @@ import { Router } from '@angular/router';
 export class ReportesComponent {
   rol = this.authService.getRoleFromToken();
   id: any = this.authService.getIdFromToken();
-  isAdmin = this.authService.isAdmin();
-  isMaestro = this.authService.isMaestro();
+  isAdmin: boolean;
+  isMaestro: boolean; 
 
   constructor(
    
     private authService: AuthService,
     private router: Router
    
-  ) {}
+  ) {
+    this.isAdmin = this.authService.isAdmin();
+    this.isMaestro = this.authService.isMaestro();
+  }
 
   nombreUsuario = this.authService.getNameFromToken();
 

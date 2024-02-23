@@ -17,7 +17,7 @@ import alumnoGrupoRoutes from "./routes/alumnosGruposRoutes";
 import grabacionesRoutes from "./routes/grabacionesRoutes";
 import horarioMaestrosRoutes from "./routes/horarioMaestrosRoutes";
 import reporteRoutes from "./routes/reporteRoutes";
-import materialRoutes from "./routes/materialRoutes"
+import materialRoutes from "./routes/materialRoutes";
 
 class Server {
   public app: Application;
@@ -28,17 +28,14 @@ class Server {
     this.routes();
   }
   config(): void {
-    
     this.app.set("port", process.env.PORT || 3000);
     this.app.use(morgan("dev"));
     this.app.use(cors());
     this.app.use(express.json());
-    
-    this.app.use(bodyParser.urlencoded({ extended:false}))
+
+    this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(bodyParser.json());
     this.app.use(express.urlencoded({ extended: true }));
-    
-    
   }
 
   routes(): void {
@@ -56,10 +53,10 @@ class Server {
     this.app.use("/grabacion", grabacionesRoutes);
     this.app.use("/horarioMaestro", horarioMaestrosRoutes);
     this.app.use("/reporte", reporteRoutes);
-    this.app.use("/file",materialRoutes);
+    this.app.use("/file", materialRoutes);
     //Direcciones para la subida de archivos
-    const uploadsDirectory = path.join(__dirname, './../uploads');
-    this.app.use('/uploads', express.static(uploadsDirectory));
+    const uploadsDirectory = path.join(__dirname, "./../uploads");
+    this.app.use("/uploads", express.static(uploadsDirectory));
   }
 
   start(): void {
@@ -68,7 +65,6 @@ class Server {
     });
   }
 }
-
 
 const server = new Server();
 server.start();

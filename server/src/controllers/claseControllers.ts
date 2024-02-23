@@ -3,10 +3,16 @@ import db from "../database";
 
 class ClaseController {
   public async list(req: Request, res: Response): Promise<void> {
-    const clase = await db.query(
-      "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;"
-    );
-    res.json(clase);
+    try {
+      const clase = await db.query(
+        "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo GROUP BY g.id_grupo;"
+      );
+      res.json(clase);
+    } catch (error){ 
+      res.status(400).json({
+        msg: "Error en la consulta",
+      });
+    }
   }
 
   public async listOne(req: Request, res: Response) {

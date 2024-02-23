@@ -7,39 +7,7 @@
 </head>
 <body>
   <header>
-    <nav>
-      <div class="nav-wrapper" style="background-color: #0066ff">
-        <a routerLink="/" class="brand-logo"><img src="https://i.imgur.com/1NA0X3h.jpg" alt="logo" style="width: px; height:62px; margin-left: 5px;"/></a>
-
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-          ><i class="material-icons">menu</i></a
-        >
-        <ul class="right hide-on-med-and-down">
-          <li class="has-dropdown"><a style="margin-right: 40px;">{{nombreUsuario}}</a> <ul class="dropdown">
-            <li><a (click)="logout()">Cerrar Sesion</a></li>
-          </ul>
-        </li>
-          <li><a routerLink="/usuarios-list">Users</a></li>
-          <li><a routerLink="/admins-list">Administradores</a></li>
-          <li class="has-dropdown"><a routerLink="/alumnos-list">Alumnos</a>
-          
-          </li>
-          
-          <li><a routerLink="/maestros-list">Maestros</a></li>
-          <li><a routerLink="/grupos">Grupos</a></li>
-          <li><a routerLink="/clases">Clases</a></li>
-          <li class="has-dropdown"><a>Horarios</a>
-            <ul class="dropdown">
-              <li><a routerLink="/horarios-form">Agregar Horario</a></li>
-              <li><a routerLink="/horarios">Ver Horarios</a></li>
-            </ul>
-          </li>
-          <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
-          <li><a routerLink="/grabaciones">Grabaciones</a></li>
-          <li><a routerLink="">Materiales</a></li>
-        </ul>
-      </div>
-    </nav>
+    <app-menu></app-menu>
   </header>
   <h4 style="text-align: center">ADMINISTRADORES</h4>
         <input

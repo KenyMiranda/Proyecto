@@ -93,7 +93,7 @@ class UserController {
                 res.json({ text: "User saved" });
                 // Después de registrar al usuario con éxito, envía un correo electrónico
                 const mailOptions = {
-                    from: "kenalexmv@gmail.com",
+                    from: "kenalexmv@gmail.com", //INGRESAR SU CORREO PARA LA NOTIFICACION DE REGISTRO
                     to: email,
                     subject: "Registro Exitoso",
                     text: `Gracias por ser parte  de Innova Language Solutions 

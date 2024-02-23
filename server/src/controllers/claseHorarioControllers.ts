@@ -4,7 +4,7 @@ class ClaseHorarioController {
   public async list(req: Request, res: Response): Promise<void> {
     try {
       const clase = await db.query(
-        "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE c.fecha_baja IS NULL GROUP BY g.id_grupo;"
+        "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE c.fecha_baja IS NULL GROUP BY g.id_grupo, c.id_clase"
       );
       res.json(clase);
     } catch (error) {
@@ -48,7 +48,7 @@ class ClaseHorarioController {
     const { id } = req.params;
     try {
       const clase = await db.query(
-        "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE g.id_maestro =? OR g.id_maestro2=? GROUP BY g.id_grupo;",
+        "SELECT * FROM clase c JOIN grupo g ON c.id_grupo = g.id_grupo WHERE g.id_maestro =? OR g.id_maestro2=? GROUP BY g.id_grupo, Innova_English_School.c.id_clase;",
         [id, id]
       );
       res.json(clase);

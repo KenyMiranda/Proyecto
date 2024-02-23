@@ -8,139 +8,14 @@
 
   <body>
     <header>
-      <nav>
-        <div class="nav-wrapper" style="background-color: #0066ff">
-          <a routerLink="/" class="brand-logo"
-            ><img
-              src="https://i.imgur.com/1NA0X3h.jpg"
-              alt="logo"
-              style="width: px; height: 62px; margin-left: 5px"
-          /></a>
-
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-            ><i class="material-icons">menu</i></a
-          >
-          <ul class="right hide-on-med-and-down">
-            <li class="has-dropdown">
-              <a style="margin-right: 20px">{{ nombreUsuario }}</a>
-              <ul class="dropdown">
-                <li><a (click)="logout()">Cerrar Sesion</a></li>
-              </ul>
-            </li>
-            <li *ngIf="isAdmin"><a routerLink="/usuarios-list">Users</a></li>
-            <li *ngIf="isAdmin">
-              <a routerLink="/admins-list">Administradores</a>
-            </li>
-            <li *ngIf="isAdmin" class="has-dropdown">
-              <a routerLink="/alumnos-list">Alumnos</a>
-            </li>
-
-            <li *ngIf="isAdmin"><a routerLink="/maestros-list">Maestros</a></li>
-            <li *ngIf="isAdmin"><a routerLink="/grupos">Grupos</a></li>
-            <li><a routerLink="/clases">Clases</a></li>
-            <li *ngIf="isAdmin || isMaestro" class="has-dropdown">
-              <a>Horarios</a>
-              <ul class="dropdown">
-                <li *ngIf="isAdmin">
-                  <a routerLink="/horarios-form">Agregar Horario</a>
-                </li>
-                <li><a routerLink="/horarios">Ver Horarios</a></li>
-              </ul>
-            </li>
-            <li><a routerLink="/calificaciones-list">Calificaciones</a></li>
-            <li><a routerLink="/grabaciones">Grabaciones</a></li>
-            <li><a routerLink="/materiales">Materiales</a></li>
-            <li *ngIf="isAdmin" class="has-dropdown">
-              <a href="/reportes">Reportes</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <app-menu></app-menu>
     </header>
-    <h4 style="text-align: center">MATERIALES</h4>
+    <h4 style="text-align: center">Materiales</h4>
 
-
-
-    <!-- This example requires Tailwind CSS v2.0+ 
-    <ul
-      role="list"
-      class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-    >
-      <li
-        class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
-        *ngFor="let clase of arrayClases[0]"
-      >
-        <div class="flex-1 flex flex-col p-8">
-          <img
-            class="w-32 h-32 flex-shrink-0 mx-auto rounded-full"
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-            alt=""
-          />
-          <h3 class="mt-6 text-gray-900 text-sm font-medium">
-            {{ clase.nombre_grupo }}
-          </h3>
-          <dl class="mt-1 flex-grow flex flex-col justify-between">
-            <dt class="sr-only">Title</dt>
-
-            <dd class="text-gray-500 text-sm">{{ clase.Idioma }} <br /></dd>
-            <dd class="text-gray-500 text-sm">
-              {{ clase.fecha_inicio.substring(0, 10) }}--{{
-                clase.fecha_final.substring(0, 10)
-              }}
-            </dd>
-            <h4 class="mt-6 text-gray-900 text-sm font-medium">Category</h4>
-            <dd class="text-gray-500 text-sm">{{ clase.categoria }} <br /></dd>
-            <h4 class="mt-6 text-gray-900 text-sm font-medium">Teachers</h4>
-
-            <dd class="mt-3">
-              <span
-                class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full"
-                >{{ obtenerNombreMaestro(clase.id_maestro) }}</span
-              >
-              <br /><br />
-              <span
-                class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full"
-                >{{ obtenerNombreMaestro(clase.id_maestro2) }}</span
-              >
-            </dd>
-          </dl>
-        </div>
-        <div>
-          <div class="-mt-px flex divide-x divide-gray-200">
-            <div *ngIf="isAdmin || isMaestro" class="w-0 flex-1 flex">
-              <a
-                class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
-              >
-               
-
-                <span class="ml-3">Añadir Material</span>
-              </a>
-            </div>
-          </div>
-
-          <div *ngIf="isAdmin" class="-mt-px flex divide-x divide-gray-200">
-            <div class="w-0 flex-1 flex">
-              <a
-                
-                class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
-              >
-               
-
-                <span class="ml-3">Lista de Materiales</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      
-    </ul>
-    -->
-
-    <div *ngFor="let file of arrayFiles">
+    <div *ngFor="let file of arrayFiles; let i = index">
       <div class="bg-gray-100 lg:py-12">
         <div
-          class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
+          class="bg-white lg:mx-6 lg:flex lg:max-w-4xl lg:shadow-lg lg:rounded-lg"
         >
           <div class="lg:w-1/2">
             <div
@@ -150,34 +25,31 @@
               "
             ></div>
           </div>
-          <div class="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+          <div class="py-8 px-4 max-w-xl lg:max-w-5xl lg:w-1/2">
             <h2 class="text-3xl text-gray-800 font-bold">
-              <span class="text-indigo-600"
-                ></span
-              >
+              <span class="text-indigo-600"></span>
             </h2>
             <h2 class="text-3xl text-gray-800 font-bold">
-              <span class="text-indigo-600"
-                >{{ file }}</span
-              >
+              <span class="text-indigo-600">{{ file }}</span>
             </h2>
-          
-         
-            <a class="mt-4 text-gray-600" [href]="getFileUrl(file)" target="_blank">Haz click para ver el archivo</a>
-            <br>
-           
-            <br>
-            <br>
-
-         
-            <button
-            data-ripple-light="true"
-           
-            data-popover-target="popover"
-            class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            
+            <a
+              class="mt-4 text-gray-600"
+              [href]="getFileUrl(file)"
+              target="_blank"
+              >Haz click para ver el archivo</a
             >
-            DELETE
+            <br />
+
+            <br />
+            <br />
+
+            <button
+              (click)="deleteFile(file)"
+              data-ripple-light="true"
+              data-popover-target="popover"
+              class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            >
+              Borrar
             </button>
           </div>
         </div>
@@ -189,21 +61,35 @@
 
     <h6 *ngIf="click">Lista de Materiales</h6>
 
-    <div class="file-upload" style="margin-left: 30px;">
-      <input #singleInput type="file" name="file"  (change)="selectFile($event)"/>
-      
+    <div class="file-upload" style="margin-left: 30px">
+      <input
+        #singleInput
+        type="file"
+        name="files"
+        (change)="selectFiles($event)"
+        multiple
+      />
 
       <p id="file-name"></p>
     </div>
-    <br>
-    
-     <button data-ripple-light="true" data-popover-target="popover"
-     style="margin-left: 30px;"
-     (click)="onSubmitFile()"
-     class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-     Upload
-   </button>
+    <br />
 
- 
+    <button
+      data-ripple-light="true"
+      data-popover-target="popover"
+      style="margin-left: 30px"
+      (click)="onSubmitFiles()"
+      class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+    >
+      Subir
+    </button>
+    <button
+      (click)="downloadAllFiles()"
+      style="margin-left: 30px"
+      class="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+    >
+      Descargar Todos
+    </button>
   </body>
+  <br />
 </html>
