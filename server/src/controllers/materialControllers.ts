@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import { Request, Response } from "express";
 import JSZip from "jszip";
+import db from "../database";
 
 class MaterialController {
   storage = multer.diskStorage({
@@ -17,7 +18,7 @@ class MaterialController {
   upload = multer({ storage: this.storage }).array("files", 10); // 10 es el número máximo de archivos permitidos
 
   handleFileUpload = (req: Request, res: Response) => {
-    this.upload(req, res, (err: any) => {
+    this.upload(req, res, async (err: any) => {
       if (err) {
         console.log(err);
         return res.status(400).json({ msg: "Error en la carga de archivos" });
@@ -34,6 +35,8 @@ class MaterialController {
       for (let i = 0; i < files.length; i++) {
         console.log("Archivo subido con éxito:", files[i].path);
         paths.push(files[i].filename);
+        // Aquí puedes guardar el nombre del archivo en la base de datos
+        await db.query("INSERT INTO archivos (nombre) VALUES (?)", [files[i].filename]);
       }
   
       res.status(200).json({ paths: paths });
@@ -56,7 +59,7 @@ class MaterialController {
     });
   };
 
-  deleteFile = (req: Request, res: Response) => {
+  deleteFile = async (req: Request, res: Response) => {
     const filename = req.params.filename;
     const filePath = path.join(this.uploadsDirectory, filename);
 
@@ -65,13 +68,15 @@ class MaterialController {
       return res.status(404).json({ message: "El archivo no existe." });
     }
 
-    fs.unlink(filePath, (err) => {
+    fs.unlink(filePath, async (err) => {
       if (err) {
         console.error(err);
         return res
           .status(500)
           .json({ message: "Error al intentar borrar el archivo." });
       }
+      // Aquí puedes eliminar el registro de la base de datos
+      await db.query("DELETE FROM archivos WHERE nombre = ?", [filename]);
       res.status(200).json({ message: "Archivo eliminado correctamente." });
     });
   };

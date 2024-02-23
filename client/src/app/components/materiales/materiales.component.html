@@ -12,10 +12,10 @@
     </header>
     <h4 style="text-align: center">Materiales</h4>
 
-    <div *ngFor="let file of arrayFiles">
+    <div *ngFor="let file of arrayFiles; let i = index">
       <div class="bg-gray-100 lg:py-12">
         <div
-          class="bg-white lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
+          class="bg-white lg:mx-6 lg:flex lg:max-w-4xl lg:shadow-lg lg:rounded-lg"
         >
           <div class="lg:w-1/2">
             <div
@@ -25,14 +25,13 @@
               "
             ></div>
           </div>
-          <div class="py-12 px-6 max-w-xl lg:max-w-5xl lg:w-1/2">
+          <div class="py-8 px-4 max-w-xl lg:max-w-5xl lg:w-1/2">
             <h2 class="text-3xl text-gray-800 font-bold">
               <span class="text-indigo-600"></span>
             </h2>
             <h2 class="text-3xl text-gray-800 font-bold">
               <span class="text-indigo-600">{{ file }}</span>
             </h2>
-
             <a
               class="mt-4 text-gray-600"
               [href]="getFileUrl(file)"
