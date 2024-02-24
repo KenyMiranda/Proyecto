@@ -54,6 +54,7 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReportesHorasMaestrosComponent } from './components/reportes/reportes-horas-maestros/reportes-horas-maestros.component';
 import { MaterialesServicesService } from './services/materiales/materiales-services.service';
 import { MenuComponent } from './components/menu/menu/menu.component';
+import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { MenuComponent } from './components/menu/menu/menu.component';
     ReportesHorasMaestrosComponent,
     ReportesComponent,
     MenuComponent,
+    TagManagerComponent,
   ],
   imports: [
     BrowserModule,
