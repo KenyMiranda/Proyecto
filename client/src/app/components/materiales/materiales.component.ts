@@ -22,6 +22,7 @@ export class MaterialesComponent {
   arrayAlumnos: any = [];
   arrayFiles: any = [];
   files: any;
+  filesSelected: boolean = false;
   id: number = 0;
   idU: any = this.authService.getIdFromToken();
   rol = this.authService.getRoleFromToken();
@@ -90,13 +91,18 @@ export class MaterialesComponent {
   }
 
   selectFiles(event: any) {
-    if (event.target.files.length > 0) {
+    this.filesSelected = event.target.files.length > 0 || this.arrayFiles.length > 0;
+    if (this.filesSelected) {
       this.files = event.target.files;
       console.log(this.files);
     }
   }
   
   onSubmitFiles() {
+    if (!this.filesSelected) {
+      return;
+    }
+
     if (this.files.length === 0) {
       return;
     }
