@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ClasesHorariosService } from 'src/app/services/clasesHorarios/clases-horarios.service';
 import { MaestrosService } from 'src/app/services/maestros/maestros.service';
 import { MaterialesServicesService } from 'src/app/services/materiales/materiales-services.service';
+import { TagManagerComponent } from 'src/app/components/tag-manager/tag-manager.component';
 import Swal from 'sweetalert2';
 import JSZip from 'jszip';
 
@@ -23,6 +24,7 @@ export class MaterialesComponent {
   arrayFiles: any = [];
   files: any;
   filesSelected: boolean = false;
+  showTagManager: boolean = false;
   id: number = 0;
   idU: any = this.authService.getIdFromToken();
   rol = this.authService.getRoleFromToken();
@@ -223,5 +225,9 @@ export class MaterialesComponent {
       a.click();
       window.URL.revokeObjectURL(url);
     });
+  }
+
+  toggleTagManager() {
+    this.showTagManager = !this.showTagManager;
   }
 }
