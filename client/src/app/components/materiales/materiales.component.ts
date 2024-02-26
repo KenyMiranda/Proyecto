@@ -97,6 +97,15 @@ export class MaterialesComponent {
     if (this.filesSelected) {
       this.files = event.target.files;
       console.log(this.files);
+      // Agrega validación para tipos de archivo aceptables
+      for (let i = 0; i < this.files.length; i++) {
+        const fileType = this.files[i].type;
+        if (fileType !== 'application/pdf' && fileType !== 'audio/mpeg') {
+          // Mostrar mensaje de error o realizar alguna acción
+          console.log('Tipo de archivo no válido');
+          return;
+        }
+      }
     }
   }
   
@@ -128,7 +137,6 @@ export class MaterialesComponent {
   }
 
   getFileUrl(filename: string): string {
-    // Reemplaza con la URL de tu servidor y la ruta hacia los archivos
     return `http://localhost:3000/uploads/${filename}`;
   }
 
@@ -182,10 +190,8 @@ export class MaterialesComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        // Llamada para eliminar el archivo
         this.materialService.deleteFile(filename).subscribe({
           next: () => {
-            // Eliminar el archivo del array de archivos en la interfaz de usuario
             this.arrayFiles = this.arrayFiles.filter(
               (file: string) => file !== filename
             );

@@ -15,7 +15,19 @@ class MaterialController {
     },
   });
 
-  upload = multer({ storage: this.storage }).array("files", 10); // 10 es el número máximo de archivos permitidos
+  upload = multer({
+    storage: this.storage,
+    fileFilter: (req, file, cb) => {
+      if (
+        file.mimetype === 'application/pdf' ||
+        file.mimetype === 'audio/mpeg'
+      ) {
+        cb(null, true);
+      } else {
+        cb(new Error('Tipo de archivo no válido'));
+      }
+    }
+  }).array('files', 10);
 
   handleFileUpload = (req: Request, res: Response) => {
     this.upload(req, res, async (err: any) => {
@@ -46,13 +58,11 @@ class MaterialController {
   uploadsDirectory = path.join(__dirname, '../../uploads');
 
   getFiles =(req:Request, res:Response) => {
-    // Lee el contenido del directorio de uploads
     fs.readdir(this.uploadsDirectory, (err, files) => {
       if (err) {
         console.error(err);
         res.status(500).send('Error al obtener la lista de archivos.');
       } else {
-        // Filtra los archivos para incluir solo los PDF
         const pdfFiles = files.filter(file => file.endsWith('.pdf'));
         res.json(pdfFiles);
       }
@@ -63,7 +73,6 @@ class MaterialController {
     const filename = req.params.filename;
     const filePath = path.join(this.uploadsDirectory, filename);
 
-    // Verificar si el archivo existe
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ message: "El archivo no existe." });
     }
@@ -75,7 +84,6 @@ class MaterialController {
           .status(500)
           .json({ message: "Error al intentar borrar el archivo." });
       }
-      // Aquí puedes eliminar el registro de la base de datos
       await db.query("DELETE FROM archivos WHERE nombre = ?", [filename]);
       res.status(200).json({ message: "Archivo eliminado correctamente." });
     });

@@ -21,7 +21,7 @@
             <div
               class="file-image"
               style="
-                background-image: url('https://cdn-icons-png.flaticon.com/512/2338/2338582.png'); 
+                background-image: url('https://cdn-icons-png.flaticon.com/512/2338/2338582.png');
               "
             ></div>
           </div>
@@ -67,6 +67,7 @@
         name="files"
         (change)="selectFiles($event)"
         multiple
+        accept=".pdf, .mp3"
       />
 
       <p id="file-name"></p>
@@ -100,7 +101,6 @@
     </button>
     <div *ngIf="showTagManager" class="tag-manager-modal">
       <div class="tag-manager-content">
-        <!-- Aquí incluimos el componente app-tag-manager -->
         <app-tag-manager (close)="toggleTagManager()"></app-tag-manager>
       </div>
     </div>

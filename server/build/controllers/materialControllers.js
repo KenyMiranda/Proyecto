@@ -28,7 +28,18 @@ class MaterialController {
                 cb(null, file.originalname);
             },
         });
-        this.upload = (0, multer_1.default)({ storage: this.storage }).array("files", 10); // 10 es el número máximo de archivos permitidos
+        this.upload = (0, multer_1.default)({
+            storage: this.storage,
+            fileFilter: (req, file, cb) => {
+                if (file.mimetype === 'application/pdf' ||
+                    file.mimetype === 'audio/mpeg') {
+                    cb(null, true);
+                }
+                else {
+                    cb(new Error('Tipo de archivo no válido'));
+                }
+            }
+        }).array('files', 10);
         this.handleFileUpload = (req, res) => {
             this.upload(req, res, (err) => __awaiter(this, void 0, void 0, function* () {
                 if (err) {
@@ -52,14 +63,12 @@ class MaterialController {
         };
         this.uploadsDirectory = path_1.default.join(__dirname, '../../uploads');
         this.getFiles = (req, res) => {
-            // Lee el contenido del directorio de uploads
             fs_1.default.readdir(this.uploadsDirectory, (err, files) => {
                 if (err) {
                     console.error(err);
                     res.status(500).send('Error al obtener la lista de archivos.');
                 }
                 else {
-                    // Filtra los archivos para incluir solo los PDF
                     const pdfFiles = files.filter(file => file.endsWith('.pdf'));
                     res.json(pdfFiles);
                 }
@@ -68,7 +77,6 @@ class MaterialController {
         this.deleteFile = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const filename = req.params.filename;
             const filePath = path_1.default.join(this.uploadsDirectory, filename);
-            // Verificar si el archivo existe
             if (!fs_1.default.existsSync(filePath)) {
                 return res.status(404).json({ message: "El archivo no existe." });
             }
@@ -79,7 +87,6 @@ class MaterialController {
                         .status(500)
                         .json({ message: "Error al intentar borrar el archivo." });
                 }
-                // Aquí puedes eliminar el registro de la base de datos
                 yield database_1.default.query("DELETE FROM archivos WHERE nombre = ?", [filename]);
                 res.status(200).json({ message: "Archivo eliminado correctamente." });
             }));
