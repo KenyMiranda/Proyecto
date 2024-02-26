@@ -1,135 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <header>
-    <app-menu></app-menu>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <app-menu></app-menu>
+    </header>
 
-  <div class="chart-container" style="width:1000px;height: 1100px;">
-    <canvas id="myChart"></canvas>
-    <button (click)="exportarAPDF()">Exportar pdf</button>
-    <div class="flex flex-col">
-      <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="overflow-hidden">
-            <h5>Calificaciones   {{obtenerAlumno(nombreAlumno)}}</h5>
-          
-            
-    
-            <table class="min-w-full">
-              <thead class="bg-white border-b">
-                <tr>
-                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Fecha (YYYY/MM/DD)
-                  </th>
-                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                    Calificacion
-                  </th>
-                  
-                
-                 
+    <div class="chart-container" style="width: 1000px; height: 1100px">
+      <canvas id="myChart"></canvas>
+      <button (click)="exportarAPDF()">Exportar pdf</button>
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+          <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <h5>Calificaciones {{ obtenerAlumno(nombreAlumno) }}</h5>
+
+              <table class="min-w-full">
+                <thead class="bg-white border-b">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    >
+                      Fecha (YYYY/MM/DD)
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                    >
+                      Calificacion
+                    </th>
+                  </tr>
+                </thead>
+                <tr
+                  class="bg-gray-100 border-b"
+                  *ngFor="let calif of calificaciones[0]; let i = index"
+                >
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                  >
+                    {{ calif.fecha_calif.substring(0, 10) }}
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                  >
+                    {{ calif.calificacion }}
+
+                    <button
+                      style="margin-left: 100px"
+                      *ngIf="calif.calificacion == 0"
+                      (click)="
+                        getGrabacion(
+                          calif.id_grupo,
+                          calif.fecha_calif.substring(0, 10)
+                        )
+                      "
+                      data-ripple-light="true"
+                      data-popover-target="popover"
+                      class="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    >
+                      Ver grabaciones
+                    </button>
+                  </td>
+
+                  <td
+                    *ngIf="!isAlumno"
+                    class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                  >
+                    <!-- component -->
+                    <button
+                      data-ripple-light="true"
+                      data-popover-target="popover"
+                      (click)="
+                        getCalificacion(
+                          calif.id_calificacion,
+                          calif.id_alumno,
+                          calif.fecha_calif.substring(0, 10)
+                        )
+                      "
+                      class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td
+                    *ngIf="!isAlumno"
+                    class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                  >
+                    <!-- component -->
+                    <button
+                      data-ripple-light="true"
+                      data-popover-target="popover"
+                      (click)="deleteCalificacion(calif.id_calificacion)"
+                      class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tr  class="bg-gray-100 border-b" *ngFor="let calif of calificaciones[0] let i = index">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {{ calif.fecha_calif.substring(0,10) }}
-                  
-                </td>
-                <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  
-                  
-                  {{ calif.calificacion }}
-                 
-                  <button 
-                  style="margin-left:100px"
-                  *ngIf= "calif.calificacion==0" (click)="getGrabacion(calif.id_grupo,calif.fecha_calif.substring(0,10))"
-                  data-ripple-light="true"
-                  data-popover-target="popover"
-                  
-                  class="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  >
-                  VIEW RECORDING 
-                  </button>
-                </td>
-                
-                
-              
-               
-    
-                <td *ngIf="!isAlumno" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  <!-- component -->
-                  <button 
-                  data-ripple-light="true"
-                  data-popover-target="popover"
-                  (click)="getCalificacion(calif.id_calificacion,calif.id_alumno,calif.fecha_calif.substring(0,10))"
-                  class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  >
-                  UPDATE
-                  </button>
-                 
-                </td>
-                <td *ngIf="!isAlumno" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  <!-- component -->
-                  <button 
-                  data-ripple-light="true"
-                  data-popover-target="popover"
-                  (click)="deleteCalificacion(calif.id_calificacion)"
-                  class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  >
-                  DELETE
-                  </button>
-                 
-                </td>
-                
-              </tr>
-            </table>
+              </table>
+            </div>
           </div>
-        </div>
-        <h6 *ngIf="isEdit" >Ingresar Nueva Calificacion</h6>
-        <div *ngIf="isEdit" style="margin-left: 30px; margin-top: 20px;">
-          <label
-            for="email"
-            class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-            >Fecha</label
-          >
+          <h6 *ngIf="isEdit">Ingresar Nueva Calificacion</h6>
+          <div *ngIf="isEdit" style="margin-left: 30px; margin-top: 20px">
+            <label
+              for="email"
+              class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+              >Fecha</label
+            >
+            <input
+              *ngIf="isEdit"
+              type="date"
+              name="Hora_inicio"
+              id="email"
+              [(ngModel)]="calificacion.fecha_calif"
+              style="width: 150px"
+              placeholder="example@example.com"
+              value=""
+              class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+          </div>
           <input
-          *ngIf="isEdit"
-            type="date"
-            name="Hora_inicio"
-            id="email"
-            [(ngModel)]="calificacion.fecha_calif"
-            style="width: 150px"
-            placeholder="example@example.com"
-            value=""
-            class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            *ngIf="isEdit"
+            type="text"
+            name="last_name"
+            [(ngModel)]="calificacion.calificacion"
+            style="height: 35px; width: 150px"
+            id="password"
+            placeholder="New Grade"
+            class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
           />
+
+          <br />
+          <button
+            *ngIf="isEdit"
+            (click)="updateCalificacion()"
+            data-ripple-light="true"
+            data-popover-target="popover"
+            class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            Guardar Calificacion
+          </button>
         </div>
-        <input *ngIf="isEdit"  type="text" name="last_name" [(ngModel)]="calificacion.calificacion"
-          style="height: 35px; width: 150px" id="password" placeholder="New Grade"
-          class="block w-full px-4 py1 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-        
-        <br>
-        <button *ngIf="isEdit" (click)="updateCalificacion()" data-ripple-light="true" data-popover-target="popover"
-        class="middle none center rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-        Guardar Calificacion
-      </button>
       </div>
+
+      <h5 style="text-align: center">
+        Promedio del Curso: <br />{{ promedio.toString().substring(0, 6) }}
+      </h5>
     </div>
-
-    <h5 style="text-align:center">Promedio del Curso: <br>{{promedio.toString().substring(0,6)}}</h5>
-    
-  </div>
-  
-
-
-</body>
+  </body>
 </html>
-
-
-
-  

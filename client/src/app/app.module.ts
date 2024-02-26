@@ -55,6 +55,7 @@ import { ReportesHorasMaestrosComponent } from './components/reportes/reportes-h
 import { MaterialesServicesService } from './services/materiales/materiales-services.service';
 import { MenuComponent } from './components/menu/menu/menu.component';
 import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
+import { VisualizadorHorariosComponent } from './components/visualizador-horarios/visualizador-horarios.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { TagManagerComponent } from './components/tag-manager/tag-manager.compon
     ReportesComponent,
     MenuComponent,
     TagManagerComponent,
+    VisualizadorHorariosComponent,
   ],
   imports: [
     BrowserModule,
