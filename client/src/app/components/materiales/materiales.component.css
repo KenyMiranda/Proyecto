@@ -1,6 +1,15 @@
 /* materiales.component.css */
 
 /* Estilos para el modal o capa flotante */
+.file-image {
+  flex: 1;
+  background-size: contain;
+  background-repeat: no-repeat; 
+  background-position: center;
+  height: 200px; /* Altura predeterminada de la imagen */
+  margin-top: 25px;
+}
+
 .tag-manager-modal {
     position: fixed;
     top: 0;
