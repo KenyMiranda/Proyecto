@@ -56,6 +56,10 @@ import { MaterialesServicesService } from './services/materiales/materiales-serv
 import { MenuComponent } from './components/menu/menu/menu.component';
 import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
 import { VisualizadorHorariosComponent } from './components/visualizador-horarios/visualizador-horarios.component';
+import { TagManagerAddTagComponent } from './components/tag-manager/tag-manager-add-tag/tag-manager-add-tag.component';
+import { TagManagerEditTagComponent } from './components/tag-manager/tag-manager-edit-tag/tag-manager-edit-tag.component';
+import { TagManagerDeleteTagComponent } from './components/tag-manager/tag-manager-delete-tag/tag-manager-delete-tag.component';
+import { TagManagerAssignTagsComponent } from './components/tag-manager/tag-manager-assign-tags/tag-manager-assign-tags.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +102,10 @@ import { VisualizadorHorariosComponent } from './components/visualizador-horario
     MenuComponent,
     TagManagerComponent,
     VisualizadorHorariosComponent,
+    TagManagerAddTagComponent,
+    TagManagerEditTagComponent,
+    TagManagerAssignTagsComponent,
+    TagManagerDeleteTagComponent,
   ],
   imports: [
     BrowserModule,
