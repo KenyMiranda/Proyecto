@@ -18,10 +18,9 @@ class MaterialController {
   upload = multer({
     storage: this.storage,
     fileFilter: (req, file, cb) => {
-      if (
-        file.mimetype === 'application/pdf' ||
-        file.mimetype === 'audio/mpeg'
-      ) {
+      const allowedFileTypes = ['.pdf', '.mp3', '.jpg', '.png', '.docx', '.mp4', '.mpeg', '.pptx'];
+      const extname = path.extname(file.originalname).toLowerCase();
+      if (allowedFileTypes.includes(extname)) {
         cb(null, true);
       } else {
         cb(new Error('Tipo de archivo no válido'));
@@ -47,8 +46,11 @@ class MaterialController {
       for (let i = 0; i < files.length; i++) {
         console.log("Archivo subido con éxito:", files[i].path);
         paths.push(files[i].filename);
-        // Aquí puedes guardar el nombre del archivo en la base de datos
-        await db.query("INSERT INTO archivos (nombre) VALUES (?)", [files[i].filename]);
+        // Obtener el tipo de archivo
+        const fileType = files[i].mimetype; // Esto te dará el tipo MIME del archivo
+  
+        // Aquí puedes guardar el nombre y el tipo del archivo en la base de datos
+        await db.query("INSERT INTO archivos (nombre, tipo_archivo) VALUES (?, ?)", [files[i].filename, fileType]);
       }
   
       res.status(200).json({ paths: paths });
@@ -63,8 +65,7 @@ class MaterialController {
         console.error(err);
         res.status(500).send('Error al obtener la lista de archivos.');
       } else {
-        const pdfFiles = files.filter(file => file.endsWith('.pdf'));
-        res.json(pdfFiles);
+        res.json(files);
       }
     });
   };

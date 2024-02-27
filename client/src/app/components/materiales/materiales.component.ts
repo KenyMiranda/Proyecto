@@ -100,7 +100,8 @@ export class MaterialesComponent {
       // Agrega validación para tipos de archivo aceptables
       for (let i = 0; i < this.files.length; i++) {
         const fileType = this.files[i].type;
-        if (fileType !== 'application/pdf' && fileType !== 'audio/mpeg') {
+        const allowedFileTypes = ['application/pdf', 'audio/mpeg', 'image/jpeg', 'image/png', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'video/mp4', 'video/mpeg', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'];
+        if (!allowedFileTypes.includes(fileType)) {
           // Mostrar mensaje de error o realizar alguna acción
           console.log('Tipo de archivo no válido');
           return;
