@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./tag-manager-delete-tag.component.css']
 })
 export class TagManagerDeleteTagComponent {
-
+  selectedOption: string = ''; // Inicialmente no hay ninguna opción seleccionada
 }

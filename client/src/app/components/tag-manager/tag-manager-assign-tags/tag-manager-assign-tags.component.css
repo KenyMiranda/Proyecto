@@ -1,0 +1,42 @@
+.members-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.members-list {
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.member {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos */
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.member:last-child {
+  border-bottom: none;
+}
+
+.member-checkbox {
+  margin-right: 12px;
+  margin-left: 12px;
+  width: 20px;
+  height: 20px;
+  position: static;
+  opacity: 1;
+  pointer-events: auto;
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.member-label {
+  font-size: 16px;
+  color: #4b5563;
+  cursor: pointer;
+  line-height: 1.5; /* Ajusta el espaciado entre líneas */
+  margin-top: 8px;
+}
+
+  

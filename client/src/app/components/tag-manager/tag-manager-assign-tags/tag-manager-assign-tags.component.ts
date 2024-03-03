@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./tag-manager-assign-tags.component.css']
 })
 export class TagManagerAssignTagsComponent {
+  optionSelected: boolean = false;
+  atLeastOneChecked: boolean = false;
 
+  onSelectOption() {
+    this.optionSelected = true;
+    this.checkIfChecked();
+  }
+
+  checkIfChecked() {
+    const checkboxes = document.querySelectorAll('.member-checkbox');
+    const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => (checkbox as HTMLInputElement).checked);
+    this.atLeastOneChecked = checkedCheckboxes.length > 0;
+  }  
 }
