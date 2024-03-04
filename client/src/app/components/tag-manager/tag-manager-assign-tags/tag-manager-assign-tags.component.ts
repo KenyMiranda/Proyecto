@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class TagManagerAssignTagsComponent {
   optionSelected: boolean = false;
   atLeastOneChecked: boolean = false;
+  numOptions: number = 0;
 
   onSelectOption() {
     this.optionSelected = true;
