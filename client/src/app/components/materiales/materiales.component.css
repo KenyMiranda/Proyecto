@@ -28,3 +28,19 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
+
+  .grid_columns {
+    display: flex;
+    grid-template-columns: 1fr 4fr; /* Cambia la proporción de columnas según tus necesidades */
+    gap: 20px; /* Ajusta el espacio entre columnas */
+  }
+  
+  .filter_column {
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+    flex: 1;
+  }
+  
+  .document_viewer {
+    flex: 4;
+  }

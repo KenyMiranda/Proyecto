@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import JSZip from 'jszip';
 
 @Injectable({
@@ -17,8 +18,12 @@ export class MaterialesServicesService {
     return this.http.post(`${this.API_URL}/file`, formData);
   }
 
-  getFiles(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.API_URL}/file`);
+  getFiles(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.API_URL}/file`).pipe(
+      map(files => {
+        return files.map(file => ({ name: file, checked: false }));
+      })
+    );
   }
 
   deleteFile(filename: string): Observable<any> {

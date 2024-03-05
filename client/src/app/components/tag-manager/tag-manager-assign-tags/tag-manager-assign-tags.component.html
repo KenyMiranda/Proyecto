@@ -1,9 +1,9 @@
-<div style="overflow-y: auto; max-height: 360px; padding-right: 15px; width: 100%;">
+<div style="overflow-y: auto; max-height: 240px; padding-right: 15px; width: 100%;">
   <div style="width: 100%;">
     <label for="location" class="block text-sm font-medium text-gray-700">Seleccione la etiqueta a asignar a los archivos:</label>
     <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             (change)="onSelectOption()">
-      <option></option>
+      <option disabled selected value="">Selecciona una opción</option>
       <option>8A</option>
       <option>8B</option>
       <option>Conversation</option>
@@ -15,40 +15,30 @@
       <div class="filter_header">
         <h6>Filtro de etiquetas</h6>
       </div>
-      <div class="absolute inline-block text-left">
-        <div>
-          <button type="button" class="menu-button" id="menu-button" aria-expanded="true" aria-haspopup="true">
-            Options
-            <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </button>
-        </div>
-    
-        <div class="dropdown-menu" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-          <div class="menu-items" role="none">
-            <a class="menu-item" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
-            <a class="menu-item" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
-            <a class="menu-item" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
-          </div>
-        </div>
+      <div class="file_search_wrapper">
+        <input type="text" placeholder="Buscar archivos" (input)="filterFiles($event)" class="search_input">
+        <span class="search_icon"></span>
+      </div>
+      <div style="width: 100%;">
+        <label for="location" class="block text-sm font-medium text-gray-700" style="margin-bottom: 5px; margin-top: 12px;">Tipo de archivo: </label>
+        <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+          <option></option>
+          <option>Documento Word</option>
+          <option>PDF</option>
+          <option>Audio</option>
+          <option>Video</option>
+          <option>PowerPoint</option>
+          <option>Imagen</option>
+        </select>
       </div>
     </div>
     <div class="assign-tags_column">
       <fieldset class="members-fieldset">
         <legend class="text-lg font-medium text-gray-900">Selecciona el o los archivos</legend>
         <div class="members-list">
-          <div class="member">
-            <input id="file-1" name="file-1" type="checkbox" class="member-checkbox" (change)="checkIfChecked()">
-            <label for="file-1" class="member-label">Archivo 1</label>
-          </div>
-          <div class="member">
-            <input id="file-2" name="file-2" type="checkbox" class="member-checkbox" (change)="checkIfChecked()">
-            <label for="file-2" class="member-label">Archivo 2</label>
-          </div>
-          <div class="member">
-            <input id="file-3" name="file-3" type="checkbox" class="member-checkbox" (change)="checkIfChecked()">
-            <label for="file-3" class="member-label">Archivo 3</label>
+          <div class="member" *ngFor="let file of filteredFiles">
+            <input [id]="'file-' + file.id" [name]="'file-' + file.id" type="checkbox" class="member-checkbox" (change)="checkIfChecked()">
+            <label [for]="'file-' + file.id" class="member-label">{{ file.name }}</label>
           </div>
         </div>
       </fieldset>

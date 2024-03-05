@@ -10,56 +10,79 @@
     <header>
       <app-menu></app-menu>
     </header>
-    <h4 style="text-align: center">Materiales</h4>
+    <h4 style="text-align: center;">Materiales</h4>
+    <div class="grid_columns" style="box-shadow: 4px 0 0 4px #2575a6;">
+      <div class="filter_column">
+        <div class="filter_header">
+          <h6>Filtro de etiquetas</h6>
+        </div>
+        <div class="file_search">
 
-    <div *ngFor="let file of arrayFiles; let i = index">
-      <div class="bg-gray-100 lg:py-12">
-        <div
-          class="bg-white lg:mx-4 lg:flex lg:max-w-4xl lg:shadow-lg lg:rounded-lg"
-        >
-          <div class="lg:w-1/2">
-            <div
-              class="file-image"
-              style="
-                background-image: url('https://cdn-icons-png.flaticon.com/512/2338/2338582.png');
-              "
-            ></div>
-          </div>
-          <div class="py-8 px-4 max-w-xl lg:max-w-5xl lg:w-1/2">
-            <h2 class="text-3xl text-gray-800 font-bold">
-              <span class="text-indigo-600"></span>
-            </h2>
-            <h2 class="text-3xl text-gray-800 font-bold">
-              <span class="text-indigo-600">{{ file }}</span>
-            </h2>
-            <a
-              class="mt-4 text-gray-600"
-              [href]="getFileUrl(file)"
-              target="_blank"
-              >Haz click para ver el archivo</a
-            >
-            <br />
-
-            <br />
-            <br />
-
-            <button
-              (click)="deleteFile(file)"
-              data-ripple-light="true"
-              data-popover-target="popover"
-              class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            >
-              Borrar
-            </button>
+        </div>
+        <div style="width: 95%;">
+          <label for="location" class="block text-sm font-medium text-gray-700" style="margin-bottom: 5px; margin-top: 12px;">Tipo de archivo: </label>
+          <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+            <option></option>
+            <option>Documento Word</option>
+            <option>PDF</option>
+            <option>Audio</option>
+            <option>Video</option>
+            <option>PowerPoint</option>
+            <option>Imagen</option>
+          </select>
+        </div>
+        <div style="width: 95%;">
+          <label for="location" class="block text-sm font-medium text-gray-700" style="margin-bottom: 5px; margin-top: 24px;">Curso de idiomas: </label>
+          <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+            <option></option>
+            <option>Inglés</option>
+            <option>Francés</option>
+            <option>Español</option>
+          </select>
+        </div>
+      </div>
+      <div class="document_viewer">
+        <div *ngFor="let file of arrayFiles; let i = index">
+          <div class="bg-gray-100 lg:py-12">
+            <div class="bg-white lg:mx-4 lg:flex lg:max-w-4xl lg:shadow-lg lg:rounded-lg">
+              <div class="lg:w-1/2">
+                <div
+                  class="file-image"
+                  style="background-image: url('https://cdn-icons-png.flaticon.com/512/2338/2338582.png');">
+                </div>
+              </div>
+              <div class="py-8 px-4 max-w-xl lg:max-w-5xl lg:w-1/2">
+                <h2 class="text-3xl text-gray-800 font-bold">
+                  <span class="text-indigo-600"></span>
+                </h2>
+                <h2 class="text-3xl text-gray-800 font-bold">
+                  <span class="text-indigo-600">{{ file.name }}</span>
+                </h2>
+                <a
+                  class="mt-4 text-gray-600"
+                  [href]="getFileUrl(file)"
+                  target="_blank"
+                  >Haz click para ver el archivo</a
+                >
+                <br />
+                <br />
+                <br />
+                <button
+                  (click)="deleteFile(file)"
+                  data-ripple-light="true"
+                  data-popover-target="popover"
+                  class="middle none center rounded-lg bg-gradient-to-tr from-red-600 to-red-400 py-3 px-5 font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                >
+                  Borrar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
     <br />
-
     <h6 *ngIf="click">Lista de Materiales</h6>
-
     <div class="file-upload" style="margin-left: 30px">
       <input
         #singleInput
@@ -69,11 +92,9 @@
         multiple
         accept=".pdf, .mp3, .jpg, .png, .docx, .mp4, .mpeg, .pptx"
       />
-
       <p id="file-name"></p>
     </div>
     <br />
-
     <button
       data-ripple-light="true"
       data-popover-target="popover"

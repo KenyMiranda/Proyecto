@@ -39,13 +39,13 @@ export class TagManagerComponent {
     let newHeight = this.popupHeight + deltaY;
 
     // Limita el tamaño máximo basado en el tamaño de la pantalla
-    const maxWidth = window.innerWidth * 0.8; // Por ejemplo, el 80% del ancho de la pantalla
-    const maxHeight = window.innerHeight * 0.8; // Por ejemplo, el 80% de la altura de la pantalla
+    const maxWidth = window.innerWidth * 0.9; // Por ejemplo, el 80% del ancho de la pantalla
+    const maxHeight = window.innerHeight * 0.9; // Por ejemplo, el 80% de la altura de la pantalla
     newWidth = Math.min(newWidth, maxWidth);
     newHeight = Math.min(newHeight, maxHeight);
 
     // Asegúrate de que la ventana emergente no se reduzca demasiado
-    if (newWidth > 460 && newHeight > 380) {
+    if (newWidth > 460 && newHeight > 400) {
       this.popupWidth = newWidth;
       this.popupHeight = newHeight;
     }

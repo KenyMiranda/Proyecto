@@ -1,6 +1,6 @@
 .grid_columns {
   display: flex;
-  grid-template-columns: 1fr 3fr; /* Cambia la proporción de columnas según tus necesidades */
+  grid-template-columns: 1fr 2fr; /* Cambia la proporción de columnas según tus necesidades */
   gap: 20px; /* Ajusta el espacio entre columnas */
 }
 
@@ -53,52 +53,26 @@
   margin-top: 8px;
 }
 
-.menu-button {
-  display: inline-flex;
-  justify-content: center;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: .25rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  padding: .5rem 1rem;
-  background-color: #fff;
-  font-size: .875rem;
-  color: #4a5568;
-  margin-top: 5px;
+.file_search_wrapper {
+  position: relative;
 }
 
-.menu-button:hover {
-  background-color: #edf2f7;
+.file_search_wrapper input[type="text"] {
+  padding-right: 30px; /* Espacio para el icono */
 }
 
-.chevron-icon {
-  margin-right: -.25rem;
-  height: 1.25rem;
-  width: 1.25rem;
-}
-
-.dropdown-menu {
+.search_icon {
   position: absolute;
-  right: 0;
-  margin-top: 1rem;
-  width: 14rem;
-  border-radius: .375rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  border: 1px solid #000;
+  top: 50%;
+  right: 10px; /* Ajusta la posición del icono */
+  transform: translateY(-50%);
+  width: 20px; /* Ancho del icono */
+  height: 20px; /* Altura del icono */
+  background-image: url('https://cdn3.iconfinder.com/data/icons/feather-5/24/search-512.png'); /* URL de la imagen del icono */
+  background-size: cover;
+  cursor: pointer;
 }
 
-.menu-items {
-  padding: .5rem 0;
-}
-
-.menu-item {
-  display: block;
-  padding: .25rem 1rem;
-  font-size: .875rem;
-  color: #4a5568;
-}
-
-.menu-item:hover {
-  background-color: #edf2f7;
+.search_input {
+  max-width: calc(100% - 30px); /* Resta el espacio para el icono */
 }
