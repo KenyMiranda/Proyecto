@@ -22,6 +22,7 @@ export class MaterialesComponent {
   arrayMaestros: any = [];
   arrayAlumnos: any = [];
   arrayFiles: any = [];
+  allFiles: any = [];
   files: any;
   filesSelected: boolean = false;
   showTagManager: boolean = false;
@@ -54,6 +55,7 @@ export class MaterialesComponent {
     this.getMaestro();
     this.materialService.getFiles().subscribe((files) => {
       this.arrayFiles = files;
+      this.allFiles = files;
     });
   }
 
@@ -93,14 +95,24 @@ export class MaterialesComponent {
   }
 
   selectFiles(event: any) {
-    this.filesSelected = event.target.files.length > 0 || this.arrayFiles.length > 0;
+    this.filesSelected =
+      event.target.files.length > 0 || this.arrayFiles.length > 0;
     if (this.filesSelected) {
       this.files = event.target.files;
       console.log(this.files);
       // Agrega validación para tipos de archivo aceptables
       for (let i = 0; i < this.files.length; i++) {
         const fileType = this.files[i].type;
-        const allowedFileTypes = ['application/pdf', 'audio/mpeg', 'image/jpeg', 'image/png', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'video/mp4', 'video/mpeg', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'];
+        const allowedFileTypes = [
+          'application/pdf',
+          'audio/mpeg',
+          'image/jpeg',
+          'image/png',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'video/mp4',
+          'video/mpeg',
+          'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        ];
         if (!allowedFileTypes.includes(fileType)) {
           // Mostrar mensaje de error o realizar alguna acción
           console.log('Tipo de archivo no válido');
@@ -109,27 +121,27 @@ export class MaterialesComponent {
       }
     }
   }
-  
+
   onSubmitFiles() {
     if (!this.filesSelected) {
       return;
     }
-  
+
     if (this.files.length === 0) {
       return;
     }
-  
+
     const formData = new FormData();
-  
+
     for (let i = 0; i < this.files.length; i++) {
       formData.append('files', this.files[i]);
     }
-  
+
     this.materialService.postFiles(formData).subscribe(
       (res: any) => {
         console.log(res.paths);
-        this.singleInput.nativeElement.value = "";
-        
+        this.singleInput.nativeElement.value = '';
+
         // Después de subir los archivos, actualiza la lista de archivos
         this.materialService.getFiles().subscribe((files) => {
           this.arrayFiles = files;
@@ -198,7 +210,9 @@ export class MaterialesComponent {
         this.materialService.deleteFile(filename).subscribe({
           next: () => {
             // Eliminar el archivo de la lista local
-            this.arrayFiles = this.arrayFiles.filter((file: string) => file !== filename);
+            this.arrayFiles = this.arrayFiles.filter(
+              (file: string) => file !== filename
+            );
             // Mostrar un mensaje de éxito
             Swal.fire(
               '¡Borrado!',
@@ -220,7 +234,7 @@ export class MaterialesComponent {
             this.materialService.getFiles().subscribe((files) => {
               this.arrayFiles = files;
             });
-          }
+          },
         });
       }
     });
@@ -246,18 +260,85 @@ export class MaterialesComponent {
   }
 
   searchFiles(searchText: string) {
-    if (!searchText.trim()) {
-      // Si el campo de búsqueda está vacío, mostrar todos los archivos
-      this.materialService.getFiles().subscribe((files) => {
-        this.arrayFiles = files;
-      });
-    } else {
-      // Filtrar los archivos en función del texto de búsqueda
-      this.arrayFiles = this.arrayFiles.filter((file: any) => {
-        return file.name.toLowerCase().includes(searchText.toLowerCase());
-      });
+    let filteredFiles = this.allFiles; // Inicialmente, todos los archivos están visibles
+
+    // Aplicar el filtro por tipo de archivo seleccionado
+    const fileTypeFilter = (document.getElementById('location') as HTMLSelectElement).value;
+    if (fileTypeFilter && fileTypeFilter !== '') {
+        if (fileTypeFilter === 'Documento Word') {
+            filteredFiles = filteredFiles.filter((file: any) => file.name.toLowerCase().endsWith('.docx'));
+        } else if (fileTypeFilter === 'PDF') {
+            filteredFiles = filteredFiles.filter((file: any) => file.name.toLowerCase().endsWith('.pdf'));
+        } else if (fileTypeFilter === 'Audio') {
+            filteredFiles = filteredFiles.filter((file: any) => file.name.toLowerCase().endsWith('.mp3'));
+        } else if (fileTypeFilter === 'Video') {
+            filteredFiles = filteredFiles.filter((file: any) => file.name.toLowerCase().endsWith('.mp4'));
+        } else if (fileTypeFilter === 'PowerPoint') {
+            filteredFiles = filteredFiles.filter((file: any) => file.name.toLowerCase().endsWith('.pptx'));
+        } else if (fileTypeFilter === 'Imagen') {
+            filteredFiles = filteredFiles.filter((file: any) => {
+                const extension = file.name.toLowerCase().split('.').pop();
+                return ['jpg', 'jpeg', 'png'].includes(extension);
+            });
+        }
     }
-  }  
+
+    // Aplicar la búsqueda de texto sobre los archivos filtrados por tipo de archivo
+    if (searchText.trim()) {
+        filteredFiles = filteredFiles.filter((file: any) => {
+            return file.name.toLowerCase().includes(searchText.toLowerCase());
+        });
+    }
+
+    // Actualizar la lista de archivos para mostrar solo los archivos que pasaron los filtros
+    this.arrayFiles = filteredFiles;
+}
+
+filterFilesByType(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const fileType = target.value;
+
+    if (!fileType) {
+      // Si no se ha seleccionado ningún tipo, mostrar todos los archivos de la lista completa
+      this.arrayFiles = this.allFiles;
+    } else {
+      // Filtrar los archivos en función del tipo seleccionado sobre la lista completa
+      if (fileType === 'Documento Word') {
+        // Filtrar por tipo de archivo y extensión .docx
+        this.arrayFiles = this.allFiles.filter((file: any) =>
+          file.name.toLowerCase().endsWith('.docx')
+        );
+      } else if (fileType === 'PDF') {
+        // Filtrar por tipo de archivo y extensión .pdf
+        this.arrayFiles = this.allFiles.filter((file: any) =>
+          file.name.toLowerCase().endsWith('.pdf')
+        );
+      } else if (fileType === 'Audio') {
+        // Filtrar por tipo de archivo de audio
+        this.arrayFiles = this.allFiles.filter((file: any) =>
+          file.name.toLowerCase().endsWith('.mp3')
+        );
+      } else if (fileType === 'Video') {
+        // Filtrar por tipo de archivo de video
+        this.arrayFiles = this.allFiles.filter((file: any) =>
+          file.name.toLowerCase().endsWith('.mp4')
+        );
+      } else if (fileType === 'PowerPoint') {
+        // Filtrar por tipo de archivo de presentación de PowerPoint
+        this.arrayFiles = this.allFiles.filter((file: any) =>
+          file.name.toLowerCase().endsWith('.pptx')
+        );
+      } else if (fileType === 'Imagen') {
+        // Filtrar por tipo de archivo de imagen (JPEG o PNG)
+        this.arrayFiles = this.allFiles.filter((file: any) =>
+          file.name.toLowerCase().endsWith('.jpg') ||
+          file.name.toLowerCase().endsWith('.jpeg') ||
+          file.name.toLowerCase().endsWith('.png')
+        );
+      }
+    }
+}
+
 
   toggleTagManager() {
     this.showTagManager = !this.showTagManager;
