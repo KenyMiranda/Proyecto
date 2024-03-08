@@ -44,3 +44,24 @@
   .document_viewer {
     flex: 4;
   }
+
+  .file_search {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .search_icon {
+    position: absolute;
+    right: 10px; /* Ajusta el espacio entre el icono y el borde derecho */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px; /* Ajusta el tamaño del icono según tus necesidades */
+    height: 20px;
+    background-image: url('https://cdn3.iconfinder.com/data/icons/feather-5/24/search-512.png'); /* Enlace de imagen del icono de búsqueda */
+    background-size: cover;
+    cursor: pointer;
+  }
+  
+  #searchInput {
+    padding-right: 30px; /* Ajusta el espacio a la derecha del input para acomodar el icono */
+  }

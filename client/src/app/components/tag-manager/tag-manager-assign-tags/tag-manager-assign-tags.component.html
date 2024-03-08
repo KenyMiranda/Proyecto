@@ -1,4 +1,4 @@
-<div style="overflow-y: auto; max-height: 240px; padding-right: 15px; width: 100%;">
+<div style="overflow-y: auto; max-height: 260px; padding-right: 15px; width: 100%;">
   <div style="width: 100%;">
     <label for="location" class="block text-sm font-medium text-gray-700">Seleccione la etiqueta a asignar a los archivos:</label>
     <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
@@ -19,9 +19,10 @@
         <input type="text" placeholder="Buscar archivos" (input)="filterFiles($event)" class="search_input">
         <span class="search_icon"></span>
       </div>
-      <div style="width: 100%;">
+      <div class="file_type_filter" style="width: 100%;">
         <label for="location" class="block text-sm font-medium text-gray-700" style="margin-bottom: 5px; margin-top: 12px;">Tipo de archivo: </label>
-        <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+        <select id="file_type_filter" name="file_type_filter" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                (change)="filterByFileType($event)">
           <option></option>
           <option>Documento Word</option>
           <option>PDF</option>

@@ -114,7 +114,7 @@ export class MaterialesComponent {
     if (!this.filesSelected) {
       return;
     }
-
+  
     if (this.files.length === 0) {
       return;
     }
@@ -129,7 +129,11 @@ export class MaterialesComponent {
       (res: any) => {
         console.log(res.paths);
         this.singleInput.nativeElement.value = "";
-        this.arrayFiles = this.arrayFiles.concat(res.paths); // Concatenar las nuevas rutas con las existentes
+        
+        // Después de subir los archivos, actualiza la lista de archivos
+        this.materialService.getFiles().subscribe((files) => {
+          this.arrayFiles = files;
+        });
       },
       (err) => {
         console.log(err);
@@ -193,9 +197,9 @@ export class MaterialesComponent {
       if (result.isConfirmed) {
         this.materialService.deleteFile(filename).subscribe({
           next: () => {
-            this.arrayFiles = this.arrayFiles.filter(
-              (file: string) => file !== filename
-            );
+            // Eliminar el archivo de la lista local
+            this.arrayFiles = this.arrayFiles.filter((file: string) => file !== filename);
+            // Mostrar un mensaje de éxito
             Swal.fire(
               '¡Borrado!',
               'El archivo ha sido borrado correctamente.',
@@ -210,6 +214,13 @@ export class MaterialesComponent {
               'error'
             );
           },
+          // Después de la eliminación exitosa, puedes agregar este bloque para actualizar la lista de archivos
+          complete: () => {
+            // Aquí llamamos al método getFiles del servicio para actualizar la lista de archivos
+            this.materialService.getFiles().subscribe((files) => {
+              this.arrayFiles = files;
+            });
+          }
         });
       }
     });
@@ -233,6 +244,20 @@ export class MaterialesComponent {
       window.URL.revokeObjectURL(url);
     });
   }
+
+  searchFiles(searchText: string) {
+    if (!searchText.trim()) {
+      // Si el campo de búsqueda está vacío, mostrar todos los archivos
+      this.materialService.getFiles().subscribe((files) => {
+        this.arrayFiles = files;
+      });
+    } else {
+      // Filtrar los archivos en función del texto de búsqueda
+      this.arrayFiles = this.arrayFiles.filter((file: any) => {
+        return file.name.toLowerCase().includes(searchText.toLowerCase());
+      });
+    }
+  }  
 
   toggleTagManager() {
     this.showTagManager = !this.showTagManager;
