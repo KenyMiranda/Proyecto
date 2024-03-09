@@ -14,4 +14,8 @@ export class TagManagerService {
     console.log("Probando");
     return this.http.post(`${this.API_URL}/tags`, tagData);
   }
+
+  checkTagExists(tagName: string): Observable<{ exists: boolean }> {
+    return this.http.get<{ exists: boolean }>(`${this.API_URL}/tags/check/${tagName}`);
+  }
 }

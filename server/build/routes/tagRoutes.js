@@ -7,4 +7,5 @@ const express_1 = require("express");
 const tagControllers_1 = __importDefault(require("../controllers/tagControllers"));
 const router = (0, express_1.Router)();
 router.post('/', tagControllers_1.default.createTag);
+router.get('/check/:name', tagControllers_1.default.checkTagExists);
 exports.default = router;

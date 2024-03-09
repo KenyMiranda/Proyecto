@@ -17,15 +17,27 @@ class TagController {
     createTag(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("Recibida solicitud para crear etiqueta");
-            console.log(req.body);
             try {
                 const { name } = req.body;
-                // Aquí colocarías tu lógica para guardar la etiqueta en la base de datos
-                // Por ejemplo, si quieres insertar el nombre de la etiqueta en una tabla llamada 'etiquetas':
-                yield database_1.default.query("INSERT INTO Etiquetas (nombre) VALUES (?)", [name]);
+                yield database_1.default.query("INSERT INTO Etiquetas (nombre, tipo) VALUES (?, 'Curso')", [name]);
                 res.status(201).json({ message: 'Etiqueta creada exitosamente' });
             }
             catch (error) {
+                console.error('Error al crear la etiqueta:', error);
+                res.status(500).json({ error: 'Error interno del servidor' });
+            }
+        });
+    }
+    checkTagExists(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { name } = req.params;
+                const result = yield database_1.default.query("SELECT COUNT(*) as count FROM Etiquetas WHERE nombre = ?", [name]);
+                const exists = result[0][0].count > 0; // Accede al primer elemento del primer array
+                res.json({ exists });
+            }
+            catch (error) {
+                console.error('Error al verificar la existencia de la etiqueta:', error);
                 res.status(500).json({ error: 'Error interno del servidor' });
             }
         });

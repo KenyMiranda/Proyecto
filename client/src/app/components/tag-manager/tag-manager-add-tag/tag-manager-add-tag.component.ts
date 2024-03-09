@@ -41,13 +41,27 @@ export class TagManagerAddTagComponent {
     };
 
     if (this.selectedCategory === 'Nuevo curso de idiomas') {
-      this.tagManagerService.postTag(tagData).subscribe(
+      // Antes de crear la etiqueta, verificamos si ya existe
+      this.tagManagerService.checkTagExists(tagName).subscribe(
         response => {
-          console.log('Etiqueta creada exitosamente');
-          // Handle success response here
+          if (response.exists) {
+            alert('¡La etiqueta ya existe!');
+          } else {
+            // Si no existe, la creamos
+            this.tagManagerService.postTag(tagData).subscribe(
+              response => {
+                console.log('Etiqueta creada exitosamente');
+                // Handle success response here
+              },
+              error => {
+                console.error('Error al crear la etiqueta:', error);
+                // Handle error response here
+              }
+            );
+          }
         },
         error => {
-          console.error('Error al crear la etiqueta:', error);
+          console.error('Error al verificar la existencia de la etiqueta:', error);
           // Handle error response here
         }
       );
