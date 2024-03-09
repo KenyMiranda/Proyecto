@@ -32,6 +32,6 @@
     </select>
   </div>
   <div *ngIf="selectedCategory === 'Nuevo curso de idiomas' || validateSubcategorySelector()" style="margin-top: 12px; padding-top: 1rem;">
-    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Crear</button>
+    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="createTag()">Crear</button>
   </div>
 </div>

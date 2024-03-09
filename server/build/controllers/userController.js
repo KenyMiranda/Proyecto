@@ -57,39 +57,6 @@ class UserController {
                 yield database_1.default.query("INSERT INTO users SET ?", [req.body]); //SENTENCIA PARA INGRESAR NUEVO USUARIO
                 let rol = req.body.id_rol;
                 console.log(req.body);
-                /*
-                if (rol == 1) {
-                  req.body = {
-                    first_name_A: req.body.first_nameU,
-                    last_name_A: req.body.last_nameU,
-                    last_name2_A: req.body.last_nameU2,
-                    telephone_A: req.body.telephoneU,
-                    email_A: req.body.email,
-                  };
-          
-                  await db.query("INSERT INTO alumnos SET ?", [req.body]);
-                } else if (rol == 2) {
-                  req.body = {
-                    first_name_M: req.body.first_nameU,
-                    last_name_M: req.body.last_nameU,
-                    last_name2_M: req.body.last_nameU2,
-                    telephone_M: req.body.telephoneU,
-                    email_M: req.body.email,
-                  };
-          
-                  await db.query("INSERT INTO maestros SET ?", [req.body]);
-                } else {
-                  req.body = {
-                    first_name_AD: req.body.first_nameU,
-                    last_name_AD: req.body.last_nameU,
-                    last_name2_AD: req.body.last_nameU2,
-                    telephone_AD: req.body.telephoneU,
-                    email_AD: req.body.email,
-                  };
-          
-                  await db.query("INSERT INTO admins SET ?", [req.body]);
-                }
-                */
                 res.json({ text: "User saved" });
                 // Después de registrar al usuario con éxito, envía un correo electrónico
                 const mailOptions = {
