@@ -30,28 +30,27 @@ export class TagManagerAddTagComponent {
   }
 
   createTag() {
-    console.log("Probando");
     const tagName = (document.getElementById('name') as HTMLInputElement).value.trim();
     if (!tagName) {
-      // Manejar el caso en el que el nombre de la etiqueta esté vacío
+      // Handle empty tag name case
       return;
     }
-  
+
     const tagData = {
       name: tagName
     };
-  
+
     if (this.selectedCategory === 'Nuevo curso de idiomas') {
       this.tagManagerService.postTag(tagData).subscribe(
         response => {
-          // Manejar la respuesta, como actualizar la interfaz de usuario o mostrar un mensaje de éxito
           console.log('Etiqueta creada exitosamente');
+          // Handle success response here
         },
         error => {
-          // Manejar el error, como mostrar un mensaje de error o registrar en la consola
           console.error('Error al crear la etiqueta:', error);
+          // Handle error response here
         }
       );
     }
-  }  
+  }
 }
