@@ -45,7 +45,7 @@ export class TagManagerAddTagComponent {
       this.tagManagerService.checkTagExists(tagName).subscribe(
         response => {
           if (response.exists) {
-            alert('¡La etiqueta ya existe!');
+            alert('Advertencia: Ya existe una etiqueta con ese nombre. Escoge otro nombre para la nueva etiqueta');
           } else {
             // Si no existe, la creamos
             this.tagManagerService.postTag(tagData).subscribe(
