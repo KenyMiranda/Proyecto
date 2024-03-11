@@ -19,6 +19,7 @@ export class TagManagerAddTagComponent {
   }
 
   ngOnInit(): void {
+    this.loadParentTags();
     this.tagManagerService.getParentTags().subscribe(tags => {
       this.parentTags = tags;
     });
@@ -42,11 +43,11 @@ export class TagManagerAddTagComponent {
       // Handle empty tag name case
       return;
     }
-
+  
     const tagData = {
       name: tagName
     };
-
+  
     if (this.selectedCategory === 'Nuevo curso de idiomas') {
       // Antes de crear la etiqueta, verificamos si ya existe
       this.tagManagerService.checkTagExists(tagName).subscribe(
@@ -58,6 +59,8 @@ export class TagManagerAddTagComponent {
             this.tagManagerService.postTag(tagData).subscribe(
               response => {
                 console.log('Etiqueta creada exitosamente');
+                // Actualizar la lista de etiquetas después de crear una nueva
+                this.loadParentTags();
                 // Handle success response here
               },
               error => {
@@ -73,5 +76,11 @@ export class TagManagerAddTagComponent {
         }
       );
     }
+  }  
+
+  loadParentTags() {
+    this.tagManagerService.getParentTags().subscribe(tags => {
+      this.parentTags = tags;
+    });
   }
 }
