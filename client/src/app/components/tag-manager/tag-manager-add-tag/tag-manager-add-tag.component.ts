@@ -40,7 +40,8 @@ export class TagManagerAddTagComponent {
   createTag() {
     const tagName = (document.getElementById('name') as HTMLInputElement).value.trim();
     if (!tagName) {
-      // Handle empty tag name case
+      // Muestra una advertencia si no se ha ingresado un nombre de etiqueta
+      alert('Por favor, ingrese un nombre para la etiqueta.');
       return;
     }
   
@@ -76,7 +77,7 @@ export class TagManagerAddTagComponent {
         }
       );
     }
-  }  
+  }    
 
   loadParentTags() {
     this.tagManagerService.getParentTags().subscribe(tags => {
