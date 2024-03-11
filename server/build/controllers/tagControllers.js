@@ -18,13 +18,13 @@ class TagController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("Recibida solicitud para crear etiqueta");
             try {
-                const { name } = req.body;
-                yield database_1.default.query("INSERT INTO Etiquetas (nombre, tipo) VALUES (?, 'Curso')", [name]);
-                res.status(201).json({ message: 'Etiqueta creada exitosamente' });
+                const { name, type, parent_id } = req.body;
+                yield database_1.default.query("INSERT INTO Etiquetas (nombre, tipo, padre_id) VALUES (?, ?, ?)", [name, type, parent_id]);
+                res.status(201).json({ message: "Etiqueta creada exitosamente" });
             }
             catch (error) {
-                console.error('Error al crear la etiqueta:', error);
-                res.status(500).json({ error: 'Error interno del servidor' });
+                console.error("Error al crear la etiqueta:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
             }
         });
     }
@@ -37,8 +37,8 @@ class TagController {
                 res.json({ exists });
             }
             catch (error) {
-                console.error('Error al verificar la existencia de la etiqueta:', error);
-                res.status(500).json({ error: 'Error interno del servidor' });
+                console.error("Error al verificar la existencia de la etiqueta:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
             }
         });
     }
@@ -50,8 +50,26 @@ class TagController {
                 res.json(tags);
             }
             catch (error) {
-                console.error('Error al obtener las etiquetas principales:', error);
-                res.status(500).json({ error: 'Error interno del servidor' });
+                console.error("Error al obtener las etiquetas principales:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
+            }
+        });
+    }
+    getTagIdByName(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { name } = req.params;
+                const result = yield database_1.default.query("SELECT id FROM Etiquetas WHERE nombre = ? AND tipo = 'Curso'", [name]);
+                if (result[0].length > 0) {
+                    res.json(result[0][0].id);
+                }
+                else {
+                    res.json(null); // Devuelve null si no se encuentra el curso
+                }
+            }
+            catch (error) {
+                console.error("Error al obtener el ID del curso por nombre:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
             }
         });
     }
