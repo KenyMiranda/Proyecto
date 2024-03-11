@@ -42,5 +42,18 @@ class TagController {
             }
         });
     }
+    getParentTags(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const parentTags = yield database_1.default.query("SELECT nombre FROM Etiquetas WHERE padre_id IS NULL");
+                const tags = parentTags[0].map((tag) => tag.nombre);
+                res.json(tags);
+            }
+            catch (error) {
+                console.error('Error al obtener las etiquetas principales:', error);
+                res.status(500).json({ error: 'Error interno del servidor' });
+            }
+        });
+    }
 }
 exports.default = new TagController();

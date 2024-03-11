@@ -18,4 +18,8 @@ export class TagManagerService {
   checkTagExists(tagName: string): Observable<{ exists: boolean }> {
     return this.http.get<{ exists: boolean }>(`${this.API_URL}/tags/check/${tagName}`);
   }
+
+  getParentTags(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.API_URL}/tags/parent`);
+  }
 }

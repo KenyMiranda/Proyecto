@@ -26,6 +26,17 @@ class TagController {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   }
+
+  async getParentTags(req: Request, res: Response): Promise<void> {
+    try {
+      const parentTags = await db.query<RowDataPacket[]>("SELECT nombre FROM Etiquetas WHERE padre_id IS NULL");
+      const tags = parentTags[0].map((tag: RowDataPacket) => tag.nombre);
+      res.json(tags);
+    } catch (error) {
+      console.error('Error al obtener las etiquetas principales:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  }  
 }
 
 export default new TagController();

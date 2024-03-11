@@ -14,13 +14,11 @@
     </select>
   </div>
   <div *ngIf="selectedCategory === 'Nuevo módulo para curso de idiomas'">
-    <label for="course" class="mb-1 mt-4 block text-sm font-medium text-gray-700 py-3">Selecciona el curso al que pertenece el módulo: </label>
-    <select id="course" name="course" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" [(ngModel)]="selectedSubCategory">
-      <option disabled selected value="">Selecciona una opción</option>
-      <option>Inglés</option>
-      <option>Francés</option>
-      <option>Español</option>
-    </select>
+    <label for="course" class="mb-1 mt-4 block text-sm font-medium text-gray-700 py-3">Selecciona el {{ selectedCategory === 'Nuevo módulo para curso de idiomas' ? 'curso' : 'módulo' }} al que pertenece: </label>
+      <select id="course" name="course" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" [(ngModel)]="selectedSubCategory">
+        <option disabled selected value="">Selecciona una opción</option>
+        <option *ngFor="let tag of parentTags">{{ tag }}</option>
+      </select>
   </div>
   <div *ngIf="selectedCategory === 'Nuevo submódulo para curso de idiomas'">
     <label for="course" class="mb-1 mt-4 block text-sm font-medium text-gray-700 py-3">Selecciona el módulo al que pertenece el submódulo: </label>

@@ -8,6 +8,7 @@ import { TagManagerService } from 'src/app/services/TagManager/tag-manager.servi
   styleUrls: ['./tag-manager-add-tag.component.css']
 })
 export class TagManagerAddTagComponent {
+  parentTags: string[] = []; 
   selectedCategory: string | undefined;
   selectedSubCategory: string | undefined;
   isSubcategorySelectorValid: boolean = false;
@@ -15,6 +16,12 @@ export class TagManagerAddTagComponent {
   constructor(private tagManagerService: TagManagerService) { // Asegúrate de inyectar correctamente el servicio
     this.selectedCategory = '';
     this.selectedSubCategory = '';
+  }
+
+  ngOnInit(): void {
+    this.tagManagerService.getParentTags().subscribe(tags => {
+      this.parentTags = tags;
+    });
   }
 
   validateSubcategorySelector() {
