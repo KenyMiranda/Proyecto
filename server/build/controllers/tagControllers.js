@@ -73,5 +73,17 @@ class TagController {
             }
         });
     }
+    getModules(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const modules = yield database_1.default.query("SELECT nombre FROM Etiquetas WHERE tipo = 'Módulo'");
+                res.json(modules[0]);
+            }
+            catch (error) {
+                console.error("Error al obtener los módulos:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
+            }
+        });
+    }
 }
 exports.default = new TagController();

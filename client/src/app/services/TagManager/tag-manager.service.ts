@@ -32,4 +32,8 @@ export class TagManagerService {
         tap((courseId) => console.log('Course ID:', courseId)) // Agrega este tap para depurar
       );
   }
+
+  getModules(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.API_URL}/tags/modules`);
+  }  
 }

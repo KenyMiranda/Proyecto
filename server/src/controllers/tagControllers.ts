@@ -63,6 +63,18 @@ class TagController {
       res.status(500).json({ error: "Error interno del servidor" });
     }
   }
+
+  async getModules(req, res) {
+    try {
+      const modules = await db.query(
+        "SELECT nombre FROM Etiquetas WHERE tipo = 'Módulo'"
+      );
+      res.json(modules[0]);
+    } catch (error) {
+      console.error("Error al obtener los módulos:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  }  
 }
 
 export default new TagController();

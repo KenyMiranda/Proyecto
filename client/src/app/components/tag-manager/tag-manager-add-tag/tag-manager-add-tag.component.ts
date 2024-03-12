@@ -12,6 +12,7 @@ export class TagManagerAddTagComponent {
   selectedSubCategory: string | undefined;
   isSubcategorySelectorValid: boolean = false;
   selectedCourse: string | undefined;
+  modules: any[] = [];
 
   constructor(private tagManagerService: TagManagerService) {
     // Asegúrate de inyectar correctamente el servicio
@@ -36,56 +37,66 @@ export class TagManagerAddTagComponent {
   }
 
   onCategoryChange() {
-    if (
-      this.selectedCategory === 'Nuevo módulo para curso de idiomas' ||
-      this.selectedCategory === 'Nuevo submódulo para curso de idiomas'
-    ) {
-      // Si se selecciona una de las opciones mencionadas, se restablece la selección del submódulo
+    if (this.selectedCategory === 'Nuevo módulo para curso de idiomas') {
+      // Restablecer la selección del submódulo si se elige esta opción
       this.selectedSubCategory = '';
+    } else if (this.selectedCategory === 'Nuevo submódulo para curso de idiomas') {
+      // Cargar los módulos solo si se elige esta opción
+      this.loadModules();
     }
-  }
+  }  
 
   createTag() {
-    const tagName = (
-      document.getElementById('name') as HTMLInputElement
-    ).value.trim();
+    const tagName = (document.getElementById('name') as HTMLInputElement).value.trim();
     if (!tagName) {
       alert('Por favor, ingrese un nombre para la etiqueta.');
       return;
     }
-
-    const tagData = {
-      name: tagName,
-      type: 'Curso', // Tipo de etiqueta
-      parent_id: null as number | null, // No hay un padre para el curso
-    };
-
-    if (this.selectedCategory === 'Nuevo curso de idiomas') {
-      this.createTagWithParent(tagData);
-    } else if (this.selectedCategory === 'Nuevo módulo para curso de idiomas') {
-      if (!this.selectedCourse) {
-        alert('Por favor, selecciona un curso.');
-        return;
-      }
-      // Obtener el ID del curso seleccionado
-      this.tagManagerService.getTagIdByName(this.selectedCourse).subscribe(
-        (courseId) => {
-          if (courseId) {
-            // Comprueba si courseId existe (no es null o undefined)
-            tagData.type = 'Módulo'; // Tipo de etiqueta
-            tagData.parent_id = courseId;
+  
+    this.tagManagerService.checkTagExists(tagName).subscribe(
+      (response) => {
+        if (response.exists) {
+          alert('Ya existe una etiqueta con este nombre.');
+        } else {
+          const tagData = {
+            name: tagName,
+            type: 'Curso', // Tipo de etiqueta
+            parent_id: null as number | null, // No hay un padre para el curso
+          };
+  
+          if (this.selectedCategory === 'Nuevo curso de idiomas') {
             this.createTagWithParent(tagData);
-          } else {
-            alert('Error: No se pudo encontrar el ID del curso seleccionado.');
+          } else if (this.selectedCategory === 'Nuevo módulo para curso de idiomas') {
+            if (!this.selectedCourse) {
+              alert('Por favor, selecciona un curso.');
+              return;
+            }
+            // Obtener el ID del curso seleccionado
+            this.tagManagerService.getTagIdByName(this.selectedCourse).subscribe(
+              (courseId) => {
+                if (courseId) {
+                  // Comprueba si courseId existe (no es null o undefined)
+                  tagData.type = 'Módulo'; // Tipo de etiqueta
+                  tagData.parent_id = courseId;
+                  this.createTagWithParent(tagData);
+                } else {
+                  alert('Error: No se pudo encontrar el ID del curso seleccionado.');
+                }
+              },
+              (error) => {
+                console.error('Error al obtener el ID del curso:', error);
+                alert('Error al obtener el ID del curso.');
+              }
+            );
           }
-        },
-        (error) => {
-          console.error('Error al obtener el ID del curso:', error);
-          alert('Error al obtener el ID del curso.');
         }
-      );
-    }
-  }
+      },
+      (error) => {
+        console.error('Error al verificar la existencia de la etiqueta:', error);
+        alert('Error al verificar la existencia de la etiqueta.');
+      }
+    );
+  }  
 
   createTagWithParent(tagData: any) {
     this.tagManagerService.postTag(tagData).subscribe(
@@ -104,5 +115,16 @@ export class TagManagerAddTagComponent {
     this.tagManagerService.getParentTags().subscribe((tags) => {
       this.parentTags = tags;
     });
+  }
+
+  loadModules() {
+    this.tagManagerService.getModules().subscribe(
+      (modules) => {
+        this.modules = modules;
+      },
+      (error) => {
+        console.error('Error al obtener los módulos:', error);
+      }
+    );
   }
 }

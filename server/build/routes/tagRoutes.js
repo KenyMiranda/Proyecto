@@ -10,4 +10,5 @@ router.post('/', tagControllers_1.default.createTag);
 router.get('/check/:name', tagControllers_1.default.checkTagExists);
 router.get('/parent', tagControllers_1.default.getParentTags);
 router.get('/course/:name', tagControllers_1.default.getTagIdByName);
+router.get('/modules', tagControllers_1.default.getModules);
 exports.default = router;
