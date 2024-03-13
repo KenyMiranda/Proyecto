@@ -12,4 +12,6 @@ router.get('/modules', tagController.getModules);
 // Nuevo endpoint para obtener todas las etiquetas
 router.get('/', tagController.getAllTags);
 
+router.delete('/:name', tagController.deleteTag);
+
 export default router;

@@ -20,4 +20,18 @@ export class TagManagerDeleteTagComponent implements OnInit {
       this.tagOptions = tags;
     });
   }
+
+  deleteSelectedTag(): void {
+    if (this.selectedOption) {
+      this.tagService.deleteTag(this.selectedOption).subscribe(() => {
+        console.log("Etiqueta eliminada exitosamente");
+        // Aquí puedes actualizar cualquier otra lógica después de eliminar la etiqueta
+        this.selectedOption = ''; // Limpiar la selección después de borrar
+        this.getTagOptions(); // Actualizar las opciones del selector
+      }, error => {
+        console.error("Error al eliminar la etiqueta:", error);
+        // Aquí puedes manejar errores de eliminación
+      });
+    }
+  }
 }

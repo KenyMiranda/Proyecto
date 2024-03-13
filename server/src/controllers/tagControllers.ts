@@ -97,6 +97,17 @@ class TagController {
       res.status(500).json({ error: "Error interno del servidor" });
     }
   }  
+
+  async deleteTag(req: Request, res: Response): Promise<void> {
+    try {
+      const { name } = req.params;
+      await db.query("DELETE FROM Etiquetas WHERE nombre = ?", [name]);
+      res.status(200).json({ message: "Etiqueta eliminada exitosamente" });
+    } catch (error) {
+      console.error("Error al eliminar la etiqueta:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  }  
 }
 
 export default new TagController();

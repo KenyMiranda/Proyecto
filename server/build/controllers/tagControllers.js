@@ -111,5 +111,18 @@ class TagController {
             }
         });
     }
+    deleteTag(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { name } = req.params;
+                yield database_1.default.query("DELETE FROM Etiquetas WHERE nombre = ?", [name]);
+                res.status(200).json({ message: "Etiqueta eliminada exitosamente" });
+            }
+            catch (error) {
+                console.error("Error al eliminar la etiqueta:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
+            }
+        });
+    }
 }
 exports.default = new TagController();

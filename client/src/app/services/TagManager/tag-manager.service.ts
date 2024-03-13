@@ -36,4 +36,8 @@ export class TagManagerService {
   getTags(): Observable<string[]> {
     return this.http.get<string[]>(`${this.API_URL}/tags`);
   }  
+
+  deleteTag(tagName: string): Observable<any> {
+    return this.http.delete(`${this.API_URL}/tags/${tagName}`);
+  }  
 }
