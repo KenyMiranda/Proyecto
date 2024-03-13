@@ -3,10 +3,8 @@
     <label for="location" class="block text-sm font-medium text-gray-700">Seleccione la etiqueta a borrar:</label>
     <select id="location" name="location" [(ngModel)]="selectedOption" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
       <option disabled selected value="">Selecciona una opción</option>
-      <option>8A</option>
-      <option>8B</option>
-      <option>Conversation</option>
-    </select>
+      <option *ngFor="let tag of tagOptions">{{ tag }}</option>
+    </select>    
   </div>
   <div class="mt-2 max-w-xl text-sm text-gray-500" *ngIf="selectedOption">
     <p>Una vez que borres la etiqueta, se desasignarán todas las etiquetas a los archivos</p>

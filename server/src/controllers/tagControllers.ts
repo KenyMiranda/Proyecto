@@ -79,6 +79,24 @@ class TagController {
       res.status(500).json({ error: "Error interno del servidor" });
     }
   }
+
+  async getAllTags(req, res) {
+    try {
+      const result = await db.query(
+        "SELECT nombre FROM Etiquetas"
+      );
+  
+      if (Array.isArray(result[0])) {
+        const tags = result[0].map(tag => tag.nombre);
+        res.json(tags);
+      } else {
+        res.status(500).json({ error: "Error interno del servidor" });
+      }
+    } catch (error) {
+      console.error("Error al obtener las etiquetas:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  }  
 }
 
 export default new TagController();

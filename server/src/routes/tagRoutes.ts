@@ -9,4 +9,7 @@ router.get('/parent', tagController.getParentTags);
 router.get('/course/:name', tagController.getTagIdByName);
 router.get('/modules', tagController.getModules);
 
+// Nuevo endpoint para obtener todas las etiquetas
+router.get('/', tagController.getAllTags);
+
 export default router;

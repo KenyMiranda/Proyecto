@@ -93,5 +93,23 @@ class TagController {
             }
         });
     }
+    getAllTags(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield database_1.default.query("SELECT nombre FROM Etiquetas");
+                if (Array.isArray(result[0])) {
+                    const tags = result[0].map(tag => tag.nombre);
+                    res.json(tags);
+                }
+                else {
+                    res.status(500).json({ error: "Error interno del servidor" });
+                }
+            }
+            catch (error) {
+                console.error("Error al obtener las etiquetas:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
+            }
+        });
+    }
 }
 exports.default = new TagController();

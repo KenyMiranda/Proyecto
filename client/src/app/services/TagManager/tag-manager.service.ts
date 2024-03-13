@@ -32,4 +32,8 @@ export class TagManagerService {
   getModules(): Observable<any[]> {
     return this.http.get<any[]>(`${this.API_URL}/tags/modules`);
   }  
+
+  getTags(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.API_URL}/tags`);
+  }  
 }
