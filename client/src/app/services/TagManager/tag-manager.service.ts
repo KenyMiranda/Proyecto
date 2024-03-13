@@ -25,13 +25,9 @@ export class TagManagerService {
     return this.http.get<string[]>(`${this.API_URL}/tags/parent`);
   }
 
-  getTagIdByName(tagName: string): Observable<number | null> {
-    return this.http
-      .get<number | null>(`${this.API_URL}/tags/course/${tagName}`)
-      .pipe(
-        tap((courseId) => console.log('Course ID:', courseId)) // Agrega este tap para depurar
-      );
-  }
+  getTagIdByName(tagName: string, type: string): Observable<number | null> {
+    return this.http.get<number | null>(`${this.API_URL}/tags/course/${tagName}`, { params: { type } });
+  }  
 
   getModules(): Observable<any[]> {
     return this.http.get<any[]>(`${this.API_URL}/tags/modules`);

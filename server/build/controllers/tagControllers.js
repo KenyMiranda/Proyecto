@@ -59,16 +59,24 @@ class TagController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { name } = req.params;
-                const result = yield database_1.default.query("SELECT id FROM Etiquetas WHERE nombre = ? AND tipo = 'Curso'", [name]);
-                if (result[0].length > 0) {
-                    res.json(result[0][0].id);
+                let query = "SELECT id FROM Etiquetas WHERE nombre = ?";
+                // Si el tipo es un curso o un módulo, agrega la condición del tipo
+                if (req.query.type === 'Curso' || req.query.type === 'Módulo') {
+                    query += " AND tipo = ?";
+                    const result = yield database_1.default.query(query, [name, req.query.type]);
+                    if (result[0].length > 0) {
+                        res.json(result[0][0].id);
+                    }
+                    else {
+                        res.json(null); // Devuelve null si no se encuentra el curso o módulo
+                    }
                 }
                 else {
-                    res.json(null); // Devuelve null si no se encuentra el curso
+                    res.status(400).json({ error: "Tipo de etiqueta no válido" });
                 }
             }
             catch (error) {
-                console.error("Error al obtener el ID del curso por nombre:", error);
+                console.error("Error al obtener el ID del curso o módulo por nombre:", error);
                 res.status(500).json({ error: "Error interno del servidor" });
             }
         });
@@ -76,7 +84,7 @@ class TagController {
     getModules(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const modules = yield database_1.default.query("SELECT nombre FROM Etiquetas WHERE tipo = 'Módulo'");
+                const modules = yield database_1.default.query("SELECT id, nombre FROM Etiquetas WHERE tipo = 'Módulo'");
                 res.json(modules[0]);
             }
             catch (error) {

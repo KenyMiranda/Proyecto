@@ -49,32 +49,36 @@ class TagController {
   async getTagIdByName(req: Request, res: Response): Promise<void> {
     try {
       const { name } = req.params;
-      const result = await db.query<RowDataPacket[]>(
-        "SELECT id FROM Etiquetas WHERE nombre = ? AND tipo = 'Curso'",
-        [name]
-      );
-      if (result[0].length > 0) {
-        res.json(result[0][0].id);
+      let query = "SELECT id FROM Etiquetas WHERE nombre = ?";
+      // Si el tipo es un curso o un módulo, agrega la condición del tipo
+      if (req.query.type === 'Curso' || req.query.type === 'Módulo') {
+        query += " AND tipo = ?";
+        const result = await db.query<RowDataPacket[]>(query, [name, req.query.type]);
+        if (result[0].length > 0) {
+          res.json(result[0][0].id);
+        } else {
+          res.json(null); // Devuelve null si no se encuentra el curso o módulo
+        }
       } else {
-        res.json(null); // Devuelve null si no se encuentra el curso
+        res.status(400).json({ error: "Tipo de etiqueta no válido" });
       }
     } catch (error) {
-      console.error("Error al obtener el ID del curso por nombre:", error);
+      console.error("Error al obtener el ID del curso o módulo por nombre:", error);
       res.status(500).json({ error: "Error interno del servidor" });
     }
-  }
+  }  
 
   async getModules(req, res) {
     try {
       const modules = await db.query(
-        "SELECT nombre FROM Etiquetas WHERE tipo = 'Módulo'"
+        "SELECT id, nombre FROM Etiquetas WHERE tipo = 'Módulo'"
       );
       res.json(modules[0]);
     } catch (error) {
       console.error("Error al obtener los módulos:", error);
       res.status(500).json({ error: "Error interno del servidor" });
     }
-  }  
+  }
 }
 
 export default new TagController();
