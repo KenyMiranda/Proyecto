@@ -115,11 +115,26 @@ class TagController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { name } = req.params;
+                // Función recursiva para eliminar etiquetas hijo
+                const deleteChildTags = (tagId) => __awaiter(this, void 0, void 0, function* () {
+                    // Buscar y eliminar las etiquetas hijo
+                    const childTagsToDelete = yield database_1.default.query("SELECT id FROM Etiquetas WHERE padre_id = ?", [tagId]);
+                    for (const childTag of childTagsToDelete[0]) {
+                        yield deleteChildTags(childTag.id);
+                        yield database_1.default.query("DELETE FROM Etiquetas WHERE id = ?", [childTag.id]);
+                    }
+                });
+                // Buscar el ID de la etiqueta a eliminar
+                const tagToDelete = yield database_1.default.query("SELECT id FROM Etiquetas WHERE nombre = ?", [name]);
+                const tagId = tagToDelete[0][0].id; // Accede al primer elemento del primer array
+                // Llamar a la función recursiva para eliminar las etiquetas hijo
+                yield deleteChildTags(tagId);
+                // Eliminar la etiqueta principal
                 yield database_1.default.query("DELETE FROM Etiquetas WHERE nombre = ?", [name]);
-                res.status(200).json({ message: "Etiqueta eliminada exitosamente" });
+                res.status(200).json({ message: "Etiqueta y etiquetas hijo eliminadas exitosamente" });
             }
             catch (error) {
-                console.error("Error al eliminar la etiqueta:", error);
+                console.error("Error al eliminar la etiqueta y etiquetas hijo:", error);
                 res.status(500).json({ error: "Error interno del servidor" });
             }
         });

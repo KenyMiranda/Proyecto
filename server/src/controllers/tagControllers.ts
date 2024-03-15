@@ -101,10 +101,30 @@ class TagController {
   async deleteTag(req: Request, res: Response): Promise<void> {
     try {
       const { name } = req.params;
+  
+      // Función recursiva para eliminar etiquetas hijo
+      const deleteChildTags = async (tagId: number) => {
+        // Buscar y eliminar las etiquetas hijo
+        const childTagsToDelete = await db.query<RowDataPacket[]>("SELECT id FROM Etiquetas WHERE padre_id = ?", [tagId]);
+        for (const childTag of childTagsToDelete[0]) {
+          await deleteChildTags(childTag.id);
+          await db.query("DELETE FROM Etiquetas WHERE id = ?", [childTag.id]);
+        }
+      };
+  
+      // Buscar el ID de la etiqueta a eliminar
+      const tagToDelete = await db.query<RowDataPacket[]>("SELECT id FROM Etiquetas WHERE nombre = ?", [name]);
+      const tagId = tagToDelete[0][0].id; // Accede al primer elemento del primer array
+  
+      // Llamar a la función recursiva para eliminar las etiquetas hijo
+      await deleteChildTags(tagId);
+  
+      // Eliminar la etiqueta principal
       await db.query("DELETE FROM Etiquetas WHERE nombre = ?", [name]);
-      res.status(200).json({ message: "Etiqueta eliminada exitosamente" });
+  
+      res.status(200).json({ message: "Etiqueta y etiquetas hijo eliminadas exitosamente" });
     } catch (error) {
-      console.error("Error al eliminar la etiqueta:", error);
+      console.error("Error al eliminar la etiqueta y etiquetas hijo:", error);
       res.status(500).json({ error: "Error interno del servidor" });
     }
   }  
