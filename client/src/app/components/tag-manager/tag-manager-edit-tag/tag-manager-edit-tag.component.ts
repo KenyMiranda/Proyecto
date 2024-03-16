@@ -10,8 +10,10 @@ export class TagManagerEditTagComponent {
   selectedCategory: string = '';
   optionSelected: boolean = false;
   selectedCourse: string = '';
+  selectedModule: string = '';
   tags: string[] = [];
   courses: string[] = []; // Array para almacenar los cursos dinámicos
+  modules: any[] = []; // Array para almacenar los módulos dinámicos
 
   constructor(private tagManagerService: TagManagerService) {}
 
@@ -19,6 +21,10 @@ export class TagManagerEditTagComponent {
     // Llama al servicio para obtener todas las etiquetas
     this.tagManagerService.getTags().subscribe(tags => {
       this.tags = tags;
+    });
+    // Llama al servicio para obtener los módulos
+    this.tagManagerService.getModules().subscribe(modules => {
+      this.modules = modules;
     });
   }
   
@@ -41,9 +47,10 @@ export class TagManagerEditTagComponent {
 
   onSelectOption() {
     this.optionSelected = true;
-    // Reset selected category and course when option is changed
+    // Reset selected category, course, and module when option is changed
     this.selectedCategory = '';
     this.selectedCourse = '';
+    this.selectedModule = '';
   }
 
   onCourseChange(event: any) {
