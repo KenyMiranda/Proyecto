@@ -128,6 +128,23 @@ class TagController {
       res.status(500).json({ error: "Error interno del servidor" });
     }
   }  
+
+  async getCourses(req, res) {
+    try {
+      const courses = await db.query(
+        "SELECT DISTINCT nombre FROM Etiquetas WHERE tipo = 'Curso'"
+      );
+      if (Array.isArray(courses[0])) {
+        const courseNames = courses[0].map(course => course.nombre);
+        res.json(courseNames);
+      } else {
+        res.status(500).json({ error: "Error interno del servidor" });
+      }
+    } catch (error) {
+      console.error("Error al obtener los cursos:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  }   
 }
 
 export default new TagController();

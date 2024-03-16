@@ -139,5 +139,23 @@ class TagController {
             }
         });
     }
+    getCourses(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const courses = yield database_1.default.query("SELECT DISTINCT nombre FROM Etiquetas WHERE tipo = 'Curso'");
+                if (Array.isArray(courses[0])) {
+                    const courseNames = courses[0].map(course => course.nombre);
+                    res.json(courseNames);
+                }
+                else {
+                    res.status(500).json({ error: "Error interno del servidor" });
+                }
+            }
+            catch (error) {
+                console.error("Error al obtener los cursos:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
+            }
+        });
+    }
 }
 exports.default = new TagController();

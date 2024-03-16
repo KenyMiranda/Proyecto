@@ -14,4 +14,6 @@ router.get('/', tagController.getAllTags);
 
 router.delete('/:name', tagController.deleteTag);
 
+router.get('/courses', tagController.getCourses);
+
 export default router;
