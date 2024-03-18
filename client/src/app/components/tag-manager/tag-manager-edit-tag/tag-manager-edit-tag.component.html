@@ -3,7 +3,7 @@
   <div>
     <label for="location" class="block text-sm font-medium text-gray-700">Seleccione la etiqueta a editar:</label>
     <!-- Modifica el primer selector para usar las etiquetas recuperadas del servicio -->
-    <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" (change)="onSelectOption()">
+    <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" (change)="onSelectOption()" [(ngModel)]="selectedTag">
       <option disabled selected value="">Selecciona una opción</option>
       <option *ngFor="let tag of tags">{{ tag }}</option>
     </select>
@@ -12,7 +12,7 @@
   <ng-container *ngIf="optionSelected">
     <div class="relative border border-gray-300 rounded-md px-4 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
       <label for="name" class="absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900">Nombre de la etiqueta</label>
-      <input type="text" name="name" id="name" class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Inserte aquí el nuevo nombre de la etiqueta">
+      <input type="text" name="name" id="name" class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm" [value]="selectedTag">
     </div>
     <br />
     <div>

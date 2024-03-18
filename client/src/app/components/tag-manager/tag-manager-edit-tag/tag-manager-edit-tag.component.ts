@@ -11,6 +11,7 @@ export class TagManagerEditTagComponent {
   optionSelected: boolean = false;
   selectedCourse: string = '';
   selectedModule: string = '';
+  selectedTag: string = ''; // Propiedad para almacenar la etiqueta seleccionada
   tags: string[] = [];
   courses: string[] = []; // Array para almacenar los cursos dinámicos
   modules: any[] = []; // Array para almacenar los módulos dinámicos
@@ -47,6 +48,7 @@ export class TagManagerEditTagComponent {
 
   onSelectOption() {
     this.optionSelected = true;
+    this.selectedTag = this.selectedTag; // Establece el valor de selectedTag cuando se selecciona una opción
     // Reset selected category, course, and module when option is changed
     this.selectedCategory = '';
     this.selectedCourse = '';
