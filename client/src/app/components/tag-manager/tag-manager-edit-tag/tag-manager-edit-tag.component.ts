@@ -48,7 +48,8 @@ export class TagManagerEditTagComponent {
 
   onSelectOption() {
     this.optionSelected = true;
-    this.selectedTag = this.selectedTag; // Establece el valor de selectedTag cuando se selecciona una opción
+    // Asignar el valor del input de texto a la etiqueta seleccionada
+    this.selectedTag = (document.getElementById('name') as HTMLInputElement).value;
     // Reset selected category, course, and module when option is changed
     this.selectedCategory = '';
     this.selectedCourse = '';
@@ -58,4 +59,21 @@ export class TagManagerEditTagComponent {
   onCourseChange(event: any) {
     this.selectedCourse = event.target.value;
   }
+
+  saveChanges() {
+    // Obtener el nuevo nombre de la etiqueta
+    const newName = (document.getElementById('name') as HTMLInputElement).value;
+    // Llamar al servicio para actualizar el nombre de la etiqueta en la base de datos
+    this.tagManagerService.updateTagName(this.selectedTag, newName).subscribe(() => {
+      // Actualizar la lista de etiquetas después de guardar los cambios si es necesario
+      this.tagManagerService.getTags().subscribe(tags => {
+        this.tags = tags;
+      });
+      // Resetear variables si es necesario
+      this.selectedCategory = '';
+      this.selectedCourse = '';
+      this.selectedModule = '';
+      this.optionSelected = false;
+    });
+  }  
 }

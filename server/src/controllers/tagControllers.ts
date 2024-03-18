@@ -145,6 +145,23 @@ class TagController {
       res.status(500).json({ error: "Error interno del servidor" });
     }
   }   
+
+  async updateTagName(req: Request, res: Response): Promise<void> {
+    try {
+      const { oldName } = req.params;
+      const { newName } = req.body;
+  
+      await db.query(
+        "UPDATE Etiquetas SET nombre = ? WHERE nombre = ?",
+        [newName, oldName]
+      );
+  
+      res.status(200).json({ message: "Nombre de etiqueta actualizado exitosamente" });
+    } catch (error) {
+      console.error("Error al actualizar el nombre de la etiqueta:", error);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
+  }  
 }
 
 export default new TagController();

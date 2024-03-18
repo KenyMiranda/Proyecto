@@ -157,5 +157,19 @@ class TagController {
             }
         });
     }
+    updateTagName(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { oldName } = req.params;
+                const { newName } = req.body;
+                yield database_1.default.query("UPDATE Etiquetas SET nombre = ? WHERE nombre = ?", [newName, oldName]);
+                res.status(200).json({ message: "Nombre de etiqueta actualizado exitosamente" });
+            }
+            catch (error) {
+                console.error("Error al actualizar el nombre de la etiqueta:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
+            }
+        });
+    }
 }
 exports.default = new TagController();
