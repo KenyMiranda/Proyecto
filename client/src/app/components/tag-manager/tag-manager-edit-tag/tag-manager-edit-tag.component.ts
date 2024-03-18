@@ -48,8 +48,6 @@ export class TagManagerEditTagComponent {
 
   onSelectOption() {
     this.optionSelected = true;
-    // Asignar el valor del input de texto a la etiqueta seleccionada
-    this.selectedTag = (document.getElementById('name') as HTMLInputElement).value;
     // Reset selected category, course, and module when option is changed
     this.selectedCategory = '';
     this.selectedCourse = '';
