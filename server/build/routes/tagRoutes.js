@@ -16,4 +16,5 @@ router.get('/', tagControllers_1.default.getAllTags);
 router.delete('/:name', tagControllers_1.default.deleteTag);
 router.get('/courses', tagControllers_1.default.getCourses);
 router.put('/:oldName', tagControllers_1.default.updateTagName);
+router.put('/type-parent/:name', tagControllers_1.default.updateTagTypeAndParentId);
 exports.default = router;

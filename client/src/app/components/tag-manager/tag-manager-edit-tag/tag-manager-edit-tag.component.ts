@@ -66,11 +66,24 @@ export class TagManagerEditTagComponent {
   }
 
   saveChanges() {
-    // Obtener el nuevo nombre de la etiqueta
     const newName = (document.getElementById('name') as HTMLInputElement).value;
+    
+    if (this.selectedCategory === 'Nuevo curso de idiomas') {
+      // Realizar solicitud especial para cambiar el tipo y padre_id
+      this.tagManagerService.updateTagTypeAndParentId(this.selectedTag, 'Curso', null).subscribe(() => {
+        // Actualizar el nombre de la etiqueta después de actualizar el tipo y padre_id
+        this.updateTagNameAndRefreshList(newName);
+      });
+    } else {
+      // Si no es un "Nuevo curso de idiomas", solo actualizar el nombre
+      this.updateTagNameAndRefreshList(newName);
+    }
+  }
+  
+  updateTagNameAndRefreshList(newName: string) {
     // Llamar al servicio para actualizar el nombre de la etiqueta en la base de datos
     this.tagManagerService.updateTagName(this.selectedTag, newName).subscribe(() => {
-      // Actualizar la lista de etiquetas después de guardar los cambios si es necesario
+      // Actualizar la lista de etiquetas después de guardar los cambios
       this.tagManagerService.getTags().subscribe(tags => {
         this.tags = tags;
       });
@@ -80,5 +93,5 @@ export class TagManagerEditTagComponent {
       this.selectedModule = '';
       this.optionSelected = false;
     });
-  }  
+  }   
 }

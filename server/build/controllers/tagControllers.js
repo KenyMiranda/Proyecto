@@ -171,5 +171,19 @@ class TagController {
             }
         });
     }
+    updateTagTypeAndParentId(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { name } = req.params;
+                const { type, parentId } = req.body;
+                yield database_1.default.query("UPDATE Etiquetas SET tipo = ?, padre_id = ? WHERE nombre = ?", [type, parentId, name]);
+                res.status(200).json({ message: "Tipo y padre_id de etiqueta actualizados exitosamente" });
+            }
+            catch (error) {
+                console.error("Error al actualizar el tipo y padre_id de la etiqueta:", error);
+                res.status(500).json({ error: "Error interno del servidor" });
+            }
+        });
+    }
 }
 exports.default = new TagController();

@@ -48,4 +48,8 @@ export class TagManagerService {
   updateTagName(oldName: string, newName: string): Observable<any> {
     return this.http.put(`${this.API_URL}/tags/${oldName}`, { newName });
   }  
+
+  updateTagTypeAndParentId(tagName: string, type: string, parentId: number | null): Observable<any> {
+    return this.http.put(`${this.API_URL}/tags/type-parent/${tagName}`, { type, parentId });
+  }  
 }
