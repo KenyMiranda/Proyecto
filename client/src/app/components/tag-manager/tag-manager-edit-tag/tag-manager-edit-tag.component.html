@@ -31,7 +31,7 @@
         <option disabled selected value="">Selecciona una opción</option>
         <option *ngFor="let course of courses">{{ course }}</option>
       </select>
-    </div>
+    </div>    
     <div *ngIf="selectedCategory === 'Nuevo submódulo para curso de idiomas'">
       <label for="course" class="block text-sm font-medium text-gray-700">Selecciona el curso al que pertenece el módulo: </label>
       <select id="module" name="module" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" [(ngModel)]="selectedModule">

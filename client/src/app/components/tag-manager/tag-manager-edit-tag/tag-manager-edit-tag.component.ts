@@ -39,13 +39,17 @@ export class TagManagerEditTagComponent {
     if (this.selectedCategory === 'Nuevo módulo para curso de idiomas' || this.selectedCategory === 'Nuevo submódulo para curso de idiomas') {
       // Llamar al servicio para obtener los cursos
       this.tagManagerService.getCourses().subscribe(courses => {
+        // Filtrar el array de cursos para excluir el curso que se está editando, si es el caso
+        if (this.selectedCategory === 'Nuevo módulo para curso de idiomas' && this.originalSelectedTag) {
+          courses = courses.filter(course => course !== this.originalSelectedTag);
+        }
         this.courses = courses;
       });
     } else {
       // Si no es una de las categorías mencionadas, reinicia el array de cursos
       this.courses = [];
     }
-  }
+  }  
 
   onSelectOption() {
     this.optionSelected = true;
