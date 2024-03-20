@@ -74,11 +74,20 @@ export class TagManagerEditTagComponent {
         // Actualizar el nombre de la etiqueta después de actualizar el tipo y padre_id
         this.updateTagNameAndRefreshList(newName);
       });
+    } else if (this.selectedCategory === 'Nuevo módulo para curso de idiomas') {
+      // Obtener el id del curso seleccionado
+      this.tagManagerService.getTagIdByName(this.selectedCourse, 'Curso').subscribe(courseId => {
+        // Actualizar el tipo de etiqueta a 'Módulo' y el padre_id al id del curso seleccionado
+        this.tagManagerService.updateTagTypeAndParentId(this.selectedTag, 'Módulo', courseId).subscribe(() => {
+          // Actualizar el nombre de la etiqueta después de actualizar el tipo y padre_id
+          this.updateTagNameAndRefreshList(newName);
+        });
+      });
     } else {
-      // Si no es un "Nuevo curso de idiomas", solo actualizar el nombre
+      // Si no es un "Nuevo curso de idiomas" o "Nuevo módulo para curso de idiomas", solo actualizar el nombre
       this.updateTagNameAndRefreshList(newName);
     }
-  }
+  }  
   
   updateTagNameAndRefreshList(newName: string) {
     // Llamar al servicio para actualizar el nombre de la etiqueta en la base de datos
