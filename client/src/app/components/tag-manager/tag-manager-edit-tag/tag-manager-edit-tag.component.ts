@@ -69,7 +69,7 @@ export class TagManagerEditTagComponent {
     const newName = (document.getElementById('name') as HTMLInputElement).value;
     
     if (this.selectedCategory === 'Nuevo curso de idiomas') {
-      // Realizar solicitud especial para cambiar el tipo y padre_id
+      // Actualizar el tipo de etiqueta a 'Curso' y el padre_id a null
       this.tagManagerService.updateTagTypeAndParentId(this.selectedTag, 'Curso', null).subscribe(() => {
         // Actualizar el nombre de la etiqueta después de actualizar el tipo y padre_id
         this.updateTagNameAndRefreshList(newName);
