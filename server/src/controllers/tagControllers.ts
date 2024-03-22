@@ -168,10 +168,20 @@ class TagController {
       const { name } = req.params;
       const { type, parentId } = req.body;
   
-      await db.query(
-        "UPDATE Etiquetas SET tipo = ?, padre_id = ? WHERE nombre = ?",
-        [type, parentId, name]
-      );
+      let query = "UPDATE Etiquetas SET tipo = ?";
+      const params = [type];
+      
+      if (parentId === null || parentId === undefined) {
+        query += ", padre_id = NULL";
+      } else {
+        query += ", padre_id = ?";
+        params.push(parentId);
+      }
+  
+      query += " WHERE nombre = ?";
+      params.push(name);
+  
+      await db.query(query, params);
   
       res.status(200).json({ message: "Tipo y padre_id de etiqueta actualizados exitosamente" });
     } catch (error) {

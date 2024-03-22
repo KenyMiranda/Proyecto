@@ -103,12 +103,11 @@ export class TagManagerEditTagComponent {
           });
         } else if (this.selectedCategory === 'Nuevo submódulo para curso de idiomas') {
           // Obtener el id del módulo seleccionado
-          this.tagManagerService.getTagIdByName(this.selectedModule, 'Módulo').subscribe(moduleId => {
-            // Actualizar el tipo de etiqueta a 'Submódulo' y mantener el mismo padre_id que el módulo seleccionado
-            this.tagManagerService.updateTagTypeAndParentId(this.selectedTag, 'Submódulo', moduleId).subscribe(() => {
-              // Actualizar el nombre de la etiqueta después de actualizar el tipo y padre_id
-              this.updateTagNameAndRefreshList(newName);
-            });
+          const moduleId = this.modules.find(module => module.nombre === this.selectedModule).id;
+          // Actualizar el tipo de etiqueta a 'Submódulo' y mantener el mismo padre_id que el módulo seleccionado
+          this.tagManagerService.updateTagTypeAndParentId(this.selectedTag, 'Submódulo', moduleId).subscribe(() => {
+            // Actualizar el nombre de la etiqueta después de actualizar el tipo y padre_id
+            this.updateTagNameAndRefreshList(newName);
           });
         } else {
           // Si no es un "Nuevo curso de idiomas", "Nuevo módulo para curso de idiomas" o "Nuevo submódulo para curso de idiomas", solo actualizar el nombre
