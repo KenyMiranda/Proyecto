@@ -45,11 +45,18 @@ export class TagManagerEditTagComponent {
         }
         this.courses = courses;
       });
+      
+      // Si se está editando una etiqueta de tipo 'Módulo' para convertirla en 'Submódulo',
+      // filtrar los módulos para excluir la etiqueta que se está editando
+      if (this.selectedCategory === 'Nuevo submódulo para curso de idiomas') {
+        this.modules = this.modules.filter(module => module.nombre !== this.originalSelectedTag);
+      }
     } else {
-      // Si no es una de las categorías mencionadas, reinicia el array de cursos
+      // Si no es una de las categorías mencionadas, reinicia el array de cursos y módulos
       this.courses = [];
+      this.modules = [];
     }
-  }  
+  }
 
   onSelectOption() {
     this.optionSelected = true;
@@ -94,8 +101,17 @@ export class TagManagerEditTagComponent {
               this.updateTagNameAndRefreshList(newName);
             });
           });
+        } else if (this.selectedCategory === 'Nuevo submódulo para curso de idiomas') {
+          // Obtener el id del módulo seleccionado
+          this.tagManagerService.getTagIdByName(this.selectedModule, 'Módulo').subscribe(moduleId => {
+            // Actualizar el tipo de etiqueta a 'Submódulo' y mantener el mismo padre_id que el módulo seleccionado
+            this.tagManagerService.updateTagTypeAndParentId(this.selectedTag, 'Submódulo', moduleId).subscribe(() => {
+              // Actualizar el nombre de la etiqueta después de actualizar el tipo y padre_id
+              this.updateTagNameAndRefreshList(newName);
+            });
+          });
         } else {
-          // Si no es un "Nuevo curso de idiomas" o "Nuevo módulo para curso de idiomas", solo actualizar el nombre
+          // Si no es un "Nuevo curso de idiomas", "Nuevo módulo para curso de idiomas" o "Nuevo submódulo para curso de idiomas", solo actualizar el nombre
           this.updateTagNameAndRefreshList(newName);
         }
       }
