@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { MaterialesServicesService } from 'src/app/services/materiales/materiales-services.service';
+import { TagManagerService } from 'src/app/services/TagManager/tag-manager.service';
 
 @Component({
   selector: 'app-tag-manager-assign-tags',
@@ -14,8 +15,10 @@ export class TagManagerAssignTagsComponent implements OnInit {
   filteredFiles: any[] = [];
   searchTerm: string = '';
   selectedFileType: string | null = null;
+  tags: string[] = []; // Variable para almacenar las etiquetas
 
-  constructor(private materialesService: MaterialesServicesService) {}
+  constructor(private materialesService: MaterialesServicesService, private tagManagerService: TagManagerService) {}
+  
 
   onSelectOption() {
     this.optionSelected = true;
@@ -24,6 +27,7 @@ export class TagManagerAssignTagsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFiles();
+    this.getAllTags(); // Llama al método para obtener todas las etiquetas al iniciar el componente
   }
 
   getFiles() {
@@ -34,6 +38,15 @@ export class TagManagerAssignTagsComponent implements OnInit {
         this.filteredFiles = [...this.arrayFiles];
         // Verificar si hay al menos un archivo seleccionado
         this.checkIfChecked();
+      },
+      (err) => console.error(err)
+    );
+  }
+
+  getAllTags() {
+    this.tagManagerService.getTags().subscribe(
+      (tags) => {
+        this.tags = tags; // Asigna las etiquetas obtenidas a la variable del componente
       },
       (err) => console.error(err)
     );
