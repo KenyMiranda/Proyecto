@@ -168,6 +168,24 @@ class TagController {
       const { name } = req.params;
       const { type, parentId } = req.body;
   
+      // Función recursiva para eliminar etiquetas hijo
+      const deleteChildTags = async (tagId: number) => {
+        // Buscar y eliminar las etiquetas hijo
+        const childTagsToDelete = await db.query<RowDataPacket[]>("SELECT id FROM Etiquetas WHERE padre_id = ?", [tagId]);
+        for (const childTag of childTagsToDelete[0]) {
+          await deleteChildTags(childTag.id);
+          await db.query("DELETE FROM Etiquetas WHERE id = ?", [childTag.id]);
+        }
+      };
+  
+      // Buscar el ID de la etiqueta a actualizar
+      const tagToUpdate = await db.query<RowDataPacket[]>("SELECT id FROM Etiquetas WHERE nombre = ?", [name]);
+      const tagId = tagToUpdate[0][0].id; // Accede al primer elemento del primer array
+  
+      // Llamar a la función recursiva para eliminar las etiquetas hijo
+      await deleteChildTags(tagId);
+  
+      // Actualizar el tipo de etiqueta y el padre_id
       let query = "UPDATE Etiquetas SET tipo = ?";
       const params = [type];
       
