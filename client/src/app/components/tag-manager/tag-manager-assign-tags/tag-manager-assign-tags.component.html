@@ -37,12 +37,13 @@
     <div class="assign-tags_column">
       <fieldset class="members-fieldset">
         <legend class="text-lg font-medium text-gray-900">Selecciona el o los archivos</legend>
-        <div class="members-list">
-          <div class="member" *ngFor="let file of filteredFiles">
-            <input [id]="'file-' + file.id" [name]="'file-' + file.id" type="checkbox" class="member-checkbox" (change)="checkIfChecked()">
-            <label [for]="'file-' + file.id" class="member-label">{{ file.name }}</label>
+        <div class="member" *ngFor="let file of filteredFiles">
+          <div class="checkbox-container" (click)="toggleCheckbox(file)">
+              <input type="checkbox" [checked]="file.checked" class="member-checkbox">
+              <div class="checkmark"></div>
           </div>
-        </div>
+          <label class="member-label">{{ file.name }}</label>
+        </div>          
       </fieldset>
       <br />
       <button *ngIf="atLeastOneChecked" type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-yellow-300 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-200">Asignar etiqueta(s)</button>

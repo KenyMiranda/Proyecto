@@ -17,8 +17,10 @@ export class TagManagerAssignTagsComponent implements OnInit {
   selectedFileType: string | null = null;
   tags: string[] = []; // Variable para almacenar las etiquetas
 
-  constructor(private materialesService: MaterialesServicesService, private tagManagerService: TagManagerService) {}
-  
+  constructor(
+    private materialesService: MaterialesServicesService,
+    private tagManagerService: TagManagerService
+  ) {}
 
   onSelectOption() {
     this.optionSelected = true;
@@ -52,10 +54,14 @@ export class TagManagerAssignTagsComponent implements OnInit {
     );
   }
 
+  toggleCheckbox(file: any) {
+    file.checked = !file.checked; // Cambia el estado de selección del archivo
+    this.checkIfChecked(); // Verifica si al menos un archivo está seleccionado
+  }
+
   // Método para verificar si hay al menos un archivo seleccionado
   checkIfChecked() {
-    const checkedCheckboxes = this.arrayFiles.filter((file) => file.checked);
-    this.atLeastOneChecked = checkedCheckboxes.length > 0;
+    this.atLeastOneChecked = this.filteredFiles.some((file) => file.checked);
   }
 
   // Método para filtrar archivos según la consulta de búsqueda y el tipo de archivo seleccionado
@@ -70,7 +76,7 @@ export class TagManagerAssignTagsComponent implements OnInit {
     this.selectedFileType = selectedFileType;
     this.applyFilters(this.searchTerm);
   }
-  
+
   applyFilters(query: string) {
     if (query.trim() === '') {
       // Si la consulta está vacía, mostrar todos los archivos sin filtrar
@@ -78,8 +84,8 @@ export class TagManagerAssignTagsComponent implements OnInit {
         const fileExtensions = this.getFileExtension(this.selectedFileType);
         if (fileExtensions) {
           const extensions = fileExtensions.split(','); // Separar las extensiones por coma
-          this.filteredFiles = this.arrayFiles.filter(file =>
-            extensions.some(extension =>
+          this.filteredFiles = this.arrayFiles.filter((file) =>
+            extensions.some((extension) =>
               file.name.toLowerCase().endsWith(`.${extension}`)
             )
           );
@@ -93,21 +99,22 @@ export class TagManagerAssignTagsComponent implements OnInit {
         const fileExtensions = this.getFileExtension(this.selectedFileType);
         if (fileExtensions) {
           const extensions = fileExtensions.split(','); // Separar las extensiones por coma
-          this.filteredFiles = this.arrayFiles.filter(file =>
-            extensions.some(extension =>
-              file.name.toLowerCase().endsWith(`.${extension}`) &&
-              file.name.toLowerCase().includes(query)
+          this.filteredFiles = this.arrayFiles.filter((file) =>
+            extensions.some(
+              (extension) =>
+                file.name.toLowerCase().endsWith(`.${extension}`) &&
+                file.name.toLowerCase().includes(query)
             )
           );
         }
       } else {
-        this.filteredFiles = this.arrayFiles.filter(file =>
+        this.filteredFiles = this.arrayFiles.filter((file) =>
           file.name.toLowerCase().includes(query)
         );
       }
     }
-  }  
-  
+  }
+
   getFileExtension(fileType: string): string | null {
     switch (fileType) {
       case 'Documento Word':
@@ -125,5 +132,5 @@ export class TagManagerAssignTagsComponent implements OnInit {
       default:
         return null;
     }
-  }  
+  }
 }
